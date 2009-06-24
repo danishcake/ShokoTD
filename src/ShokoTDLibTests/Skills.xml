@@ -1,0 +1,44 @@
+<Skills>
+  <Skill name="Arrows" alignment="neutral">
+    <InitialCost>10</InitialCost>
+    <Upgrade name ="Cooldown">
+      <Level rank="2" cost="20" effect="-0.2"/>
+      <Level rank="3" cost="30" effect="-0.1"/>
+      <Level rank="4" cost="50" effect="-0.1"/>
+      <Level rank="5" cost="70" effect="-0.1"/>
+    </Upgrade>
+    <Upgrade name ="MaxPresent">
+      <Level rank="2" cost="30" effect="+1"/>
+      <Level rank="3" cost="60" effect="+1"/>
+      <Level rank="4" cost="120" effect="+1"/>
+      <Level rank="5" cost="240" effect="+1"/>
+    </Upgrade>
+    <Upgrade name = "Durability">
+      <Level rank="2" cost="20" effect="+1"/>
+      <Level rank="3" cost="30" effect="+1"/>
+      <Level rank="4" cost="50" effect="+1"/>
+      <Level rank="5" cost="70" effect="+1"/>
+    </Upgrade>
+  </Skill>
+  <Skill name="Burn" alignment="evil">
+    <InitialCost>50</InitialCost>
+    <Upgrade name ="Cooldown">
+      <Level rank="2" cost="20" effect="-0.2"/>
+      <Level rank="3" cost="30" effect="-0.1"/>
+      <Level rank="4" cost="50" effect="-0.1"/>
+      <Level rank="5" cost="70" effect="-0.1"/>
+    </Upgrade>
+    <Upgrade name ="Cost">
+      <Level rank="2" cost="30" effect="-10"/>
+      <Level rank="3" cost="60" effect="-10"/>
+      <Level rank="4" cost="120" effect="-10"/>
+      <Level rank="5" cost="240" effect="-10"/>
+    </Upgrade>
+    <Upgrade name = "Durability">
+      <Level rank="2" cost="20" effect="+1"/>
+      <Level rank="3" cost="30" effect="+1"/>
+      <Level rank="4" cost="50" effect="+1"/>
+      <Level rank="5" cost="70" effect="+1"/>
+    </Upgrade>
+  </Skill>
+</Skills>

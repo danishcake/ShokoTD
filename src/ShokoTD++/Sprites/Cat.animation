@@ -1,0 +1,29 @@
+<AnimationSet>
+  <Animation Name="North">
+    <Frame Width="16" Height="16" Top="0" Left="0" File="Cat.png" Time="0.5"/>
+    <Frame Width="16" Height="16" Top="0" Left="16" File="Cat.png" Time="0.5"/>
+    <Frame Width="16" Height="16" Top="0" Left="32" File="Cat.png" Time="0.5"/>
+    <Frame Width="16" Height="16" Top="0" Left="48" File="Cat.png" Time="0.5"/>
+  </Animation>
+  <Animation Name="South">
+    <Frame Width="16" Height="16" Top="16" Left="0" File="Cat.png" Time="0.5"/>
+    <Frame Width="16" Height="16" Top="16" Left="16" File="Cat.png" Time="0.5"/>
+    <Frame Width="16" Height="16" Top="16" Left="32" File="Cat.png" Time="0.5"/>
+    <Frame Width="16" Height="16" Top="16" Left="48" File="Cat.png" Time="0.5"/>
+  </Animation>
+  <Animation Name="East">
+    <Frame Width="16" Height="16" Top="32" Left="0" File="Cat.png" Time="0.5"/>
+    <Frame Width="16" Height="16" Top="32" Left="16" File="Cat.png" Time="0.5"/>
+    <Frame Width="16" Height="16" Top="32" Left="32" File="Cat.png" Time="0.5"/>
+    <Frame Width="16" Height="16" Top="32" Left="48" File="Cat.png" Time="0.5"/>
+  </Animation>
+  <Animation Name="West">
+    <Frame Width="16" Height="16" Top="48" Left="0" File="Cat.png" Time="0.5"/>
+    <Frame Width="16" Height="16" Top="48" Left="16" File="Cat.png" Time="0.5"/>
+    <Frame Width="16" Height="16" Top="48" Left="32" File="Cat.png" Time="0.5"/>
+    <Frame Width="16" Height="16" Top="48" Left="48" File="Cat.png" Time="0.5"/>
+  </Animation>
+  <Animation Name="Stopped">
+    <Frame Width="16" Height="16" Top="64" Left="0" File="Cat.png" Time="0.5"/>
+  </Animation>
+</AnimationSet>

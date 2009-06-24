@@ -1,0 +1,16 @@
+<Campaign name="Test Campaign 1">
+  <Level name="Level 1" file="Level 1.level" locked="0">
+    <Unlockable>
+      <Condition alignment="Evil"/>
+      <LevelUnlock name="Level 2"/>
+      <SkillUnlock name="Burn"/>
+    </Unlockable>
+  </Level>
+  <Level name="Level 2" file="Level 2.level" locked="1">
+    <Unlockable>
+      <LevelUnlock name="Level 3"/>
+    </Unlockable>
+  </Level>
+  <Level name="Level 3" file="Level 3.level" locked="1">
+  </Level>
+</Campaign>

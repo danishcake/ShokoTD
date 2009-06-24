@@ -1,0 +1,33 @@
+#pragma once
+#include <IMode.h>
+class Widget;
+class ItemBrowserWidget;
+class BlittableRect;
+class World;
+class Progression;
+struct MouseEventArgs;
+struct DragEventArgs;
+
+class ModeGame :
+	public IMode
+{
+private:
+	std::vector<std::string> skills_;
+	std::string level_;
+	World* world_;
+
+	void SkillClick(Widget* _widget);
+	void GridClick(Widget* _widget, MouseEventArgs _args);
+
+	Progression* progression_;
+	
+public:
+	ModeGame(std::string _level_name, std::vector<std::string> _skills, Progression* _progression);
+	virtual ~ModeGame();
+
+	virtual IMode* Teardown();
+	virtual void Setup();
+	virtual ModeAction::Enum Tick(float _dt);
+	virtual ModeType::Enum GetType();
+	virtual std::vector<RenderItem> Draw();
+};

@@ -1,0 +1,110 @@
+#include "StandardTextures.h"
+#include <AnimationSet.h>
+//#include <Animation.h>
+#include "SDLTextureManager.h"
+#include <Direction.h>
+#include <Logger.h>
+#include <Animation.h>
+#include <World.h>
+#include <SDL.h>
+#include "Settings.h"
+#include "SDLAnimationFrame.h"
+
+namespace StandardTextures
+{
+	Animation* cat_animations[5] = {0, 0, 0, 0, 0}; //Each direction
+	Animation* cat_death = NULL;
+	Animation* arrows[5] = {0, 0, 0, 0, 0};
+	Animation* half_arrows[5] = {0, 0, 0, 0, 0};
+	Animation* rocket_normal_animation = 0;
+	Animation* hole_animation = 0;
+	Animation* ring_animation = 0;
+	Animation* grid_animation = 0;
+	
+	void LoadTextures()
+	{
+		//Free textures if already loaded TODO
+		//Acquire textures
+		AnimationSet* cat_animation_set = SDLTextureManager::GetAnimationSet(Settings::GetCatSprite());
+		if(cat_animation_set)
+		{
+			for(int i = 0; i < 5; i++)
+			{
+				cat_animations[i] = cat_animation_set->GetAnimation(Direction::ToString((Direction::Enum)i));
+				if(!cat_animations[i])
+				{
+					Logger::ErrorOut() << "Unable to find direction " << Direction::ToString((Direction::Enum)i) << " in Cat.animation\n";
+				}
+			}
+			cat_death = cat_animation_set->GetAnimation("Death");
+			if(!cat_death)
+				Logger::ErrorOut() << "Unable to find Cat death animation\n";
+		} else
+		{
+			Logger::ErrorOut() << "Unable to load Cat animations\n";
+		}
+
+		AnimationSet* arrow_animation_set = SDLTextureManager::GetAnimationSet(Settings::GetArrowsSprite());
+		if(arrow_animation_set)
+		{
+			for(int i = 0; i < 5; i++)
+			{
+				arrows[i] = arrow_animation_set->GetAnimation(Direction::ToString((Direction::Enum)i));
+				if(!arrows[i])
+				{
+					Logger::ErrorOut() << "Unable to find direction "  << Direction::ToString((Direction::Enum)i) << " in Arrows.animation\n";
+				}
+			}
+		} else
+		{
+			Logger::ErrorOut() << "Unable to load Arrow animations\n";
+		}
+
+		AnimationSet* half_arrow_animation_set = SDLTextureManager::GetAnimationSet(Settings::GetHalfArrowsSprite());
+		if(half_arrow_animation_set)
+		{
+			for(int i = 0; i < 5; i++)
+			{
+				half_arrows[i] = half_arrow_animation_set->GetAnimation(Direction::ToString((Direction::Enum)i));
+				if(!half_arrows[i])
+				{
+					Logger::ErrorOut() << "Unable to find direction "  << Direction::ToString((Direction::Enum)i) << " in HalfArrows.animation\n";
+				}
+			}
+		} else
+		{
+			Logger::ErrorOut() << "Unable to load Half Arrow animations\n";
+		}
+
+		hole_animation = SDLTextureManager::GetAnimation(Settings::GetHoleSprite());
+		ring_animation = SDLTextureManager::GetAnimation(Settings::GetRingSprite());
+		AnimationSet* rocket_animation_set = SDLTextureManager::GetAnimationSet(Settings::GetRocketSprite());
+		rocket_normal_animation = rocket_animation_set->GetAnimation("Normal");
+
+
+		if(!hole_animation)
+		{
+			Logger::ErrorOut() << "Unable to load hole animation\n";
+		}
+
+		if(!ring_animation)
+		{
+			Logger::ErrorOut() << "Unable to load ring animation\n";
+		}
+
+		if(!rocket_normal_animation)
+		{
+			Logger::ErrorOut() << "Unable to load rocket animation\n";
+		}
+	}
+
+	void TickAnimations(float _dt)
+	{
+		for(int i = 0; i < 5; i++)
+		{
+			cat_animations[i]->Tick(_dt);
+		}
+		hole_animation->Tick(_dt);
+		rocket_normal_animation->Tick(_dt);		
+	}
+}

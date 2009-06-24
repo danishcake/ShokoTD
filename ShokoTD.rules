@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile
+	Name="ShokoTD resource copier"
+	Version="8.00"
+	>
+	<Rules>
+		<CustomBuildRule
+			Name="Level copier"
+			DisplayName="Level Deployer"
+			CommandLine="copy /Y &quot;$(InputPath)&quot; &quot;$(OutDir)\Levels\[LevelSet]\$(InputFileName)&quot;"
+			Outputs="$(OutDir)\Levels\[LevelSet]\$(InputFileName)"
+			FileExtensions="*.Level"
+			ExecutionDescription="Copying level $(InputFileName) to [LevelSet]"
+			>
+			<Properties>
+				<StringProperty
+					Name="LevelSet"
+					DisplayName="Level set"
+					Description="Subfolder of levels to deploy to"
+					Switch="[value]"
+					DefaultValue="Unknown"
+				/>
+			</Properties>
+		</CustomBuildRule>
+		<CustomBuildRule
+			Name="Campaign copier"
+			DisplayName="Campaign Deployer"
+			CommandLine="copy /Y &quot;$(InputPath)&quot; &quot;$(OutDir)\Levels\$(InputFileName)&quot;"
+			Outputs="$(OutDir)\Levels\$(InputFileName)"
+			FileExtensions="*.Campaign"
+			ExecutionDescription="Copying campaign $(InputFileName) to [LevelSet]"
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+		<CustomBuildRule
+			Name="Animation xml copier"
+			DisplayName="Animation xml Deployer"
+			CommandLine="copy /Y &quot;$(InputPath)&quot; &quot;$(OutDir)\Animations\$(InputFileName)&quot;"
+			Outputs="$(OutDir)\Animations\$(InputFileName)"
+			FileExtensions="*.Animation"
+			ExecutionDescription="Copying animation xml $(InputFileName)"
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+		<CustomBuildRule
+			Name="Animation png copier"
+			DisplayName="Animation png Deployer"
+			CommandLine="copy /Y &quot;$(InputPath)&quot; &quot;$(OutDir)\Animations\$(InputFileName)&quot;"
+			Outputs="$(OutDir)\Animations\$(InputFileName)"
+			FileExtensions="*.png"
+			ExecutionDescription="Copying animation png $(InputFileName)"
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+		<CustomBuildRule
+			Name="Generic XML copier"
+			DisplayName="Generic XML Deployer"
+			CommandLine="copy /Y &quot;$(InputPath)&quot; &quot;$(OutDir)\$(InputFileName)&quot;"
+			Outputs="$(OutDir)\$(InputFileName)"
+			FileExtensions="*.xml"
+			ExecutionDescription="Copying generic xml $(InputFileName)"
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+		
+	</Rules>
+</VisualStudioToolFile>
