@@ -4,4 +4,4 @@ devenv.com ShokoTD.sln /clean Debug
 @echo Removing incremental linker stuff
 del *.ilk /s
 @echo Removing debug database
-del *.pdb
+del *.ncb
