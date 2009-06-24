@@ -11,9 +11,12 @@ class ModeLevelSelect :
 private:
 	Progression* progression_;
 
-	void ItemClick(Widget* _widget, std::string _text);
 	Widget* description_;
 	Widget* stats_;
+
+	void ItemClick(Widget* _widget, std::string _text);
+	void ReturnToMenuClick(Widget* _widget);
+
 public:
 	ModeLevelSelect(Progression* _progression);
 	virtual IMode* Teardown();

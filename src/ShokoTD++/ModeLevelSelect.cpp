@@ -1,8 +1,10 @@
 #include "ModeLevelSelect.h"
+#include "ModeMenu.h"
 #include "RenderItem.h"
 #include <Widget.h>
 #include <ItemBrowserWidget.h>
 #include <vector>
+
 
 ModeLevelSelect::ModeLevelSelect(Progression* _progression)
 {
@@ -38,6 +40,7 @@ void ModeLevelSelect::Setup()
 	Widget* quit = new Widget("Blank96x32.png");
 	quit->SetPosition(Vector2i(510, 436));
 	quit->SetText("Quit", TextAlignment::Centre);
+	quit->OnClick.connect(boost::bind(&ModeLevelSelect::ReturnToMenuClick, this, _1));
 }
 
 ModeType::Enum ModeLevelSelect::GetType()
@@ -62,4 +65,10 @@ std::vector<RenderItem> ModeLevelSelect::Draw()
 void ModeLevelSelect::ItemClick(Widget* _widget, std::string _text)
 {
 	description_->SetText(_text, TextAlignment::TopLeft);
+}
+
+void ModeLevelSelect::ReturnToMenuClick(Widget* _widget)
+{
+	if(!pend_mode_)
+		pend_mode_ = new ModeMenu();
 }
