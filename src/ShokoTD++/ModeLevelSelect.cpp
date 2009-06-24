@@ -4,6 +4,8 @@
 #include <Widget.h>
 #include <ItemBrowserWidget.h>
 #include <vector>
+#include <ProgressLevel.h>
+#include <Progression.h>
 
 
 ModeLevelSelect::ModeLevelSelect(Progression* _progression)
@@ -20,11 +22,22 @@ IMode* ModeLevelSelect::Teardown()
 void ModeLevelSelect::Setup()
 {
 	std::vector<std::string> levels;
-	levels.push_back("Level 1.level");
+	std::vector<ProgressLevel*> openlevels = progression_->GetUnlocked();
+	std::vector<ProgressLevel*> lockedlevels = progression_->GetUnlocked();
+	for(std::vector<ProgressLevel*>::iterator it = openlevels.begin(); it != openlevels.end(); ++it)
+	{
+		levels.push_back((*it)->GetFilename());
+	}
+	for(std::vector<ProgressLevel*>::iterator it = lockedlevels.begin(); it != lockedlevels.end(); ++it)
+	{
+		levels.push_back("Locked");
+	}
+
 	ItemBrowserWidget* level_browse = new ItemBrowserWidget(levels, Vector2i(6,6), Vector2i(64, 64));
 	level_browse->SetPosition(Vector2i(10, 10));
 	level_browse->OnItemClick.connect(boost::bind(&ModeLevelSelect::ItemClick, this, _1, _2));
 	level_browse->OnItemRender.connect(boost::bind(&ModeLevelSelect::ItemRender, this, _1, _2, _3));
+	level_browse->PerformItemLayout();
 
 	description_ = new Widget("Blank384x66.png");
 	description_->SetPosition(Vector2i(10, 404));
