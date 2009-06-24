@@ -4,6 +4,7 @@
 
 class Widget;
 class Progression;
+class BlittableRect;
 
 class ModeLevelSelect :
 	public IMode
@@ -16,6 +17,7 @@ private:
 
 	void ItemClick(Widget* _widget, std::string _text);
 	void ReturnToMenuClick(Widget* _widget);
+	void ItemRender(Widget* _widget, BlittableRect** _rect, std::string _text);
 
 public:
 	ModeLevelSelect(Progression* _progression);

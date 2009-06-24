@@ -24,6 +24,7 @@ void ModeLevelSelect::Setup()
 	ItemBrowserWidget* level_browse = new ItemBrowserWidget(levels, Vector2i(6,6), Vector2i(64, 64));
 	level_browse->SetPosition(Vector2i(10, 10));
 	level_browse->OnItemClick.connect(boost::bind(&ModeLevelSelect::ItemClick, this, _1, _2));
+	level_browse->OnItemRender.connect(boost::bind(&ModeLevelSelect::ItemRender, this, _1, _2, _3));
 
 	description_ = new Widget("Blank384x66.png");
 	description_->SetPosition(Vector2i(10, 404));
@@ -71,4 +72,9 @@ void ModeLevelSelect::ReturnToMenuClick(Widget* _widget)
 {
 	if(!pend_mode_)
 		pend_mode_ = new ModeMenu();
+}
+
+void ModeLevelSelect::ItemRender(Widget* _widget, BlittableRect** _rect, std::string _text)
+{
+
 }
