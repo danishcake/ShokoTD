@@ -23,7 +23,7 @@ void ModeLevelSelect::Setup()
 {
 	std::vector<std::string> levels;
 	std::vector<ProgressLevel*> openlevels = progression_->GetUnlocked();
-	std::vector<ProgressLevel*> lockedlevels = progression_->GetUnlocked();
+	std::vector<ProgressLevel*> lockedlevels = progression_->GetLocked();
 	for(std::vector<ProgressLevel*>::iterator it = openlevels.begin(); it != openlevels.end(); ++it)
 	{
 		levels.push_back((*it)->GetFilename());
@@ -89,5 +89,6 @@ void ModeLevelSelect::ReturnToMenuClick(Widget* _widget)
 
 void ModeLevelSelect::ItemRender(Widget* _widget, BlittableRect** _rect, std::string _text)
 {
-
+	if(_text == "Locked")
+		*_rect = new BlittableRect("Locked.png");
 }

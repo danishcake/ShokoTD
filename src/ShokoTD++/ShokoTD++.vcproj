@@ -571,6 +571,14 @@
 				RelativePath=".\Campaigns\ToHellAndBack.Campaign"
 				>
 			</File>
+			<Filter
+				Name="LevelIcons"
+				>
+				<File
+					RelativePath=".\Sprites\GUI\Locked.png"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
