@@ -33,6 +33,7 @@ Widget::Widget(void)
 	parent_ = NULL;
 	invalidated_ = true;
 	rejects_focus_ = false;
+	hides_highlight_ = false;
 	allow_drag_ = false;
 	depressed_ = false;
 	ignore_dest_transparency_ = false;
@@ -59,6 +60,7 @@ Widget::Widget(std::string _filename)
 	parent_ = NULL;
 	invalidated_ = true;
 	rejects_focus_ = false;
+	hides_highlight_ = false;
 	allow_drag_ = false;
 	depressed_ = false;
 	ignore_dest_transparency_ = false;
@@ -85,6 +87,7 @@ Widget::Widget(BlittableRect* _blittable)
 	parent_ = NULL;
 	invalidated_ = true;
 	rejects_focus_ = false;
+	hides_highlight_ = false;
 	allow_drag_ = false;
 	depressed_ = false;
 	ignore_dest_transparency_ = false;
@@ -373,9 +376,9 @@ void Widget::Redraw()
 	back_rect_->RawBlit(Vector2i(0,0), blit_rect_);
 	//Superimpose text
 	blit_rect_->BlitText(widget_text_.text, widget_text_.alignment);
-	if(widget_with_focus_ == this)
+	if(widget_with_focus_ == this && !hides_highlight_)
 		blit_rect_->Fade(0.25f, 255, 255, 255);
-	if(widget_with_highlight_ == this)
+	if(widget_with_highlight_ == this && !hides_highlight_)
 		blit_rect_->Fade(0.10f, 0, 0, 255);
 	if(GetModalWidget() && !HasOrInheritsModal())
 		blit_rect_->Fade(0.5f, 0, 0, 0);

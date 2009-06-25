@@ -1,4 +1,6 @@
 <Campaign name="Test Campaign 1">
+  <StartingSkill name="Arrows" purchased="1"/>
+  <StartingSkill name="Burn" purchased="0"/>
   <Level name="Level 1" file="Level 1.level" locked="0">
     <Unlockable>
       <Condition alignment="Evil"/>

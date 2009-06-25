@@ -43,6 +43,7 @@ protected:
 
 	bool invalidated_;
 	bool rejects_focus_;
+	bool hides_highlight_; //For item browser widget to prevent background turning blue
 	bool allow_drag_;
 	bool depressed_;
 	bool visible_;
@@ -135,6 +136,7 @@ public:
 
 	/* Highlight */
 	bool HasHighlight(){return widget_with_highlight_ == this;}
+	void SetHidesHighlight(bool _hides_highlight){hides_highlight_ = _hides_highlight;}
 	void SetHighlight();
 
 	/* Click depression */

@@ -6,6 +6,7 @@
 #include "Logger.h"
 #include "ModeGame.h"
 #include "Progression.h"
+#include "Skill.h"
 
 
 ModeDeckConfiguration::ModeDeckConfiguration(std::string _next_level, Progression* _progression)
@@ -22,10 +23,13 @@ IMode* ModeDeckConfiguration::Teardown()
 
 void ModeDeckConfiguration::Setup()
 {
+	std::vector<Skill*> skills_ = progression_->GetSkillsManager().GetPurchasedSkills();
+
 	std::vector<std::string> items;
-	items.push_back("Arrows");
-	items.push_back("Slow");
-	items.push_back("Fireball");
+	for(std::vector<Skill*>::iterator it = skills_.begin(); it != skills_.end(); ++it)
+	{
+		items.push_back((*it)->GetName());
+	}
 	known_skills_ = new ItemBrowserWidget(items, Vector2i(2, 7), Vector2i(64, 64));
 	known_skills_->OnItemRender.connect(boost::bind(&ModeDeckConfiguration::ItemRender, this, _1, _2, _3));
 	known_skills_->PerformItemLayout();
@@ -33,7 +37,6 @@ void ModeDeckConfiguration::Setup()
 	known_skills_->OnItemClick.connect(boost::bind(&ModeDeckConfiguration::ItemClick, this, _1, _2));
 
 	std::vector<std::string> none;
-	none.push_back("Arrows");
 	selected_skills_ = new ItemBrowserWidget(none, Vector2i(7, 1), Vector2i(64, 64));
 	selected_skills_->SetPosition(Vector2i(128 + 20, 10));
 	selected_skills_->SetAllowScroll(false);

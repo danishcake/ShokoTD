@@ -9,7 +9,8 @@ ItemBrowserWidget::ItemBrowserWidget(vector<std::string> _items, Vector2i _grid_
 	item_size_ = _item_size;
 	page_ = 0;
 	size_ = _grid_size * _item_size;
-	SetRejectsFocus(true);
+	//SetRejectsFocus(true);
+	SetHidesHighlight(true);
 	delete blit_rect_;
 	delete back_rect_;
 	blit_rect_ = new BlittableRect(size_);
