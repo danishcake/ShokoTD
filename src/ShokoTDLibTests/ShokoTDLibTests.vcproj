@@ -283,6 +283,10 @@
 					RelativePath=".\WalkerTests.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\WorldTests.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -355,6 +359,18 @@
 			<Filter
 				Name="TestCampaign"
 				>
+				<File
+					RelativePath=".\Level1.Level"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="Level copier"
+							LevelSet=""
+						/>
+					</FileConfiguration>
+				</File>
 				<File
 					RelativePath=".\Skills.xml"
 					>

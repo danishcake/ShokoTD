@@ -5,7 +5,7 @@ namespace Action
 {
 	enum Enum
 	{
-		None, PlaceWestArrow, PlaceEastArrow, PlaceNorthArrow, PlaceSouthArrow, Cancel, ClearSquare, Start, LoadSolution
+		None, PlaceWestArrow, PlaceEastArrow, PlaceNorthArrow, PlaceSouthArrow, Cancel, ClearSquare, Start
 	};
 }
 

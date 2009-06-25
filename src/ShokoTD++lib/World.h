@@ -55,11 +55,6 @@ protected:
 	vector<Walker*> dead_enemies_;
 	vector<Vector2f> problem_points_;
 
-
-	vector<Direction::Enum> arrows_;
-	vector<ArrowRecord> solution_arrows_;
-	bool unlimited_arrow_stock_;
-
 	int remaining_enemies_;
 	string name_;
 	string filename_;
@@ -102,8 +97,6 @@ public:
 	string GetFilename(){return filename_;}
 
 	//Arrow helper functions and stock querier
-	void AddArrow(Direction::Enum _arrow){arrows_.push_back(_arrow);}
-	vector<Direction::Enum> GetArrows(){return arrows_;}
 	void ClearArrow(Vector2i _position);
 	void ToggleArrow(Vector2i _position, Direction::Enum _direction);
 	void ToggleNorthArrow(Vector2i _position){ToggleArrow(_position, Direction::North);}
@@ -111,10 +104,7 @@ public:
 	void ToggleEastArrow(Vector2i _position){ToggleArrow(_position, Direction::East);}
 	void ToggleWestArrow(Vector2i _position){ToggleArrow(_position, Direction::West);}
 	void ClearArrows();
-	void SetArrowStockUnlimited(){unlimited_arrow_stock_ = true;}
 
-
-	void LoadSolution();
 	vector<Vector2f> GetProblemPoints(){return problem_points_;}
 	
 

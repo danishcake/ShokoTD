@@ -110,7 +110,6 @@ World::World(void)
 	name_ = "Default 20x20";
 	state_ = WorldState::OK;
 	remaining_enemies_ = 1;
-	unlimited_arrow_stock_ = false;
 }
 
 World::World(std::string _filename)
@@ -119,7 +118,6 @@ World::World(std::string _filename)
 	_filename = "Levels/" + _filename; 
 	state_ = WorldState::OK;
 	remaining_enemies_ = 1; //TODO read in decent value
-	unlimited_arrow_stock_ = false;
 	TiXmlDocument document = TiXmlDocument(_filename.c_str());
 	TiXmlHandle document_handle = TiXmlHandle(&document);
 	if(document.LoadFile())
@@ -178,27 +176,6 @@ World::World(std::string _filename)
 				{}//TODO error 
 				v = v->NextSiblingElement("V");
 			}
-			//Read list of 'Mouse' elements
-			/*
-			TiXmlElement* mouse = document_handle.FirstChild("Level").FirstChild("Mouse").Element();
-			while(mouse)
-			{
-				Vector2i point;
-				string direction_string = "South";
-				bool attribute_error = false;
-				attribute_error |= (mouse->QueryIntAttribute("x", &point.x) != TIXML_SUCCESS);
-				attribute_error |= (mouse->QueryIntAttribute("y", &point.y) != TIXML_SUCCESS);
-				attribute_error |= (mouse->QueryValueAttribute("d", &direction_string) != TIXML_SUCCESS);
-				
-				if(!attribute_error)
-				{ 
-					Direction::Enum direction = Direction::FromString(direction_string);
-					AddMouse(point, direction);
-					
-				} else
-				{}//TODO error 
-				mouse = mouse->NextSiblingElement("Mouse");
-			}*/
 			//Load all rockets
 			TiXmlElement* rocket = document_handle.FirstChild("Level").FirstChild("Rocket").Element();
 			while(rocket)
@@ -233,30 +210,6 @@ World::World(std::string _filename)
 				} else
 				{}//TODO error 
 				hole = hole->NextSiblingElement("Hole");
-			}
-			//Read list of 'Arrow' elements
-			TiXmlElement* arrow = document_handle.FirstChild("Level").FirstChild("Arrow").Element();
-			while(arrow)
-			{
-				Vector2i point;
-				string direction_string = "South";
-				bool attribute_error = false;
-				attribute_error |= (arrow->QueryIntAttribute("x", &point.x) != TIXML_SUCCESS);
-				attribute_error |= (arrow->QueryIntAttribute("y", &point.y) != TIXML_SUCCESS);
-				attribute_error |= (arrow->QueryValueAttribute("d", &direction_string) != TIXML_SUCCESS);
-				
-				if(!attribute_error)
-				{ 
-					Direction::Enum direction = Direction::FromString(direction_string);
-					AddArrow(direction); //Todo save solution
-					ArrowRecord ar;
-					ar.Direction = direction;
-					ar.Position = point;
-					solution_arrows_.push_back(ar);
-					
-				} else
-				{}//TODO error 
-				arrow = arrow->NextSiblingElement("Arrow");
 			}
 		} else
 		{
@@ -536,20 +489,9 @@ void World::ClearArrows()
 		{
 			if(SquareType::GetDirection(special_squares_[x][y]) != Direction::Stopped)
 			{
-				if(!unlimited_arrow_stock_)
-					arrows_.push_back(SquareType::GetDirection(special_squares_[x][y]));
 				special_squares_[x][y] = SquareType::Empty;
 			}
 		}
-	}
-}
-
-void World::LoadSolution()
-{
-	ClearArrows();
-	for(vector<ArrowRecord>::iterator it = solution_arrows_.begin(); it != solution_arrows_.end(); ++it)
-	{
-		ToggleArrow(it->Position, it->Direction);
 	}
 }
 
@@ -645,39 +587,13 @@ void World::ToggleArrow(Vector2i _position, Direction::Enum _direction)
 	//TODO bounds checking assertions
 	if(SquareType::GetDirection(special_squares_[_position.x][_position.y]) == _direction)
 	{
-		if(!unlimited_arrow_stock_)
-			arrows_.push_back(_direction);
 		special_squares_[_position.x][_position.y] = SquareType::Empty;
-		return;
 	} else if(special_squares_[_position.x][_position.y] == SquareType::Empty)
 	{
-		if(!unlimited_arrow_stock_)
-		{
-			vector<Direction::Enum>::iterator arrow = std::find(arrows_.begin(), arrows_.end(), _direction);
-			if(arrow != arrows_.end())
-			{ //Have an arrow of this type
-				special_squares_[_position.x][_position.y] = SquareType::FromDirection(_direction);
-				arrows_.erase(arrow);
-			}
-		} else
-		{
-			special_squares_[_position.x][_position.y] = SquareType::FromDirection(_direction);
-		}
+		special_squares_[_position.x][_position.y] = SquareType::FromDirection(_direction);
 	} else if(SquareType::GetDirection(special_squares_[_position.x][_position.y]) != Direction::Stopped)
 	{
-		if(!unlimited_arrow_stock_)
-		{
-			vector<Direction::Enum>::iterator arrow = std::find(arrows_.begin(), arrows_.end(), _direction);
-			if(arrow != arrows_.end())
-			{ //Have an arrow of this type
-				arrows_.erase(arrow);	
-				arrows_.push_back(SquareType::GetDirection(special_squares_[_position.x][_position.y]));
-				special_squares_[_position.x][_position.y] = SquareType::FromDirection(_direction);
-			}
-		} else
-		{
-			special_squares_[_position.x][_position.y] = SquareType::FromDirection(_direction);
-		}
+		special_squares_[_position.x][_position.y] = SquareType::FromDirection(_direction);
 	}
 }
 
@@ -686,10 +602,7 @@ void World::ClearArrow(Vector2i _position)
 	Direction::Enum direction = SquareType::GetDirection(special_squares_[_position.x][_position.y]);
 	if(direction != Direction::Stopped)
 	{
-		if(!unlimited_arrow_stock_)
-			arrows_.push_back(direction);
 		special_squares_[_position.x][_position.y] = SquareType::Empty;
-
 	}
 }
 
