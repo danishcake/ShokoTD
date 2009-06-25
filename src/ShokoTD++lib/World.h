@@ -19,11 +19,12 @@ namespace SquareType
 {
 	enum Enum
 	{
-		Empty, Rocket, Hole, NorthArrow, SouthArrow, EastArrow, WestArrow, HalfNorthArrow, HalfSouthArrow, HalfEastArrow, HalfWestArrow, DestroyedNorthArrow, DestroyedSouthArrow, DestroyedEastArrow, DestroyedWestArrow
+		Empty, Rocket, Hole, NorthArrow, SouthArrow, EastArrow, WestArrow, HalfNorthArrow, HalfSouthArrow, HalfEastArrow, HalfWestArrow, NorthSpawner, SouthSpawner, EastSpawner, WestSpawner,
 	};
 
 	Direction::Enum GetDirection(Enum _square_type);
-	Enum FromDirection(Direction::Enum _direction);
+	Enum ArrowFromDirection(Direction::Enum _direction);
+	Enum SpawnerFromDirection(Direction::Enum _direction);
 	Enum Diminish(Enum _square_type);
 	Enum RestoreToFull(Enum _square_type);
 }
@@ -42,9 +43,23 @@ struct ArrowRecord
 	Direction::Enum Direction;
 };
 
+struct Spawner
+{
+	Vector2i Position;
+	Direction::Enum Direction;
+};
+
+class Walker;
+
+struct WaveComponent
+{
+	std::string enemy_type;
+	float weight;
+};
+
 struct Wave
 {
-	vector<std::string> enemy_types;
+	vector<WaveComponent> enemy_types;
 	int enemy_count;
 	float spawn_time_gap;
 	float start_time;
@@ -52,9 +67,9 @@ struct Wave
 	{
 		return _wave.enemy_count <= 0;
 	}
-};
 
-class Walker;
+	Walker* Spawn();
+};
 
 class World
 {
@@ -66,6 +81,7 @@ protected:
 	vector<Walker*> just_dead_enemies_;
 	vector<Walker*> dead_enemies_;
 	vector<Vector2f> problem_points_;
+	vector<Spawner> spawners_;
 	
 	float sum_time_;
 	vector<Wave> active_waves_;
@@ -107,6 +123,9 @@ public:
 	bool SetSquareType(Vector2i _point, SquareType::Enum _square_type);
 	void ToggleRocket(Vector2i _position);
 	void ToggleHole(Vector2i _position);
+	//TODO void ToggleSpawner(Vector2i _position, Direction::Enum
+
+	vector<Spawner> GetSpawners(){return spawners_;}
 
 	//Gets / sets the name of the level
 	string GetName(){return name_;}

@@ -32,7 +32,7 @@ namespace SquareType
 		}
 	}
 
-	Enum FromDirection(Direction::Enum _direction)
+	Enum ArrowFromDirection(Direction::Enum _direction)
 	{
 		switch(_direction)
 		{
@@ -44,6 +44,23 @@ namespace SquareType
 			return WestArrow;
 		case Direction::East:
 			return EastArrow;
+		default:
+			return Empty;
+		}
+	}
+
+	Enum SpawnerFromDirection(Direction::Enum _direction)
+	{
+		switch(_direction)
+		{
+		case Direction::North:
+			return NorthSpawner;
+		case Direction::South:
+			return SouthSpawner;
+		case Direction::West:
+			return WestSpawner;
+		case Direction::East:
+			return EastSpawner;
 		default:
 			return Empty;
 		}
@@ -62,13 +79,10 @@ namespace SquareType
 		case EastArrow:
 			return SquareType::HalfEastArrow;
 		case HalfNorthArrow:
-			return SquareType::DestroyedNorthArrow;
 		case HalfSouthArrow:
-			return SquareType::DestroyedSouthArrow;
-		case HalfWestArrow:
-			return SquareType::DestroyedWestArrow;
+		case HalfWestArrow:		
 		case HalfEastArrow:
-			return SquareType::DestroyedEastArrow;
+			return SquareType::Empty;
 		default:
 			return SquareType::Empty;
 		}
@@ -85,25 +99,11 @@ namespace SquareType
 			return WestArrow;
 		case HalfEastArrow:
 			return EastArrow;
-		case DestroyedNorthArrow:
-			return NorthArrow;
-		case DestroyedSouthArrow:
-			return SouthArrow;
-		case DestroyedWestArrow:
-			return WestArrow;
-		case DestroyedEastArrow:
-			return EastArrow;
 		default:
 			return _square_type;
 		}
 	}
 }
-
-struct WaveComponent
-{
-	std::string enemy_type;
-	float weight;
-};
 
 World::World(void)
 {
@@ -245,6 +245,7 @@ World::World(std::string _filename)
 						//TODO error
 					}
 					components.push_back(wc);
+
 					sum_weights += wc.weight;
 					enemy_type = enemy_type->NextSiblingElement("EnemyType");
 				}
@@ -259,12 +260,36 @@ World::World(std::string _filename)
 					w.enemy_count = enemy_count;
 					w.spawn_time_gap = spawn_gap;
 					w.start_time = start_time;
+					w.enemy_types = components;
 					active_waves_.push_back(w);
 				}
 
 
 				wave = wave->NextSiblingElement("Wave");
 			}
+			TiXmlElement* spawner = document_handle.FirstChild("Level").FirstChild("Spawner").Element();
+			while(spawner)
+			{
+				bool attribute_error = false;
+				int x = 0;
+				int y = 0;
+				std::string d = "West";
+				attribute_error |= (spawner->QueryValueAttribute("x", &x) != TIXML_SUCCESS);
+				attribute_error |= (spawner->QueryValueAttribute("y", &y) != TIXML_SUCCESS);
+				attribute_error |= (spawner->QueryValueAttribute("d", &d) != TIXML_SUCCESS);
+				
+				if(!attribute_error)
+				{
+					Spawner sp;
+					sp.Position = Vector2i(x, y);
+					sp.Direction = Direction::FromString(d);
+					SetSquareType(sp.Position, SquareType::SpawnerFromDirection(sp.Direction));
+					spawners_.push_back(sp);
+				}
+
+				spawner = spawner->NextSiblingElement("Spawner");
+			}
+
 		} else
 		{
 			state_ = WorldState::FileLoadError;
@@ -398,6 +423,13 @@ WorldState::Enum World::Tick(float _dt)
 				//Spawn enemy
 				it->enemy_count--;
 				it->start_time = sum_time_ + it->spawn_time_gap;
+				for(vector<Spawner>::iterator it2 = spawners_.begin(); it2 != spawners_.end(); ++it2)
+				{
+					Walker* spawned_walker = it->Spawn();
+					spawned_walker->SetPosition(it2->Position);
+					spawned_walker->SetDirection(it2->Direction);
+					enemies_.push_back(spawned_walker);
+				}
 			}
 			if(it->enemy_count == 0)
 				finsished_waves_.push_back(*it);
@@ -529,27 +561,6 @@ void World::SaveAs(string _filename)
 
 		}
 	}
-/*
-	for(vector<Walker*>::iterator it = mice_.begin(); it != mice_.end(); ++it)
-	{
-		TiXmlElement* pMouse = new TiXmlElement("Mouse");
-		pMouse->SetAttribute("x", (*it)->GetPosition().x);
-		pMouse->SetAttribute("y", (*it)->GetPosition().y);
-		pMouse->SetAttribute("d", Direction::ToString((*it)->GetDirection()));
-		pLevel->LinkEndChild(pMouse);
-		
-	}
-
-	for(vector<Walker*>::iterator it = cats_.begin(); it != cats_.end(); ++it)
-	{
-		TiXmlElement* pCat = new TiXmlElement("Cat");
-		pCat->SetAttribute("x", (*it)->GetPosition().x);
-		pCat->SetAttribute("y", (*it)->GetPosition().y);
-		pCat->SetAttribute("d", Direction::ToString((*it)->GetDirection()));
-		pLevel->LinkEndChild(pCat);
-		
-	}
-	*/
 	document.SaveFile();
 }
 
@@ -662,10 +673,10 @@ void World::ToggleArrow(Vector2i _position, Direction::Enum _direction)
 		special_squares_[_position.x][_position.y] = SquareType::Empty;
 	} else if(special_squares_[_position.x][_position.y] == SquareType::Empty)
 	{
-		special_squares_[_position.x][_position.y] = SquareType::FromDirection(_direction);
+		special_squares_[_position.x][_position.y] = SquareType::ArrowFromDirection(_direction);
 	} else if(SquareType::GetDirection(special_squares_[_position.x][_position.y]) != Direction::Stopped)
 	{
-		special_squares_[_position.x][_position.y] = SquareType::FromDirection(_direction);
+		special_squares_[_position.x][_position.y] = SquareType::ArrowFromDirection(_direction);
 	}
 }
 
@@ -678,3 +689,18 @@ void World::ClearArrow(Vector2i _position)
 	}
 }
 
+Walker* Wave::Spawn()
+{
+	assert(enemy_types.size() > 0);
+	double pick_frac = (double)rand() / (double)RAND_MAX;
+	int index = -1;
+	while(pick_frac > 0)
+	{
+		index++;
+		pick_frac -= enemy_types[index].weight;
+	}
+	std::string picked_enemy = enemy_types[index].enemy_type;
+//	std::string 
+	Walker* wkr = new Walker();
+	return wkr;
+}
