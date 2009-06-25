@@ -3,6 +3,7 @@
 #include <TinyXML.h>
 #include <algorithm>
 #include "Walker.h"
+#include <functional>
 
 namespace SquareType
 {
@@ -98,8 +99,15 @@ namespace SquareType
 	}
 }
 
+struct WaveComponent
+{
+	std::string enemy_type;
+	float weight;
+};
+
 World::World(void)
 {
+	sum_time_ = 0;
 	size_ = Vector2i(20, 20);
 	walls_ = vector<vector<TopLeft>>(size_.x, vector<TopLeft>(size_.y));
 	special_squares_ = vector<vector<SquareType::Enum>>(size_.x, vector<SquareType::Enum>(size_.y));
@@ -109,15 +117,14 @@ World::World(void)
 		walls_[0][y].left = true;
 	name_ = "Default 20x20";
 	state_ = WorldState::OK;
-	remaining_enemies_ = 1;
 }
 
 World::World(std::string _filename)
 {
+	sum_time_ = 0;
 	filename_ = _filename;
 	_filename = "Levels/" + _filename; 
 	state_ = WorldState::OK;
-	remaining_enemies_ = 1; //TODO read in decent value
 	TiXmlDocument document = TiXmlDocument(_filename.c_str());
 	TiXmlHandle document_handle = TiXmlHandle(&document);
 	if(document.LoadFile())
@@ -210,6 +217,53 @@ World::World(std::string _filename)
 				} else
 				{}//TODO error 
 				hole = hole->NextSiblingElement("Hole");
+			}
+
+			TiXmlElement* wave = document_handle.FirstChild("Level").FirstChild("Wave").Element();
+			while(wave)
+			{
+				float sum_weights = 0;
+				int enemy_count = 0;
+				float spawn_gap = 0;
+				float start_time = 0;
+				bool attribute_error = false;
+
+				attribute_error |= (wave->QueryValueAttribute("number", &enemy_count) != TIXML_SUCCESS);
+				attribute_error |= (wave->QueryValueAttribute("gap", &spawn_gap) != TIXML_SUCCESS);
+				attribute_error |= (wave->QueryValueAttribute("start", &start_time) != TIXML_SUCCESS);
+
+				std::vector<WaveComponent> components;
+				TiXmlElement* enemy_type = wave->FirstChildElement("EnemyType");
+				while(enemy_type)
+				{
+					WaveComponent wc;
+					wc.weight = 1;
+					enemy_type->QueryValueAttribute("weight", &wc.weight);
+					if(enemy_type->QueryValueAttribute("type", &wc.enemy_type) != TIXML_SUCCESS)
+					{
+						attribute_error = true;
+						//TODO error
+					}
+					components.push_back(wc);
+					sum_weights += wc.weight;
+					enemy_type = enemy_type->NextSiblingElement("EnemyType");
+				}
+
+				for(std::vector<WaveComponent>::iterator it = components.begin(); it != components.end(); ++it)
+				{
+					it->weight /= sum_weights;
+				}
+				if(!attribute_error)
+				{
+					Wave w;
+					w.enemy_count = enemy_count;
+					w.spawn_time_gap = spawn_gap;
+					w.start_time = start_time;
+					active_waves_.push_back(w);
+				}
+
+
+				wave = wave->NextSiblingElement("Wave");
 			}
 		} else
 		{
@@ -331,10 +385,26 @@ void World::ToggleHole(Vector2i _position)
 
 WorldState::Enum World::Tick(float _dt)
 {
+	sum_time_ += _dt;
 	//TODO perhaps split large DT into smaller periods?
 
 	if(state_ == WorldState::OK)
 	{
+		//Tick waves
+		for(vector<Wave>::iterator it = active_waves_.begin(); it != active_waves_.end(); ++it)
+		{
+			if(sum_time_ > it->start_time)
+			{
+				//Spawn enemy
+				it->enemy_count--;
+				it->start_time = sum_time_ + it->spawn_time_gap;
+			}
+			if(it->enemy_count == 0)
+				finsished_waves_.push_back(*it);
+		}
+		active_waves_.erase(std::remove_if(active_waves_.begin(),active_waves_.end(),
+							&Wave::IsDone), active_waves_.end());
+
 		//Walk forward
 		for(vector<Walker*>::iterator it = enemies_.begin(); it != enemies_.end(); ++it)
 		{
@@ -349,10 +419,12 @@ WorldState::Enum World::Tick(float _dt)
 		}
 		just_dead_enemies_.clear();
 
-		if(state_ == WorldState::OK && remaining_enemies_ == 0)
+		if(state_ == WorldState::OK && active_waves_.size() == 0)
 		{
 			state_ = WorldState::Victory;
 		}
+
+		
 	}
 
 	//Tick enemies

@@ -42,6 +42,18 @@ struct ArrowRecord
 	Direction::Enum Direction;
 };
 
+struct Wave
+{
+	vector<std::string> enemy_types;
+	int enemy_count;
+	float spawn_time_gap;
+	float start_time;
+	static bool IsDone(Wave _wave)
+	{
+		return _wave.enemy_count <= 0;
+	}
+};
+
 class Walker;
 
 class World
@@ -54,8 +66,11 @@ protected:
 	vector<Walker*> just_dead_enemies_;
 	vector<Walker*> dead_enemies_;
 	vector<Vector2f> problem_points_;
+	
+	float sum_time_;
+	vector<Wave> active_waves_;
+	vector<Wave> finsished_waves_;
 
-	int remaining_enemies_;
 	string name_;
 	string filename_;
 	WorldState::Enum state_;
@@ -83,6 +98,9 @@ public:
 
 	//Enemy query functions
 	std::vector<Walker*> GetEnemies(){return enemies_;}
+	//Wave query functions
+	std::vector<Wave> GetActiveWaves(){return active_waves_;}
+	std::vector<Wave> GetFinishedWaves(){return finsished_waves_;}
 
 	//Gets / sets the square type
 	SquareType::Enum GetSquareType(Vector2i _point);
@@ -106,7 +124,6 @@ public:
 	void ClearArrows();
 
 	vector<Vector2f> GetProblemPoints(){return problem_points_;}
-	
 
 	//Gets the error state
 	bool GetError(){return state_ == WorldState::FileLoadError;}

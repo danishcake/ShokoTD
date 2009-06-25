@@ -1,4 +1,4 @@
-<?xml ?>
+<?xml version="1.0" ?>
 <Level>
     <Name>Where to go?</Name>
     <Size x="12" y="9" />
@@ -39,4 +39,8 @@
     <H x="11" y="3" />
     <H x="11" y="5" />
     <H x="11" y="7" />
+  <Wave number="10" gap="0.2" start="10">
+    <EnemyType type="Swarmer" weight="1"/>
+    <EnemyType type="Bludgeoner" weight="1"/>
+  </Wave>
 </Level>
