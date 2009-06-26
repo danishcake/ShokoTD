@@ -1,13 +1,17 @@
 #pragma once
 #include <IMode.h>
+#include <vmath.h>
 
 class Widget;
+class AnimationFrame;
 
 class ModeIntro :
 	public IMode
 {
 private:
 	void IntroClick(Widget* _widget);
+	Widget* logo_;
+	Vector2f logo_position_;
 public:
 	virtual IMode* Teardown();
 	virtual void Setup();

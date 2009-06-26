@@ -479,6 +479,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Sprites\GUI\gamedevchallenge2.png"
+					>
+				</File>
+				<File
 					RelativePath=".\Sprites\GUI\Gestures.png"
 					>
 				</File>

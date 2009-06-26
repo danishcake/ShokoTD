@@ -28,6 +28,8 @@ bin/ShokoTD/Release/Skills.xml
 bin/ShokoTD/Release/animations/
 bin/ShokoTD/Release/levels/
 bin/shokotdlibtests/
+src/ShokoTDLibTets/ErrorLog.txt
+src/ShokoTDLibTests/ErrorLog.txt
 lib/
 src/SDLGUIlib/Debug/
 src/SDLGUIlib/Release/
