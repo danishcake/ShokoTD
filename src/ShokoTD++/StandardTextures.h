@@ -17,6 +17,7 @@ namespace StandardTextures
 	extern Animation* tile_b_animation;	
 	extern Animation* wall_horz_animation;
 	extern Animation* wall_vert_animation;
+	extern Animation* grid_animation;
 
 
 	void LoadTextures();

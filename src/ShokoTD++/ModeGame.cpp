@@ -12,6 +12,7 @@
 #include "RenderItem.h"
 #include <Animation.h>
 #include <Progression.h>
+#include "GridTextureCreator.h"
 
 
 ModeGame::ModeGame(std::string _level_name, std::vector<std::string> _skills, Progression* _progression)
@@ -36,6 +37,7 @@ IMode* ModeGame::Teardown()
 void ModeGame::Setup()
 {
 	assert(skills_.size() <= 8);
+	StandardTextures::grid_animation = CreateGridTexture(world_, Vector2i(24, 24));
 
 	Vector2i skill_position(2, 2);
 	for(std::vector<std::string>::iterator it = skills_.begin(); it != skills_.end(); it++)
@@ -80,6 +82,7 @@ std::vector<RenderItem> ModeGame::Draw()
 	vector<RenderItem> draw_list;
 	draw_list.reserve(world_->GetSize().x * world_->GetSize().y + world_->GetEnemies().size());
 
+	/*
 	bool tile_a_toggle = true;
 	for(int x = 0; x < world_->GetSize().x; x++)
 	{
@@ -98,8 +101,14 @@ std::vector<RenderItem> ModeGame::Draw()
 		}
 		if(row_begin == tile_a_toggle)
 			tile_a_toggle = !tile_a_toggle;
+	}*/
+	{
+		RenderItem ri;
+		ri.position_ = Vector2f(0, 0);
+		ri.frame_ = StandardTextures::grid_animation->GetCurrentFrame();
+		ri.depth = below;	
+		draw_list.push_back(ri);
 	}
-
 
 	vector<Vector2f> rings = world_->GetProblemPoints();
 	BOOST_FOREACH(Vector2f point, rings)
