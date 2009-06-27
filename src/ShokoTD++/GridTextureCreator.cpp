@@ -48,6 +48,30 @@ Animation* CreateGridTexture(World* _world, Vector2i _grid_size)
 				StandardTextures::tile_b_animation->GetCurrentFrame()->Draw(Vector2f(x * _grid_size.x, y * _grid_size.y));
 		}
 	}
+	for(int y = 0; y < _world->GetSize().y; y++)
+	{
+		for(int x = 0; x < _world->GetSize().x; x++)
+		{
+			if(_world->GetGridSquare(Vector2i(x,y)).GetNorth())
+			{
+				StandardTextures::wall_horz_animation->GetCurrentFrame()->Draw(Vector2f(x * _grid_size.x, y * _grid_size.y));
+				if(y == 0)
+				{
+					StandardTextures::wall_horz_animation->GetCurrentFrame()->Draw(Vector2f(x * _grid_size.x, _world->GetSize().y * _grid_size.y));
+				}
+			}
+			if(_world->GetGridSquare(Vector2i(x,y)).GetWest())
+			{
+				StandardTextures::wall_vert_animation->GetCurrentFrame()->Draw(Vector2f(x * _grid_size.x, y * _grid_size.y));
+				if(x == 0)
+				{
+					StandardTextures::wall_vert_animation->GetCurrentFrame()->Draw(Vector2f(_world->GetSize().x * _grid_size.x, y * _grid_size.y));
+				}
+			}
+		}
+	}
+
+
 	SDLAnimationFrame::screen_ = old_screen;
 /*
 	for(int y = 0; y < _world->GetSize().y; y++)

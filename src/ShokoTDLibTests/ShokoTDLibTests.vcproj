@@ -59,8 +59,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)UnitTest++Redist\Include&quot;;&quot;$(SolutionDir)src/ShokoTD++lib\&quot;;&quot;$(PROGRAMFILES)\boost\boost_1_36_0&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)UnitTest++Redist\Include&quot;;&quot;$(SolutionDir)src/ShokoTD++lib\&quot;;&quot;$(PROGRAMFILES)\boost\boost_1_36_0&quot;;&quot;$(PROGRAMFILES)\tinyxml&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;TIXML_USE_STL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -277,6 +277,10 @@
 				</File>
 				<File
 					RelativePath=".\TestGameReports.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\TinyXMLTests.cpp"
 					>
 				</File>
 				<File

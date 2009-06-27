@@ -576,6 +576,18 @@
 			Name="Levels"
 			>
 			<File
+				RelativePath=".\Campaigns\ToHellAndBack\Level 1.Level"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Level copier"
+						LevelSet=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Skills.xml"
 				>
 			</File>
