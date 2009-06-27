@@ -547,6 +547,30 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Tiles"
+				>
+				<File
+					RelativePath=".\Sprites\TileA.png"
+					>
+				</File>
+				<File
+					RelativePath=".\Sprites\TileB.png"
+					>
+				</File>
+				<File
+					RelativePath=".\Sprites\Tiles.animation"
+					>
+				</File>
+				<File
+					RelativePath=".\Sprites\Walls.animation"
+					>
+				</File>
+				<File
+					RelativePath=".\Sprites\Walls.png"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Levels"

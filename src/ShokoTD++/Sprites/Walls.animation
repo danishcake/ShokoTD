@@ -1,0 +1,9 @@
+<AnimationSet>
+  <Animation Name="Horizontal">
+    <Frame Width="24" Height="4" Top="1" Left="2" File="Walls.png" Time="0.5"/>
+  </Animation>
+  <Animation Name="Vertical">
+    <Frame Width="4" Height="24" Top="7" Left="4" File="Walls.png" Time="0.5"/>
+  </Animation>
+
+</AnimationSet>

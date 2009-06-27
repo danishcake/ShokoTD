@@ -20,11 +20,45 @@ namespace StandardTextures
 	Animation* hole_animation = 0;
 	Animation* ring_animation = 0;
 	Animation* grid_animation = 0;
+	Animation* tile_a_animation = 0;
+	Animation* tile_b_animation = 0;
+	Animation* wall_horz_animation = 0;
+	Animation* wall_vert_animation = 0;
 	
 	void LoadTextures()
 	{
 		//Free textures if already loaded TODO
+
 		//Acquire textures
+		AnimationSet* tile_animation_set = SDLTextureManager::GetAnimationSet("Tiles.animation");
+		if(tile_animation_set)
+		{
+			tile_a_animation =  tile_animation_set->GetAnimation("TileA");
+			tile_b_animation =  tile_animation_set->GetAnimation("TileB");
+			if(!tile_a_animation || !tile_b_animation)
+			{
+				Logger::ErrorOut() << "Unable to load either TileA or TileB\n";
+			}
+		} else
+		{
+			Logger::ErrorOut() << "Unable to load Tile animations\n";
+		}
+
+		AnimationSet* wall_animation_set = SDLTextureManager::GetAnimationSet("Walls.animation");
+		if(wall_animation_set)
+		{
+			wall_horz_animation =  tile_animation_set->GetAnimation("Horizontal");
+			wall_vert_animation =  tile_animation_set->GetAnimation("Vertical");
+			if(!wall_horz_animation || !wall_vert_animation)
+			{
+				Logger::ErrorOut() << "Unable to load either horizontal or vertical walls\n";
+			}
+		} else
+		{
+			Logger::ErrorOut() << "Unable to load Wall animations\n";
+		}
+
+
 		AnimationSet* cat_animation_set = SDLTextureManager::GetAnimationSet(Settings::GetCatSprite());
 		if(cat_animation_set)
 		{

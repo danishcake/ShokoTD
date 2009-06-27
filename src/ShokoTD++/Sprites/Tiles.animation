@@ -1,0 +1,9 @@
+<AnimationSet>
+  <Animation Name="TileA">
+    <Frame Width="24" Height="24" Top="0" Left="0" File="TileA.png" Time="0.5"/>
+  </Animation>
+  <Animation Name="TileB">
+    <Frame Width="24" Height="24" Top="0" Left="0" File="TileB.png" Time="0.5"/>
+  </Animation>
+
+</AnimationSet>

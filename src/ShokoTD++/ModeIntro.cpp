@@ -34,6 +34,7 @@ ModeAction::Enum ModeIntro::Tick(float _dt)
 	static const float intro_time_1 = 1.0f;
 	static const float intro_time_2 = 2.0f;
 	static const float intro_time_3 = 2.5f;
+	static const float intro_time_4 = 5.0f;
 
 	float pos_frac = 0;
 	if(age_ < intro_time_0)
@@ -56,8 +57,12 @@ ModeAction::Enum ModeIntro::Tick(float _dt)
 
 	logo_position_ = Vector2f(320 - logo_->GetSize().x / 2, 240 - logo_->GetSize().y / 2);
 	logo_position_ += Vector2f(400 + logo_->GetSize().x, 0) * pos_frac;
-
 	logo_->SetPosition(logo_position_);
+
+	if(!pend_mode_ && age_ > intro_time_4)
+		pend_mode_ = new ModeMenu();
+
+
 	ModeAction::Enum result = IMode::Tick(_dt);
 	Widget::SetFade(fade_);
 	return result;

@@ -78,7 +78,28 @@ std::vector<RenderItem> ModeGame::Draw()
 	const float below = -1;
 	const float above = 1;
 	vector<RenderItem> draw_list;
-	draw_list.reserve(world_->GetEnemies().size() + 3);
+	draw_list.reserve(world_->GetSize().x * world_->GetSize().y + world_->GetEnemies().size());
+
+	bool tile_a_toggle = true;
+	for(int x = 0; x < world_->GetSize().x; x++)
+	{
+		bool row_begin = tile_a_toggle;
+		for(int y = 0; y < world_->GetSize().y; y++)
+		{
+			RenderItem ri;
+			ri.position_ = Vector2f(x, y);
+			if(tile_a_toggle)
+				ri.frame_ = StandardTextures::tile_a_animation->GetCurrentFrame();
+			else
+				ri.frame_ = StandardTextures::tile_b_animation->GetCurrentFrame();
+			tile_a_toggle = !tile_a_toggle;
+			ri.depth = below;
+			draw_list.push_back(ri);
+		}
+		if(row_begin == tile_a_toggle)
+			tile_a_toggle = !tile_a_toggle;
+	}
+
 
 	vector<Vector2f> rings = world_->GetProblemPoints();
 	BOOST_FOREACH(Vector2f point, rings)
@@ -158,7 +179,7 @@ std::vector<RenderItem> ModeGame::Draw()
 		render_item.position_ *= grid_size;
 		render_item.depth *= grid_size.y;
 	}
-	return std::vector<RenderItem>();
+	return draw_list;
 }
 
 void ModeGame::SkillClick(Widget* _widget)
