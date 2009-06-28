@@ -428,6 +428,7 @@ WorldState::Enum World::Tick(float _dt)
 					Walker* spawned_walker = it->Spawn();
 					spawned_walker->SetPosition(it2->Position);
 					spawned_walker->SetDirection(it2->Direction);
+					spawned_walker->SetWorld(this);
 					enemies_.push_back(spawned_walker);
 				}
 			}
@@ -451,7 +452,7 @@ WorldState::Enum World::Tick(float _dt)
 		}
 		just_dead_enemies_.clear();
 
-		if(state_ == WorldState::OK && active_waves_.size() == 0)
+		if(state_ == WorldState::OK && active_waves_.size() == 0 && enemies_.size() == 0)
 		{
 			state_ = WorldState::Victory;
 		}
@@ -602,65 +603,34 @@ void World::WalkerReachNewSquare(Walker* _walker)
 	//This method will be called multiple times, so it's important not to add an item to 'just_dead...' twice
 	Vector2i position_grid = Vector2i(floor(_walker->GetPosition().x + 0.5f), floor(_walker->GetPosition().y + 0.5f));
 	SquareType::Enum square_type = special_squares_[position_grid.x][position_grid.y];
-//	switch(_walker->GetWalkerType())
+	if(square_type == SquareType::Hole)
 	{
-		/*
-	case WalkerType::Mouse:
-		if(square_type == SquareType::Hole)
+		if(std::find(just_dead_enemies_.begin(), just_dead_enemies_.end(), _walker) == just_dead_enemies_.end())
 		{
-			if(std::find(just_dead_mice_.begin(), just_dead_mice_.end(), _walker) == just_dead_mice_.end())
-			{
-				just_dead_mice_.push_back(_walker);
-				problem_points_.push_back(_walker->GetPosition());
-				_walker->Kill();
-				state_ = WorldState::Defeat;
-			}
-		} else if(square_type == SquareType::Rocket)
-		{
-			if(std::find(just_dead_mice_.begin(), just_dead_mice_.end(), _walker) == just_dead_mice_.end())
-			{
-				just_dead_mice_.push_back(_walker);
-				rescued_mice_++;
-				_walker->Rescue();
-			}
-		}
-		break;
-	case WalkerType::Cat:
-		if(square_type == SquareType::Hole)
-		{
-			if(std::find(just_dead_cats_.begin(), just_dead_cats_.end(), _walker) == just_dead_cats_.end())
-			{
-				just_dead_cats_.push_back(_walker);
-				_walker->Kill();
-			}
-		}
-		if(square_type == SquareType::Rocket)
-		{
-			if(std::find(just_dead_cats_.begin(), just_dead_cats_.end(), _walker) == just_dead_cats_.end())
-			{
-				just_dead_cats_.push_back(_walker);
-				_walker->Kill();
-			}
-			state_ = WorldState::Defeat;
+			just_dead_enemies_.push_back(_walker);
 			problem_points_.push_back(_walker->GetPosition());
+			_walker->Kill();
+			//TODO increase score
 		}
-		break;
+	} else if(square_type == SquareType::Rocket)
+	{
+		if(std::find(just_dead_enemies_.begin(), just_dead_enemies_.end(), _walker) == just_dead_enemies_.end())
+		{
+			just_dead_enemies_.push_back(_walker);
+			_walker->Kill();
+			//TODO decrease lives
+		}
 	}
 	
 	
 	if(SquareType::GetDirection(square_type) != Direction::Stopped)
 	{
 		Direction::Enum direction = SquareType::GetDirection(square_type);
-		//Cat should destroy the arrow
-		if(_walker->GetWalkerType() == WalkerType::Cat && SquareType::GetDirection(square_type) == Direction::TurnAround(_walker->GetDirection()))
+		if(SquareType::GetDirection(square_type) == Direction::TurnAround(_walker->GetDirection()))
 		{
 			special_squares_[position_grid.x][position_grid.y] = SquareType::Diminish(square_type);
-			ArrowRecord ar;
-			ar.Direction = SquareType::GetDirection(square_type);
-			ar.Position = position_grid;
 		}
 		_walker->EncounterArrow(direction);
-		*/
 	}
 }
 

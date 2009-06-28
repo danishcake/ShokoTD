@@ -1,6 +1,6 @@
-<?xml ?>
+<?xml version="1.0"?>
 <Level>
-    <Name>Where to go?</Name>
+    <Name>Oddly familiar?</Name>
     <Size x="12" y="9" />
     <Author>Sega</Author>
     <H x="0" y="0" />
@@ -19,24 +19,31 @@
     <H x="0" y="8" />
     <V x="0" y="8" />
     <H x="1" y="0" />
-    <Rocket x="1" y="0" />
     <H x="2" y="0" />
     <H x="3" y="0" />
-    <Rocket x="3" y="0" />
     <H x="4" y="0" />
     <H x="5" y="0" />
-    <Rocket x="5" y="0" />
     <H x="6" y="0" />
     <H x="7" y="0" />
-    <Rocket x="7" y="0" />
     <H x="8" y="0" />
-    <H x="9" y="0" />
-    <Rocket x="9" y="0" />
+    <H x="9" y="0" />    
     <H x="10" y="0" />
     <H x="11" y="0" />
-    <Rocket x="11" y="0" />
     <H x="11" y="1" />
     <H x="11" y="3" />
     <H x="11" y="5" />
     <H x="11" y="7" />
+	
+	<Rocket x="1" y="0" />
+	<Rocket x="3" y="0" />
+	<Rocket x="5" y="0" />
+	<Rocket x="7" y="0" />
+	<Rocket x="9" y="0" />
+	<Rocket x="11" y="0" />
+
+	<Wave number="10" gap="0.2" start="5">
+		<EnemyType type="Swarmer" weight="1"/>
+		<EnemyType type="Bludgeoner" weight="1"/>
+	</Wave>
+	<Spawner x="11" y="8" d="West"/>
 </Level>
