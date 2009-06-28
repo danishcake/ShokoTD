@@ -256,6 +256,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\EnemyLoadingTests.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\GridSquareTests.cpp"
 					>
 				</File>
@@ -364,6 +368,10 @@
 				Name="TestCampaign"
 				>
 				<File
+					RelativePath=".\Enemies.xml"
+					>
+				</File>
+				<File
 					RelativePath=".\Level1.Level"
 					>
 					<FileConfiguration
@@ -393,11 +401,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Bludgeoner.animation"
+				>
+			</File>
+			<File
 				RelativePath=".\Directions.Animation"
 				>
 			</File>
 			<File
 				RelativePath=".\Offsets.Animation"
+				>
+			</File>
+			<File
+				RelativePath=".\Swarmer.animation"
 				>
 			</File>
 		</Filter>

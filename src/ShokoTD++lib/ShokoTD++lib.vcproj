@@ -204,6 +204,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\EnemyTypes.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\GameReport.cpp"
 					>
 				</File>
@@ -303,6 +307,10 @@
 				>
 				<File
 					RelativePath=".\AlignmentVector.h"
+					>
+				</File>
+				<File
+					RelativePath=".\EnemyTypes.h"
 					>
 				</File>
 				<File

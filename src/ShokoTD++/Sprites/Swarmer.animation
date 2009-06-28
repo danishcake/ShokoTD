@@ -1,0 +1,39 @@
+<AnimationSet>
+  <Animation Name="North">
+    <Frame Width="24" Height="36" Top="108" Left="0" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+    <Frame Width="24" Height="36" Top="108" Left="24" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+    <Frame Width="24" Height="36" Top="108" Left="48" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+    <Frame Width="24" Height="36" Top="108" Left="72" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+  </Animation>
+  <Animation Name="South">
+    <Frame Width="24" Height="36" Top="72" Left="0" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+    <Frame Width="24" Height="36" Top="72" Left="24" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+    <Frame Width="24" Height="36" Top="72" Left="48" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+    <Frame Width="24" Height="36" Top="72" Left="72" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+  </Animation>
+  <Animation Name="East">
+    <Frame Width="24" Height="36" Top="36" Left="0" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+    <Frame Width="24" Height="36" Top="36" Left="24" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+    <Frame Width="24" Height="36" Top="36" Left="48" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+    <Frame Width="24" Height="36" Top="36" Left="72" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+  </Animation>
+  <Animation Name="West">
+    <Frame Width="24" Height="36" Top="0" Left="0" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+    <Frame Width="24" Height="36" Top="0" Left="24" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+    <Frame Width="24" Height="36" Top="0" Left="48" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+    <Frame Width="24" Height="36" Top="0" Left="72" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+  </Animation>
+  <Animation Name="Stopped">
+    <Frame Width="24" Height="36" Top="96" Left="0" OffsetX="0" OffsetY="6" File="KapuKapuRed.png" Time="0.2"/>
+  </Animation>
+  <Animation Name="Death">
+    <Frame Width="24" Height="36" Top="0" Left="0" OffsetX="0" OffsetY="6" File="KapuKapuRedDeath.png" Time="0.125"/>
+	<Frame Width="24" Height="36" Top="0" Left="24" OffsetX="0" OffsetY="6" File="KapuKapuRedDeath.png" Time="0.125"/>
+	<Frame Width="24" Height="36" Top="0" Left="48" OffsetX="0" OffsetY="6" File="KapuKapuRedDeath.png" Time="0.125"/>
+	<Frame Width="24" Height="36" Top="0" Left="72" OffsetX="0" OffsetY="6" File="KapuKapuRedDeath.png" Time="0.125"/>
+	<Frame Width="24" Height="36" Top="0" Left="96" OffsetX="0" OffsetY="6" File="KapuKapuRedDeath.png" Time="0.125"/>
+	<Frame Width="24" Height="36" Top="0" Left="120" OffsetX="0" OffsetY="6" File="KapuKapuRedDeath.png" Time="0.125"/>
+	<Frame Width="24" Height="36" Top="0" Left="144" OffsetX="0" OffsetY="6" File="KapuKapuRedDeath.png" Time="0.125"/>
+	<Frame Width="24" Height="36" Top="0" Left="168" OffsetX="0" OffsetY="6" File="KapuKapuRedDeath.png" Time="0.125"/>
+  </Animation>
+</AnimationSet>

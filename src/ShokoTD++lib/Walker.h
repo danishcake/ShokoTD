@@ -8,8 +8,13 @@ namespace WalkerState
 {
 	enum Enum
 	{
-		Live, Killed, Rescued
+		Live, Killed
 	};
+}
+
+namespace EnemyTypes
+{
+	class EnemyType;
 }
 
 class Walker
@@ -20,6 +25,8 @@ protected:
 	Direction::Enum direction_;
 	Direction::Enum initial_direction_;
 	float speed_;
+	float health_;
+	EnemyTypes::EnemyType* enemy_type_;
 	World* pWorld_;
 
 	WalkerState::Enum walker_state_;
@@ -39,8 +46,17 @@ public:
 	void SetDirection(Direction::Enum _direction){initial_direction_ = _direction; direction_ = _direction;}
 	/* Reacts to an arrow on the world */
 	void EncounterArrow(Direction::Enum _direction){direction_ = _direction;}
-	/* Gets and sets the walker type */
+	/* Gets and sets the walker speed */
 	void SetSpeed(float _speed);
+	float GetSpeed(){return speed_;}
+	/* Gets and sets the walker health */
+	void SetHealth(float _health){health_ = _health;}
+	float GetHealth(){return health_;}
+	/* Gets and sets the walker type */
+	void SetEnemyType(EnemyTypes::EnemyType* _enemy_type);
+	EnemyTypes::EnemyType* GetEnemyType(){return enemy_type_;}
+
+
 
 	/* Gets and sets the world */
 	World* GetWorld(){return pWorld_;}
@@ -60,7 +76,5 @@ public:
 	
 	/* Changes the walker state to dead */
 	void Kill();
-	/* Changes the walker state to rescued */
-	void Rescue();
 	WalkerState::Enum GetWalkerState();
 };

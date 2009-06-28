@@ -8,6 +8,7 @@
 #include <ctime>
 #include "ShokoTDGSM.h"
 #include "StandardTextures.h"
+#include "EnemyTypes.h"
 #include "Widget.h"
 
 SDL_Surface* p_screen = NULL;
@@ -74,6 +75,7 @@ bool GameTick()
 		overrun = 0;
 	}
 	StandardTextures::TickAnimations(dt);
+	EnemyTypes::TickEnemyAnimations(dt);
 	return gsm.Tick(dt);	
 }
 
@@ -98,6 +100,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		SDLAnimationFrame::screen_ = p_screen;
 		bFinished = (AcquireResources() == false);
 		StandardTextures::LoadTextures();
+		EnemyTypes::LoadEnemies();
 	}
 	
 	while(!bFinished)

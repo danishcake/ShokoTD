@@ -1,5 +1,5 @@
 #include "Walker.h"
-
+#include "EnemyTypes.h"
 #include <cmath>
 #include "World.h"
 
@@ -21,6 +21,7 @@ Walker::Walker(void)
 	Total_created++;
 	death_time_ = 0;
 	walker_state_ = WalkerState::Live;
+	enemy_type_ = NULL;
 }
 
 Walker::~Walker(void)
@@ -167,12 +168,14 @@ void Walker::Kill()
 	walker_state_ = WalkerState::Killed;
 }
 
-void Walker::Rescue()
-{
-	walker_state_ = WalkerState::Rescued;
-}
-
 WalkerState::Enum Walker::GetWalkerState()
 {
 	return walker_state_;
+}
+
+void Walker::SetEnemyType(EnemyTypes::EnemyType* _enemy_type)
+{
+	enemy_type_ = _enemy_type;
+	speed_ = enemy_type_->speed;
+	health_ = enemy_type_->health;
 }

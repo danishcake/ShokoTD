@@ -13,6 +13,7 @@
 #include <Animation.h>
 #include <Progression.h>
 #include "GridTextureCreator.h"
+#include "EnemyTypes.h"
 
 
 ModeGame::ModeGame(std::string _level_name, std::vector<std::string> _skills, Progression* _progression)
@@ -105,7 +106,8 @@ std::vector<RenderItem> ModeGame::Draw()
 	{
 		RenderItem ri;
 		ri.position_ = p_walker->GetPosition();
-		ri.frame_ = StandardTextures::cat_animations[p_walker->GetDirection()]->GetCurrentFrame();
+		ri.frame_ = p_walker->GetEnemyType()->directions[p_walker->GetDirection()]->GetCurrentFrame();
+		//ri.frame_ = StandardTextures::cat_animations[p_walker->GetDirection()]->GetCurrentFrame();
 		ri.depth = 0;
 		draw_list.push_back(ri);
 	}

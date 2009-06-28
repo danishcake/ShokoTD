@@ -571,10 +571,38 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Swarmer"
+				>
+				<File
+					RelativePath=".\Sprites\KapuKapuRed.png"
+					>
+				</File>
+				<File
+					RelativePath=".\Sprites\KapuKapuRedDeath.png"
+					>
+				</File>
+				<File
+					RelativePath=".\Sprites\Swarmer.animation"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Bludgeoner"
+				>
+				<File
+					RelativePath=".\Sprites\Bludgeoner.animation"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Levels"
 			>
+			<File
+				RelativePath=".\Enemies.xml"
+				>
+			</File>
 			<File
 				RelativePath=".\Campaigns\ToHellAndBack\Level 1.Level"
 				>

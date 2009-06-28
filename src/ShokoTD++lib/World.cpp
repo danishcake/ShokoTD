@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "Walker.h"
 #include <functional>
+#include "EnemyTypes.h"
 
 namespace SquareType
 {
@@ -670,7 +671,10 @@ Walker* Wave::Spawn()
 		pick_frac -= enemy_types[index].weight;
 	}
 	std::string picked_enemy = enemy_types[index].enemy_type;
-//	std::string 
+
 	Walker* wkr = new Walker();
+
+	wkr->SetEnemyType(EnemyTypes::GetEnemyType(picked_enemy));
+
 	return wkr;
 }

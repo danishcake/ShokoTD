@@ -1,0 +1,4 @@
+<Enemies>
+	<Enemy name="Swarmer" animation="swarmer.animation" health ="100" speed ="3"/>
+	<Enemy name="Bludgeoner" animation="bludgeoner.animation" health ="100" speed ="3"/>
+</Enemies>
