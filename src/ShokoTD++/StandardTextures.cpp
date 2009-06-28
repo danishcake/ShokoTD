@@ -47,8 +47,8 @@ namespace StandardTextures
 		AnimationSet* wall_animation_set = SDLTextureManager::GetAnimationSet("Walls.animation");
 		if(wall_animation_set)
 		{
-			wall_horz_animation =  tile_animation_set->GetAnimation("Horizontal");
-			wall_vert_animation =  tile_animation_set->GetAnimation("Vertical");
+			wall_horz_animation =  wall_animation_set->GetAnimation("Horizontal");
+			wall_vert_animation =  wall_animation_set->GetAnimation("Vertical");
 			if(!wall_horz_animation || !wall_vert_animation)
 			{
 				Logger::ErrorOut() << "Unable to load either horizontal or vertical walls\n";

@@ -23,8 +23,10 @@ namespace
 Animation* CreateGridTexture(World* _world, Vector2i _grid_size)
 {
 	bool fill = true;
+
+	Vector2i offset(2, 2);
 	
-	Vector2i size = _grid_size * _world->GetSize() + Vector2i(1, 1);
+	Vector2i size = _grid_size * _world->GetSize() + Vector2i(4, 4);
 	SDL_Surface* p_checkerboard = SDL_CreateRGBSurface(SDL_SWSURFACE, size.x, size.y, 32, rmask, gmask, bmask, amask);
 	SDL_Surface* old_checkboard = p_checkerboard;
 	p_checkerboard = SDL_DisplayFormatAlpha(p_checkerboard);
@@ -43,9 +45,9 @@ Animation* CreateGridTexture(World* _world, Vector2i _grid_size)
 		{
 			fill = !fill;
 			if(fill)
-				StandardTextures::tile_a_animation->GetCurrentFrame()->Draw(Vector2f(x * _grid_size.x, y * _grid_size.y));
+				StandardTextures::tile_a_animation->GetCurrentFrame()->Draw(offset + Vector2f(x * _grid_size.x, y * _grid_size.y));
 			else
-				StandardTextures::tile_b_animation->GetCurrentFrame()->Draw(Vector2f(x * _grid_size.x, y * _grid_size.y));
+				StandardTextures::tile_b_animation->GetCurrentFrame()->Draw(offset + Vector2f(x * _grid_size.x, y * _grid_size.y));
 		}
 	}
 	for(int y = 0; y < _world->GetSize().y; y++)
