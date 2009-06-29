@@ -33,6 +33,11 @@ struct KeyPressEventArgs
 
 struct DragEventArgs
 {
+	//Start, end and delta coordinates
+	int sx;
+	int sy;
+	int ex;
+	int ey;
 	int x;
 	int y;
 	int drag_type;

@@ -15,9 +15,9 @@
    sodipodi:version="0.32"
    inkscape:version="0.46"
    version="1.0"
-   sodipodi:docname="Arrows.svg"
+   sodipodi:docname="HalfArrows.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="C:\Documents and Settings\Edward\My Documents\Visual Studio 2005\Projects\ShokoTD\src\ShokoTD++\Sprites\Arrows.png"
+   inkscape:export-filename="C:\Documents and Settings\Edward\My Documents\Visual Studio 2005\Projects\ShokoTD\src\ShokoTD++\Sprites\HalfArrows.png"
    inkscape:export-xdpi="22.5"
    inkscape:export-ydpi="22.5">
   <defs
@@ -192,8 +192,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="187.25543"
-     inkscape:cy="60.123633"
+     inkscape:cx="273.56578"
+     inkscape:cy="6.5522044"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -229,7 +229,7 @@
      id="layer1">
     <g
        id="g3271"
-       transform="matrix(0.7442039,0,0,0.7440451,0.3705917,0.3894127)">
+       transform="matrix(0.5581529,0,0,0.5580338,12.277854,12.294134)">
       <rect
          ry="23.784994"
          y="0"
@@ -254,7 +254,7 @@
     </g>
     <g
        id="g3276"
-       transform="matrix(0.7441821,0,0,0.7440862,96.372092,0.3715363)">
+       transform="matrix(0.5581366,0,0,0.5580647,108.27901,12.276916)">
       <rect
          ry="23.784994"
          y="0"
@@ -279,7 +279,7 @@
     </g>
     <g
        id="g3286"
-       transform="matrix(0.7441703,0,0,0.7442015,192.3721,0.3700979)">
+       transform="matrix(0.5581277,0,0,0.5581511,204.27882,12.277322)">
       <rect
          ry="23.784994"
          y="0"
@@ -304,7 +304,7 @@
     </g>
     <g
        id="g3296"
-       transform="matrix(0.7441741,0,0,0.7441979,288.3721,0.3720987)">
+       transform="matrix(0.5581306,0,0,0.5581484,300.27889,12.279265)">
       <rect
          ry="23.784994"
          y="0"

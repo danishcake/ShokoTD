@@ -1,6 +1,7 @@
 #pragma once
 #include <IMode.h>
 #include <Skills.h>
+#include <GameGridWidget.h>
 class Widget;
 class ItemBrowserWidget;
 class BlittableRect;
@@ -8,6 +9,7 @@ class World;
 class Progression;
 struct MouseEventArgs;
 struct DragEventArgs;
+
 
 
 
@@ -23,6 +25,7 @@ private:
 	void SkillClick(Widget* _widget);
 	void QuitClick(Widget* _widget);
 	void GridClick(Widget* _widget, MouseEventArgs _args);
+	void GridGesture(Widget* _widget, GridGestureEventArgs _args);
 
 	Progression* progression_;
 	

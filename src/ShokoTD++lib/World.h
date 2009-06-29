@@ -114,6 +114,7 @@ public:
 
 	//Enemy query functions
 	std::vector<Walker*> GetEnemies(){return enemies_;}
+	std::vector<Walker*> GetDeadEnemies(){return dead_enemies_;}
 	//Wave query functions
 	std::vector<Wave> GetActiveWaves(){return active_waves_;}
 	std::vector<Wave> GetFinishedWaves(){return finsished_waves_;}
@@ -141,6 +142,7 @@ public:
 	void ToggleEastArrow(Vector2i _position){ToggleArrow(_position, Direction::East);}
 	void ToggleWestArrow(Vector2i _position){ToggleArrow(_position, Direction::West);}
 	void ClearArrows();
+	int GetArrowsInUse();
 
 	vector<Vector2f> GetProblemPoints(){return problem_points_;}
 

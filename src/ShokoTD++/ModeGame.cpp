@@ -60,7 +60,7 @@ void ModeGame::Setup()
 	GameGridWidget* click_catcher = new GameGridWidget(Vector2i(26, 17), Vector2i(24, 24));
 	click_catcher->SetPosition(Vector2i(8, 69));
 	click_catcher->OnGridClick.connect(boost::bind(&ModeGame::GridClick, this, _1, _2));
-	//click_catcher->OnGridGesture.connect(boost::bind(&ModeGame::GridGesture, this, _1, _2));
+	click_catcher->OnGridGesture.connect(boost::bind(&ModeGame::GridGesture, this, _1, _2));
 	click_catcher->SetOffset(Vector2i(49, 0));
 	
 }
@@ -77,6 +77,81 @@ ModeType::Enum ModeGame::GetType()
 {
 	return ModeType::Game;
 }
+
+
+void ModeGame::SkillClick(Widget* _widget)
+{
+	Skills::Enum skill = Skills::FromString(_widget->GetTag());
+	Logger::DiagnosticOut() << "Using skill " << _widget->GetTag() << ", " << skill << ", " << Skills::ToString(skill) <<"\n";
+	selected_skill_ = Skills::FromString(_widget->GetTag());
+}
+
+void ModeGame::GridClick(Widget* _widget, MouseEventArgs _args)
+{
+	Logger::DiagnosticOut() << "Clicked grid item " << _args.x << "," << _args.y << "\n";
+	switch(selected_skill_)
+	{
+	case Skills::Arrows:
+		
+		break;
+	}
+}
+
+void ModeGame::GridGesture(Widget* _widget, GridGestureEventArgs _args)
+{
+	Direction::Enum direction;
+	switch(_args.direction)
+	{
+	case GestureDirection::West:
+		direction = Direction::West;
+		break;
+	case GestureDirection::East:
+		direction = Direction::East;
+		break;
+	case GestureDirection::South:
+		direction = Direction::South;
+		break;
+	case GestureDirection::North:
+		direction = Direction::North;
+		break;
+	default:
+		direction = Direction::Stopped;
+	}
+
+	Logger::DiagnosticOut() << "Gesticulated wildly to " << _args.direction << " at " << _args.x << "," << _args.y << "\n";
+	if((_args.x < world_->GetSize().x) && (_args.x >= 0) &&
+	   (_args.y < world_->GetSize().y) && (_args.y >= 0))
+	{
+		switch(selected_skill_)
+		{
+		case Skills::Arrows:
+			if(direction != Direction::Stopped)
+			{
+				//if(world_->GetArrowsInUse() < progression_->GetSkillsManager().GetSkill("Arrows")->Get
+				if(world_->GetArrowsInUse() < 3)
+				{
+					world_->ToggleArrow(Vector2i(_args.x, _args.y), direction);
+				}
+
+			}
+				
+			break;
+		}
+	}
+}
+
+
+void ModeGame::QuitClick(Widget* _widget)
+{
+	pend_mode_ = new ModeDeckConfiguration(level_, progression_);
+}
+
+
+
+
+
+
+
 
 std::vector<RenderItem> ModeGame::Draw()
 {
@@ -104,6 +179,18 @@ std::vector<RenderItem> ModeGame::Draw()
 		ri.frame_ = p_walker->GetEnemyType()->directions[p_walker->GetDirection()]->GetCurrentFrame();
 		ri.depth = 0;
 		draw_list.push_back(ri);
+	}
+
+	BOOST_FOREACH(p_walker, world_->GetDeadEnemies())
+	{
+		if(p_walker->GetDeathTime() < 1)
+		{
+			RenderItem ri;
+			ri.position_ = p_walker->GetPosition();
+			ri.frame_ = p_walker->GetEnemyType()->death_animation->GetFrame(p_walker->GetDeathTime());
+			ri.depth = 0;
+			draw_list.push_back(ri);
+		}
 	}
 
 	BOOST_FOREACH(Spawner spawner, world_->GetSpawners())
@@ -185,26 +272,4 @@ std::vector<RenderItem> ModeGame::Draw()
 	}
 
 	return draw_list;
-}
-
-void ModeGame::SkillClick(Widget* _widget)
-{
-	Skills::Enum skill = Skills::FromString(_widget->GetTag());
-	Logger::DiagnosticOut() << "Using skill " << _widget->GetTag() << ", " << skill << ", " << Skills::ToString(skill) <<"\n";
-	selected_skill_ = Skills::FromString(_widget->GetTag());
-}
-
-void ModeGame::GridClick(Widget* _widget, MouseEventArgs _args)
-{
-	Logger::DiagnosticOut() << "Clicked grid item " << _args.x << "," << _args.y << "\n";
-	switch(selected_skill_)
-	{
-	case Skills::Arrows:
-		break;
-	}
-}
-
-void ModeGame::QuitClick(Widget* _widget)
-{
-	pend_mode_ = new ModeDeckConfiguration(level_, progression_);
 }

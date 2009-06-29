@@ -8,8 +8,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="16"
-   height="16"
+   width="24"
+   height="24"
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.46"
@@ -84,8 +84,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="11.2"
-     inkscape:cx="8.242227"
-     inkscape:cy="-10.027102"
+     inkscape:cx="11.947584"
+     inkscape:cy="-3.9556734"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -138,8 +138,9 @@
        sodipodi:rx="7"
        sodipodi:ry="7"
        d="M 15,8 A 7,7 0 1 1 1,8 A 7,7 0 1 1 15,8 z"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180"
-       inkscape:export-filename="C:\Documents and Settings\Edward\My Documents\Visual Studio 2005\Projects\ShokoRocket++\src\ShokoRocket++\Sprites\Ring.png" />
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\Documents and Settings\Edward\My Documents\Visual Studio 2005\Projects\ShokoTD\src\ShokoTD++\Sprites\Ring.png"
+       transform="scale(1.5,1.5)" />
   </g>
 </svg>

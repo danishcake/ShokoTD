@@ -654,6 +654,10 @@ void Widget::DistributeSDLEvents(SDL_Event* event)
 		{
 			drag_event_args_.x = e.event.mouse_event.x - drag_start_position_.x;
 			drag_event_args_.y = e.event.mouse_event.y - drag_start_position_.y;
+			drag_event_args_.sx = drag_start_position_.x - widget_with_drag_->GetPosition().x;
+			drag_event_args_.sy = drag_start_position_.y - widget_with_drag_->GetPosition().y;
+			drag_event_args_.ex = e.event.mouse_event.x - widget_with_drag_->GetPosition().x;
+			drag_event_args_.ey = e.event.mouse_event.y - widget_with_drag_->GetPosition().y;
 			widget_with_drag_->OnDragReset(widget_with_drag_, &drag_event_args_);
 		}
 

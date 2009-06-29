@@ -33,7 +33,6 @@ protected:
 
 	Vector2i last_mouse_position_;
 
-	void GridMouseMouve(Widget* _widget, MouseEventArgs _args);
 	void GridMouseClick(Widget* _widget, MouseEventArgs _args);
 	void GridKeyUp(Widget* _widget, KeyPressEventArgs _args);
 	void GridDragReset(Widget* _widget, DragEventArgs* _args);

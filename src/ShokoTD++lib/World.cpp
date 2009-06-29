@@ -452,6 +452,11 @@ WorldState::Enum World::Tick(float _dt)
 			dead_enemies_.push_back(*it);
 		}
 		just_dead_enemies_.clear();
+		//Tick enemies that have died
+		for(vector<Walker*>::iterator it = just_dead_enemies_.begin(); it != just_dead_enemies_.end(); ++it)
+		{
+			(*it)->DeathTick(_dt);
+		}
 
 		if(state_ == WorldState::OK && active_waves_.size() == 0 && enemies_.size() == 0)
 		{
@@ -638,6 +643,10 @@ void World::WalkerReachNewSquare(Walker* _walker)
 void World::ToggleArrow(Vector2i _position, Direction::Enum _direction)
 {
 	assert(_direction != Direction::Stopped);
+	assert(_position.x >= 0);
+	assert(_position.x < size_.x);
+	assert(_position.y >= 0);
+	assert(_position.y < size_.y);
 	//TODO bounds checking assertions
 	if(SquareType::GetDirection(special_squares_[_position.x][_position.y]) == _direction)
 	{
@@ -649,6 +658,30 @@ void World::ToggleArrow(Vector2i _position, Direction::Enum _direction)
 	{
 		special_squares_[_position.x][_position.y] = SquareType::ArrowFromDirection(_direction);
 	}
+}
+
+int World::GetArrowsInUse()
+{
+	int arrow_count = 0;
+	for(int x = 0; x < size_.x; x++)
+	{
+		for(int y = 0; y < size_.y; y++)
+		{
+			if(special_squares_[x][y] == SquareType::EastArrow		||
+			   special_squares_[x][y] == SquareType::WestArrow		||
+			   special_squares_[x][y] == SquareType::NorthArrow		||
+			   special_squares_[x][y] == SquareType::SouthArrow		||
+			   special_squares_[x][y] == SquareType::HalfEastArrow	||
+			   special_squares_[x][y] == SquareType::HalfWestArrow	||
+			   special_squares_[x][y] == SquareType::HalfNorthArrow	||
+			   special_squares_[x][y] == SquareType::HalfSouthArrow)
+			{
+				arrow_count++;
+			}
+		}
+	}
+	return arrow_count;
+
 }
 
 void World::ClearArrow(Vector2i _position)

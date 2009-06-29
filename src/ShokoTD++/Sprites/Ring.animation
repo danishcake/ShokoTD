@@ -1,5 +1,5 @@
 <AnimationSet>
   <Animation Name="All">
-    <Frame Width="32" Height="32" Top="0" Left="0" File="Ring.png" Time="0.5"/>
+    <Frame Width="24" Height="24" Top="0" Left="0" File="Ring.png" Time="0.5"/>
   </Animation>
 </AnimationSet>
