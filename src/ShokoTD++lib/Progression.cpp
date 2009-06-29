@@ -37,19 +37,19 @@ bool Progression::LoadUnlockables(TiXmlElement* _first, ProgressLevel* _progress
 		std::vector<std::string> skill_unlocks;
 		std::vector<std::string> level_unlocks;
 
-		TiXmlElement* condition = _first->FirstChildElement("Condition");
+		TiXmlElement* condition = unlockable->FirstChildElement("Condition");
 		while(condition)
 		{
 			std::string alignment;
-			if(condition->QueryValueAttribute("alignment", &alignment))
+			if(condition->QueryValueAttribute("alignment", &alignment) == TIXML_SUCCESS)
 			{
-				if(alignment == "evil")
+				if(alignment == "Evil")
 				{
 					require_evil = true;
-				} else if(alignment == "good")
+				} else if(alignment == "Good")
 				{
 					require_good = true;
-				} else if(alignment == "neutral")
+				} else if(alignment == "Neutral")
 				{
 					require_neutral = true;
 				}
@@ -57,7 +57,7 @@ bool Progression::LoadUnlockables(TiXmlElement* _first, ProgressLevel* _progress
 			condition = condition->NextSiblingElement("Condition");
 		}
 		
-		TiXmlElement* level_unlock = _first->FirstChildElement("LevelUnlock");
+		TiXmlElement* level_unlock = unlockable->FirstChildElement("LevelUnlock");
 		while(level_unlock)
 		{
 			std::string name;
@@ -70,7 +70,7 @@ bool Progression::LoadUnlockables(TiXmlElement* _first, ProgressLevel* _progress
 			level_unlock = level_unlock->NextSiblingElement("LevelUnlock");
 		}
 
-		TiXmlElement* skill_unlock = _first->FirstChildElement("SkillUnlock");
+		TiXmlElement* skill_unlock = unlockable->FirstChildElement("SkillUnlock");
 		while(skill_unlock)
 		{
 			std::string name;

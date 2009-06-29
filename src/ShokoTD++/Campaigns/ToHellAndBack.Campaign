@@ -1,11 +1,12 @@
 <Campaign name="Test Campaign 1">
   <StartingSkill name="Arrows" purchased="1"/>
-  <StartingSkill name="Burn" purchased="0"/>
   <Level name="Level 1" file="Level 1.level" locked="0">
     <Unlockable>
       <Condition alignment="Evil"/>
-      <LevelUnlock name="Level 2"/>
       <SkillUnlock name="Burn"/>
+    </Unlockable>
+    <Unlockable>
+      <LevelUnlock name="Level 2"/>
     </Unlockable>
   </Level>
   <Level name="Level 2" file="Level 2.level" locked="1">

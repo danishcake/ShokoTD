@@ -27,7 +27,7 @@ ModeGame::ModeGame(std::string _level_name, std::string _level_file, std::vector
 	progression_ = _progression;
 	world_ = new World(_level_file);
 	ltv_world_state_ = WorldState::OK;
-	dialogue_timer_ = 1.0;
+	dialogue_timer_ = 2.5;
 }
 
 ModeGame::~ModeGame()
