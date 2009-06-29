@@ -156,7 +156,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)UnitTest++Redist\Include&quot;;&quot;$(SolutionDir)src/ShokoTD++lib\&quot;;&quot;$(PROGRAMFILES)\boost\boost_1_36_0&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)UnitTest++Redist\Include&quot;;&quot;$(SolutionDir)src/ShokoTD++lib\&quot;;&quot;$(PROGRAMFILES)\boost\boost_1_36_0&quot;;&quot;$(PROGRAMFILES)\tinyxml&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"

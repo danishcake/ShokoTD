@@ -3,6 +3,7 @@
   <Name>Oddly familiar?</Name>
   <Size x="12" y="9" />
   <Author>Edward Woolhouse</Author>
+  <Lives>20</Lives>
   <H x="0" y="0" />
   <V x="0" y="0" />
   <V x="0" y="1" />

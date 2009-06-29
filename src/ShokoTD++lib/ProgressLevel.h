@@ -25,6 +25,7 @@ private:
 	std::string filename_;
 
 	bool locked_;
+	bool beaten_;
 	std::vector<Unlockable> unlockables_;
 public:
 	ProgressLevel(std::string _name, std::string _filename);
@@ -37,6 +38,9 @@ public:
 
 	void SetLocked(bool _locked){locked_ = _locked;}
 	bool GetLocked(){return locked_;}
+
+	void SetBeaten(bool _beaten){beaten_ = _beaten;}
+	bool GetBeaten(){return beaten_;}
 
 	void AddUnlock(bool _good, bool _neutral, bool _evil, std::vector<std::string> _levels, std::vector<std::string> _skills);
 	void GetRewards(GameReport _gr, std::vector<std::string> &_levels, std::vector<std::string>& _skills);

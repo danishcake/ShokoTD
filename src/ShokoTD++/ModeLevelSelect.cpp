@@ -87,7 +87,7 @@ std::vector<RenderItem> ModeLevelSelect::Draw()
 void ModeLevelSelect::ItemClick(Widget* _widget, std::string _text)
 {
 	description_->SetText(_text, TextAlignment::TopLeft);
-	last_selected_level_ = progression_->GetLevelFilename(_text);
+	last_selected_level_ = _text;
 	if(_text != "Locked")
 	{
 		std::vector<std::string> unlocked_skills;
@@ -157,6 +157,8 @@ void ModeLevelSelect::ItemRender(Widget* _widget, BlittableRect** _rect, std::st
 {
 	if(_text == "Locked")
 		*_rect = new BlittableRect("Locked.png");
+	else if(progression_->IsBeaten(_text))
+		*_rect = new BlittableRect("Beaten.png");
 	else
 		*_rect = new BlittableRect("Unlocked.png");
 	

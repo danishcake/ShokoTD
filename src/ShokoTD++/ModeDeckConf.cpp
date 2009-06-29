@@ -116,7 +116,7 @@ void ModeDeckConfiguration::ItemDragEnter(Widget* _widget, DragEventArgs* _drag_
 
 void ModeDeckConfiguration::Accept(Widget* _widget)
 {
-	pend_mode_ = new ModeGame(next_level_, selected_skills_->GetItems(), progression_);
+	pend_mode_ = new ModeGame(next_level_, progression_->GetLevelFilename(next_level_), selected_skills_->GetItems(), progression_);
 }
 
 void ModeDeckConfiguration::GoBack(Widget* _widget)

@@ -3,7 +3,7 @@
 #include <algorithm>
 
 ProgressLevel::ProgressLevel(std::string _name, std::string _filename) :
-name_(_name), filename_(_filename)
+name_(_name), filename_(_filename), beaten_(false)
 {
 
 }

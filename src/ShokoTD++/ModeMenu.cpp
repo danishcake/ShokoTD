@@ -40,6 +40,17 @@ void ModeMenu::Setup()
 	exit->SetText("Exit", TextAlignment::Centre);
 	exit->SetPosition(Vector2i(10, 188));
 	exit->OnClick.connect(boost::bind(&ModeMenu::ExitClick, this, _1));
+
+	not_done_yet_ = new Widget("Blank600x200.png");
+	not_done_yet_->SetPosition(Vector2i(-700, 0));
+	not_done_yet_->SetText("Feature completion?\nBugger all chance of that, lad.\nA haiku instead.", TextAlignment::TopLeft);
+	not_done_yet_->SetRejectsFocus(true);
+
+	Widget* dismiss = new Widget("Blank128x32.png");
+	dismiss->SetPosition(Vector2i(462, 158));
+	dismiss->OnClick.connect(boost::bind(&ModeMenu::DismissClick, this, _1));
+	dismiss->SetText("Back", TextAlignment::Centre);
+	not_done_yet_->AddChild(dismiss);
 }
 
 ModeAction::Enum ModeMenu::Tick(float _dt)
@@ -78,14 +89,17 @@ void ModeMenu::NewGameClick(Widget* _widget)
 
 void ModeMenu::LoadClick(Widget* _widget)
 {
+	NotDoneYet();
 }
 
 void ModeMenu::OptionsClick(Widget* _widget)
 {
+	NotDoneYet();
 }
 
 void ModeMenu::UnlocksClick(Widget* _widget)
 {
+	NotDoneYet();
 }
 
 void ModeMenu::ExitClick(Widget* _widget)
@@ -95,4 +109,15 @@ void ModeMenu::ExitClick(Widget* _widget)
 		exitting_ = true;
 		age_ = pend_time_;
 	}
+}
+
+void ModeMenu::NotDoneYet()
+{
+	not_done_yet_->SetPosition(Vector2i(320 - 300, 240 - 100));
+	not_done_yet_->SetModal(true);
+}
+void ModeMenu::DismissClick(Widget* _widget)
+{
+	not_done_yet_->SetPosition(Vector2i(-700, 0));
+	not_done_yet_->SetModal(false);
 }

@@ -10,6 +10,7 @@ namespace StandardTextures
 	extern Animation* half_arrows[5];
 	extern Animation* rocket_normal_animation;
 	extern Animation* hole_animation;
+	extern Animation* cross_animation;
 	extern Animation* ring_animation;
 	extern Animation* tile_a_animation;
 	extern Animation* tile_b_animation;	

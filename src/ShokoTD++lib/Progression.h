@@ -40,7 +40,9 @@ public:
 	std::vector<ProgressLevel*> GetLocked();
 	bool Has(std::string _level);
 	bool IsUnlocked(std::string _level);
+	bool IsBeaten(std::string _level);
 	void Unlock(std::string _level);
+	void ReportCompletion(std::string _level, GameReport _gr);
 	void GetRewards(std::string _level, std::vector<std::string>& _unlocked_skills, 
 										std::vector<std::string>& _locked_skills,
 										std::vector<std::string>& _unlocked_levels,

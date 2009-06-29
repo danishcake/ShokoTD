@@ -16,6 +16,7 @@ namespace StandardTextures
 	Animation* half_arrows[5] = {0, 0, 0, 0, 0};
 	Animation* rocket_normal_animation = 0;
 	Animation* hole_animation = 0;
+	Animation* cross_animation = 0;
 	Animation* ring_animation = 0;
 	Animation* grid_animation = 0;
 	Animation* tile_a_animation = 0;
@@ -23,6 +24,7 @@ namespace StandardTextures
 	Animation* wall_horz_animation = 0;
 	Animation* wall_vert_animation = 0;
 	Animation* spawner_animation = 0;
+
 	
 	void LoadTextures()
 	{
@@ -104,6 +106,7 @@ namespace StandardTextures
 		}
 
 		hole_animation = SDLTextureManager::GetAnimation(Settings::GetHoleSprite());
+		cross_animation = SDLTextureManager::GetAnimation("Cross.animation");
 		ring_animation = SDLTextureManager::GetAnimation(Settings::GetRingSprite());
 		AnimationSet* rocket_animation_set = SDLTextureManager::GetAnimationSet(Settings::GetRocketSprite());
 		rocket_normal_animation = rocket_animation_set->GetAnimation("Normal");
@@ -112,6 +115,11 @@ namespace StandardTextures
 		if(!hole_animation)
 		{
 			Logger::ErrorOut() << "Unable to load hole animation\n";
+		}
+		
+		if(!cross_animation)
+		{
+			Logger::ErrorOut() << "Unable to load cross animation\n";
 		}
 
 		if(!ring_animation)
@@ -128,7 +136,8 @@ namespace StandardTextures
 	void TickAnimations(float _dt)
 	{
 		hole_animation->Tick(_dt);
-		rocket_normal_animation->Tick(_dt);		
+		cross_animation->Tick(_dt);
+		rocket_normal_animation->Tick(_dt);
 		spawner_animation->Tick(_dt);
 	}
 }

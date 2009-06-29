@@ -197,6 +197,21 @@ bool Progression::IsUnlocked(std::string _level)
 	return false;
 }
 
+bool Progression::IsBeaten(std::string _level)
+{
+	for(std::vector<ProgressLevel*>::iterator it = levels_.begin(); it != levels_.end(); ++it)
+	{
+		if((*it)->GetName() == _level)
+		{
+			if((*it)->GetBeaten())
+				return true;
+			else
+				return false;
+		}
+	}
+	return false;
+}
+
 void Progression::Unlock(std::string _level)
 {
 	for(std::vector<ProgressLevel*>::iterator it = levels_.begin(); it != levels_.end(); ++it)
@@ -248,4 +263,27 @@ std::string Progression::GetLevelFilename(std::string _name)
 		}
 	}
 	return "";
+}
+
+void Progression::ReportCompletion(std::string _level, GameReport _gr)
+{
+	for(std::vector<ProgressLevel*>::iterator it = levels_.begin(); it != levels_.end(); ++it)
+	{
+		if((*it)->GetName() == _level)
+		{
+			std::vector<std::string> reward_levels;
+			std::vector<std::string> reward_skills;
+			(*it)->SetBeaten(true);
+			(*it)->GetRewards(_gr, reward_levels, reward_skills);
+			
+			for(std::vector<std::string>::iterator it2 = reward_levels.begin(); it2 != reward_levels.end(); ++it2)
+			{
+				Unlock(*it2);
+			}
+			for(std::vector<std::string>::iterator it2 = reward_skills.begin(); it2 != reward_skills.end(); ++it2)
+			{
+				skill_manager_.Unlock(*it2);
+			}
+		}
+	}
 }

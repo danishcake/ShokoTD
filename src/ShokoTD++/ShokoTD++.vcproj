@@ -364,8 +364,16 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Hole"
+				Name="Hole/Cross"
 				>
+				<File
+					RelativePath=".\Sprites\Cross.animation"
+					>
+				</File>
+				<File
+					RelativePath=".\Sprites\Cross.png"
+					>
+				</File>
 				<File
 					RelativePath=".\Sprites\Hole.animation"
 					>
@@ -531,6 +539,10 @@
 					</File>
 					<File
 						RelativePath=".\Sprites\GUI\Blank384x96.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank600x200.png"
 						>
 					</File>
 					<File

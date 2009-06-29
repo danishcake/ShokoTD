@@ -10,6 +10,11 @@ class Progression;
 struct MouseEventArgs;
 struct DragEventArgs;
 
+namespace WorldState
+{
+	enum Enum;
+}
+
 
 
 
@@ -21,6 +26,11 @@ private:
 	Skills::Enum selected_skill_;
 	std::string level_;
 	World* world_;
+	WorldState::Enum ltv_world_state_;
+	float dialogue_timer_;
+
+	Widget* end_dialogue_;
+	Widget* lives_left_;
 
 	void SkillClick(Widget* _widget);
 	void QuitClick(Widget* _widget);
@@ -30,7 +40,7 @@ private:
 	Progression* progression_;
 	
 public:
-	ModeGame(std::string _level_name, std::vector<std::string> _skills, Progression* _progression);
+	ModeGame(std::string _level_name, std::string _level_file, std::vector<std::string> _skills, Progression* _progression);
 	virtual ~ModeGame();
 
 	virtual IMode* Teardown();

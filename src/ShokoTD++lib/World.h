@@ -19,7 +19,7 @@ namespace SquareType
 {
 	enum Enum
 	{
-		Empty, Rocket, Hole, NorthArrow, SouthArrow, EastArrow, WestArrow, HalfNorthArrow, HalfSouthArrow, HalfEastArrow, HalfWestArrow, NorthSpawner, SouthSpawner, EastSpawner, WestSpawner,
+		Empty, Rocket, Hole, Cross, NorthArrow, SouthArrow, EastArrow, WestArrow, HalfNorthArrow, HalfSouthArrow, HalfEastArrow, HalfWestArrow, NorthSpawner, SouthSpawner, EastSpawner, WestSpawner,
 	};
 
 	Direction::Enum GetDirection(Enum _square_type);
@@ -90,6 +90,12 @@ protected:
 	string name_;
 	string filename_;
 	WorldState::Enum state_;
+	int neutral_kills_;
+	int evil_kills_;
+	int good_kills_;
+	int max_lives_;
+	int lives_;
+
 
 public:
 	World(void);
@@ -144,7 +150,15 @@ public:
 	void ClearArrows();
 	int GetArrowsInUse();
 
+	// Problem point functions
 	vector<Vector2f> GetProblemPoints(){return problem_points_;}
+
+	//Lives and score functions
+	int GetLives(){return lives_;}
+	int GetMaxLives(){return max_lives_;}
+	int GetNeutralKills(){return neutral_kills_;}
+	int GetGoodKills(){return good_kills_;}
+	int GetEvilKills(){return evil_kills_;}
 
 	//Gets the error state
 	bool GetError(){return state_ == WorldState::FileLoadError;}

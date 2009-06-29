@@ -15,15 +15,19 @@
 #include "GridTextureCreator.h"
 #include "EnemyTypes.h"
 #include "ModeDeckConf.h"
+#include "ModeLevelSelect.h"
+#include <GameReport.h>
+#include <boost/lexical_cast.hpp>
 
-
-ModeGame::ModeGame(std::string _level_name, std::vector<std::string> _skills, Progression* _progression)
+ModeGame::ModeGame(std::string _level_name, std::string _level_file, std::vector<std::string> _skills, Progression* _progression)
 {
 	level_ = _level_name;
 	skills_ = _skills;
 	selected_skill_ = Skills::None;
 	progression_ = _progression;
-	world_ = new World(level_);
+	world_ = new World(_level_file);
+	ltv_world_state_ = WorldState::OK;
+	dialogue_timer_ = 1.0;
 }
 
 ModeGame::~ModeGame()
@@ -62,12 +66,60 @@ void ModeGame::Setup()
 	click_catcher->OnGridClick.connect(boost::bind(&ModeGame::GridClick, this, _1, _2));
 	click_catcher->OnGridGesture.connect(boost::bind(&ModeGame::GridGesture, this, _1, _2));
 	click_catcher->SetOffset(Vector2i(49, 0));
+
+	end_dialogue_ = new Widget("Blank384x384.png");
+	
+	end_dialogue_->SetPosition(Vector2i(-400, 240 - 192));
+	end_dialogue_->SetRejectsFocus(true);
+	Widget* continue_widget = new Widget("Blank128x32.png");
+	continue_widget->SetText("Next", TextAlignment::Centre);
+	continue_widget->SetPosition(Vector2i(246, 344));
+	continue_widget->OnClick.connect(boost::bind(&ModeGame::QuitClick, this, _1));
+	end_dialogue_->AddChild(continue_widget);
+
+	lives_left_ = new Widget("Blank96x32.png");
+	lives_left_->SetPosition(Vector2i(640 - 106, 480 - 42));
+	lives_left_->SetRejectsFocus(true);
+
+	lives_left_->SetText(boost::lexical_cast<std::string, int>(world_->GetLives()) + "/" + 
+						 boost::lexical_cast<std::string, int>(world_->GetMaxLives()), TextAlignment::Centre);
+
 	
 }
 
 ModeAction::Enum ModeGame::Tick(float _dt)
 {
-	world_->Tick(_dt);
+	if(ltv_world_state_ == WorldState::OK)
+	{
+		ltv_world_state_ = world_->Tick(_dt);
+		if(ltv_world_state_ == WorldState::FileLoadError)
+			end_dialogue_->SetText("Failed to load:\n" + level_, TextAlignment::TopLeft);
+		if(ltv_world_state_ == WorldState::Victory)
+		{
+			end_dialogue_->SetText("You are victorious!", TextAlignment::TopLeft);
+			GameReport gr;
+			gr.SetAlignment(AlignmentVector(world_->GetGoodKills(), world_->GetEvilKills(), world_->GetNeutralKills()));
+			progression_->ReportCompletion(level_, gr);
+		}
+		if(ltv_world_state_ == WorldState::Defeat)
+			end_dialogue_->SetText("You are defeated!", TextAlignment::TopLeft);
+
+		lives_left_->SetText(boost::lexical_cast<std::string, int>(world_->GetLives()) + "/" + 
+							 boost::lexical_cast<std::string, int>(world_->GetMaxLives()), TextAlignment::Centre);
+	} else
+	{
+		world_->Tick(_dt);
+		if(dialogue_timer_ >=0)
+			dialogue_timer_ -= _dt;
+		if(dialogue_timer_ < 0)
+		{
+			end_dialogue_->SetModal(true);
+			end_dialogue_->SetPosition(Vector2i(320-192, 240 - 192));
+		}
+	}
+
+
+
 	ModeAction::Enum result = IMode::Tick(_dt);
 	Widget::SetFade(fade_);
 	return result;
@@ -131,8 +183,10 @@ void ModeGame::GridGesture(Widget* _widget, GridGestureEventArgs _args)
 				if(world_->GetArrowsInUse() < 3)
 				{
 					world_->ToggleArrow(Vector2i(_args.x, _args.y), direction);
+				} else
+				{
+					world_->ClearArrow(Vector2i(_args.x, _args.y));
 				}
-
 			}
 				
 			break;
@@ -143,7 +197,14 @@ void ModeGame::GridGesture(Widget* _widget, GridGestureEventArgs _args)
 
 void ModeGame::QuitClick(Widget* _widget)
 {
-	pend_mode_ = new ModeDeckConfiguration(level_, progression_);
+	if(!pend_mode_)
+	{
+		if(ltv_world_state_ ==WorldState::Victory)
+			pend_mode_ = new ModeLevelSelect(progression_);
+		else
+			pend_mode_ = new ModeDeckConfiguration(level_, progression_);
+	}
+	
 }
 
 
@@ -224,6 +285,15 @@ std::vector<RenderItem> ModeGame::Draw()
 					RenderItem ri;
 					ri.position_ = Vector2f((float)x, (float)y);
 					ri.frame_ = StandardTextures::hole_animation->GetCurrentFrame();
+					ri.depth = below;
+					draw_list.push_back(ri);
+				}
+				break;
+			case SquareType::Cross:
+				{
+					RenderItem ri;
+					ri.position_ = Vector2f((float)x, (float)y);
+					ri.frame_ = StandardTextures::cross_animation->GetCurrentFrame();
 					ri.depth = below;
 					draw_list.push_back(ri);
 				}

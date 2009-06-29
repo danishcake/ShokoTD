@@ -12,6 +12,10 @@ private:
 	void UnlocksClick(Widget* _widget);
 	void ExitClick(Widget* _widget);
 
+	Widget* not_done_yet_;
+	void NotDoneYet();
+	void DismissClick(Widget* _widget);
+
 	bool exitting_;
 public:
 	ModeMenu();

@@ -5,6 +5,7 @@
 #include "Walker.h"
 #include <functional>
 #include "EnemyTypes.h"
+#include <boost/lexical_cast.hpp>
 
 namespace SquareType
 {
@@ -118,11 +119,21 @@ World::World(void)
 		walls_[0][y].left = true;
 	name_ = "Default 20x20";
 	state_ = WorldState::OK;
+	neutral_kills_ = 0;
+	evil_kills_ = 0;
+	good_kills_ = 0;
+	lives_ = 10;
+	max_lives_ = 10;
 }
 
 World::World(std::string _filename)
 {
 	sum_time_ = 0;
+	neutral_kills_ = 0;
+	evil_kills_ = 0;
+	good_kills_ = 0;
+	lives_ = 20;
+	max_lives_ = 20;
 	filename_ = _filename;
 	_filename = "Levels/" + _filename; 
 	state_ = WorldState::OK;
@@ -133,6 +144,7 @@ World::World(std::string _filename)
 		TiXmlElement* pLevel = document_handle.FirstChild("Level").Element();
 		TiXmlElement* pName = document_handle.FirstChild("Level").FirstChild("Name").Element();
 		TiXmlElement* pSize = document_handle.FirstChild("Level").FirstChild("Size").Element();
+		TiXmlElement* pLives = document_handle.FirstChild("Level").FirstChild("Lives").Element();
 		if(pLevel)
 		{
 			if(pName)
@@ -153,6 +165,14 @@ World::World(std::string _filename)
 				}
 			} else
 				state_ = WorldState::FileLoadError;
+
+			if(pLives)
+			{
+				lives_ = boost::lexical_cast<int, std::string>(pLives->GetText());
+				max_lives_ = lives_;
+			} else
+				state_ = WorldState::FileLoadError;
+
 			//Read list of 'H' elements representing horizontal walls
 			TiXmlElement* h = document_handle.FirstChild("Level").FirstChild("H").Element();
 			while(h)
@@ -219,6 +239,24 @@ World::World(std::string _filename)
 				{}//TODO error 
 				hole = hole->NextSiblingElement("Hole");
 			}
+			//Load all holes
+			TiXmlElement* cross = document_handle.FirstChild("Level").FirstChild("Cross").Element();
+			while(cross)
+			{
+				Vector2i point;
+				bool attribute_error = false;
+				attribute_error |= (cross->QueryIntAttribute("x", &point.x) != TIXML_SUCCESS);
+				attribute_error |= (cross->QueryIntAttribute("y", &point.y) != TIXML_SUCCESS);
+				
+				if(!attribute_error)
+				{ 
+					SetSquareType(point, SquareType::Cross);
+					
+				} else
+				{}//TODO error 
+				cross = cross->NextSiblingElement("Cross");
+			}
+
 
 			TiXmlElement* wave = document_handle.FirstChild("Level").FirstChild("Wave").Element();
 			while(wave)
@@ -463,6 +501,11 @@ WorldState::Enum World::Tick(float _dt)
 			state_ = WorldState::Victory;
 		}
 
+		if(state_ == WorldState::OK && lives_ == 0)
+		{
+			state_ = WorldState::Defeat;
+		}
+
 		
 	}
 
@@ -609,22 +652,31 @@ void World::WalkerReachNewSquare(Walker* _walker)
 	//This method will be called multiple times, so it's important not to add an item to 'just_dead...' twice
 	Vector2i position_grid = Vector2i(floor(_walker->GetPosition().x + 0.5f), floor(_walker->GetPosition().y + 0.5f));
 	SquareType::Enum square_type = special_squares_[position_grid.x][position_grid.y];
-	if(square_type == SquareType::Hole)
+	if(square_type == SquareType::Hole || square_type == SquareType::Cross)
 	{
 		if(std::find(just_dead_enemies_.begin(), just_dead_enemies_.end(), _walker) == just_dead_enemies_.end())
 		{
 			just_dead_enemies_.push_back(_walker);
-			problem_points_.push_back(_walker->GetPosition());
 			_walker->Kill();
-			//TODO increase score
+		}
+		if(square_type== SquareType::Hole)
+		{
+			evil_kills_++;
+		}
+		if(square_type== SquareType::Cross)
+		{
+			good_kills_++;
 		}
 	} else if(square_type == SquareType::Rocket)
 	{
 		if(std::find(just_dead_enemies_.begin(), just_dead_enemies_.end(), _walker) == just_dead_enemies_.end())
 		{
 			just_dead_enemies_.push_back(_walker);
+			problem_points_.push_back(_walker->GetPosition());
 			_walker->Kill();
+			neutral_kills_++;
 			//TODO decrease lives
+			lives_--;
 		}
 	}
 	
