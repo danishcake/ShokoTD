@@ -148,6 +148,16 @@ void Widget::RemoveChild(Widget* _widget)
 	Invalidate();
 }
 
+void Widget::ClearChildren()
+{
+	std::vector<Widget*> children_copy = children_;
+	for(std::vector<Widget*>::iterator it = children_copy.begin(); it != children_copy.end(); ++it)
+	{
+		delete *it;
+	}
+	assert(children_.size() == 0);
+}
+
 void Widget::SetSize(Vector2i _size)
 {
 	delete blit_rect_;

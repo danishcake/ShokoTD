@@ -23,6 +23,17 @@ private:
 	ItemBrowserWidget* known_skills_;
 	ItemBrowserWidget* selected_skills_;
 	Widget* upgrades_pane_;
+	Widget* good_points_;
+	Widget* neutral_points_;
+	Widget* evil_points_;
+
+	std::string last_skill_selected_;
+	bool skill_needs_update_;
+	void UpdateUpgradesPane();
+
+	void UpgradeSkillClick(Widget* _widget);
+	void BuySkillClick(Widget* _widget);
+
 
 	std::string next_level_;
 	Progression* progression_;

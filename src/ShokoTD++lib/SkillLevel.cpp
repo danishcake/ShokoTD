@@ -9,7 +9,7 @@ SkillLevel::SkillLevel(std::string _level_name)
 
 unsigned int SkillLevel::GetUpgradeCost()
 {
-	return 1; //TODO upgrade costs
+	return rank_costs_[level_ - 1];
 }
 
 void SkillLevel::AddRank(unsigned int _cost)

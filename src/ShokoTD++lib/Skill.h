@@ -34,6 +34,7 @@ public:
 
 	std::vector<SkillLevel> GetUpgrades(){return upgrades_;}
 	void AddUpgrade(SkillLevel _upgrade){upgrades_.push_back(_upgrade);}
+	SkillLevel* GetSkillLevel(std::string _name);
 
 	unsigned int GetCost(){return initial_cost_;}
 	void SetCost(unsigned int _cost){initial_cost_ = _cost;}

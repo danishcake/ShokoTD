@@ -388,13 +388,13 @@ void BlittableRect::BlitTextLines(std::vector<std::string> _text_lines, TextAlig
 		   _alignment == TextAlignment::Centre ||
 		   _alignment == TextAlignment::Bottom)
 		{
-			init_out_x = (size_.x / 2) - it->length() * (font_width / 2);
+			out_x = (size_.x / 2) - it->length() * (font_width / 2);
 
 		} else if(_alignment == TextAlignment::TopRight ||
 				  _alignment == TextAlignment::Right ||
 				  _alignment == TextAlignment::BottomRight)
 		{
-			init_out_x = (size_.x / 2) - it->length() * font_width - 4;
+			out_x = (size_.x / 2) - it->length() * font_width - 4;
 		} else
 			out_x = init_out_x;
 

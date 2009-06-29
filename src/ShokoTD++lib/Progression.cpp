@@ -23,6 +23,9 @@ Progression::Progression(std::string _campaign, std::string _savefile)
 		Logger::ErrorOut() << "Error: " << doc.ErrorDesc() << "\n";
 		state_ = ProgressionState::LoadError;
 	}
+	good_points_ =100;
+	neutral_points_ = 100;
+	evil_points_ = 100;
 }
 
 bool Progression::LoadUnlockables(TiXmlElement* _first, ProgressLevel* _progress_level)
@@ -286,4 +289,7 @@ void Progression::ReportCompletion(std::string _level, GameReport _gr)
 			}
 		}
 	}
+	good_points_ += _gr.GetAlignment().GetGoodScore();
+	neutral_points_ += _gr.GetAlignment().GetNeutralScore();
+	evil_points_ += _gr.GetAlignment().GetEvilScore();
 }

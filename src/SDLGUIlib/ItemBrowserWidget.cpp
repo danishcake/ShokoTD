@@ -182,7 +182,7 @@ void ItemBrowserWidget::ItemFocusedClick(Widget* _widget)
 	int y = _widget->GetPosition().y / item_size_.y;
 	int x = _widget->GetPosition().x / item_size_.x;
 	int page_index = x + grid_size_.x * y;
-	if(y == grid_size_.y - 1)
+	if(y == grid_size_.y - 1 && allow_scroll_)
 		page_index--;
 
 	int item_index = page_ * (grid_size_.x * grid_size_.y - 2) + page_index;

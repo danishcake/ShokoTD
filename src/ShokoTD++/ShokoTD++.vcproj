@@ -478,6 +478,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\Sprites\GUI\Padlock.png"
+						>
+					</File>
+					<File
 						RelativePath=".\Sprites\GUI\Slow_icon.png"
 						>
 					</File>
@@ -507,6 +511,10 @@
 					</File>
 					<File
 						RelativePath=".\Sprites\GUI\Blank128x64.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank192x32.png"
 						>
 					</File>
 					<File
@@ -546,6 +554,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\Sprites\GUI\Blank64x32.png"
+						>
+					</File>
+					<File
 						RelativePath=".\Sprites\GUI\Blank64x64.png"
 						>
 					</File>
@@ -555,6 +567,10 @@
 					</File>
 					<File
 						RelativePath=".\Sprites\GUI\Blank96x384.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank96x64.png"
 						>
 					</File>
 				</Filter>

@@ -17,6 +17,7 @@ public:
 	void SetLevel(unsigned int _level){level_ = _level;}
 	unsigned int GetMaxLevel(){return max_level_;}
 	void SetMaxLevel(unsigned int _max_level){max_level_ = _max_level;}
+	std::string GetName(){return level_name_;}
 	
 	void AddRank(unsigned int _cost);
 
