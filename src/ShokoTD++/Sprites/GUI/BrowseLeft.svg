@@ -9,15 +9,15 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="78"
-   height="60"
+   width="64"
+   height="64"
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.46"
    version="1.0"
    sodipodi:docname="BrowseLeft.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="C:\Documents and Settings\Edward\My Documents\Visual Studio 2005\Projects\ShokoRocket++\src\ShokoRocket++\Sprites\GUI\BrowseLeft.png"
+   inkscape:export-filename="C:\Documents and Settings\Edward\My Documents\Visual Studio 2005\Projects\ShokoTD\src\ShokoTD++\Sprites\GUI\BrowseLeft.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -100,6 +100,16 @@
        y1="40"
        x2="-72"
        y2="8" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3257"
+       id="linearGradient5891"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.4534136,0,0,0.4652084,43.755029,7.6759612)"
+       x1="-40"
+       y1="40"
+       x2="-72"
+       y2="8" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -112,17 +122,19 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6"
-     inkscape:cx="46.648043"
-     inkscape:cy="34.949437"
+     inkscape:cx="22.894887"
+     inkscape:cy="32.351319"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="641"
-     inkscape:window-height="1002"
-     inkscape:window-x="22"
-     inkscape:window-y="0"
+     inkscape:window-width="1280"
+     inkscape:window-height="964"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
      inkscape:snap-bbox="true"
-     inkscape:snap-nodes="false">
+     inkscape:snap-nodes="true"
+     showguides="true"
+     inkscape:guide-bbox="true">
     <inkscape:grid
        type="xygrid"
        id="grid2383"
@@ -148,29 +160,28 @@
      inkscape:groupmode="layer"
      id="layer1">
     <g
-       id="g3276"
-       transform="matrix(0.4534136,0,0,0.4652084,0.227323,0.2326268)">
+       id="g5894">
       <rect
-         ry="23.693071"
-         y="-0.0016901708"
-         x="-0.0016901708"
-         height="128.0034"
-         width="171.0034"
+         ry="10.982941"
+         y="0.23102504"
+         x="0.22574118"
+         height="63.540932"
+         width="63.546211"
          id="rect3278"
-         style="fill:#0000ff;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.99661964px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+         style="fill:#0000ff;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.45608971px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       <rect
-         ry="23.784994"
-         y="8"
-         x="8"
-         height="112"
-         width="112"
+         ry="11.064979"
+         y="3.954294"
+         x="3.8546319"
+         height="52.10334"
+         width="50.782322"
          id="rect3280"
-         style="fill:url(#linearGradient3284);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+         style="fill:url(#linearGradient5891);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       <path
          sodipodi:nodetypes="cccccccc"
          id="path3282"
-         d="M 85.500011,24.000008 L 85.500011,44.000008 L 125.50001,44.000008 L 125.50001,84.000008 L 85.500011,84.000008 L 85.500011,104.00001 L 45.500011,64.000008 L 85.500011,24.000008 z"
-         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:6.375;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+         d="M 31.998847,13.393154 L 31.998847,22.697322 L 50.13539,22.697322 L 50.13539,41.305658 L 31.998847,41.305658 L 31.998847,50.609827 L 13.862303,32.00149 L 31.998847,13.393154 z"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:2.92786622;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
   </g>
 </svg>

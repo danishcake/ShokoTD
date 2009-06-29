@@ -14,12 +14,14 @@
 #include <Progression.h>
 #include "GridTextureCreator.h"
 #include "EnemyTypes.h"
+#include "ModeDeckConf.h"
 
 
 ModeGame::ModeGame(std::string _level_name, std::vector<std::string> _skills, Progression* _progression)
 {
 	level_ = _level_name;
 	skills_ = _skills;
+	selected_skill_ = Skills::None;
 	progression_ = _progression;
 	world_ = new World(level_);
 }
@@ -52,7 +54,8 @@ void ModeGame::Setup()
 
 	Widget* back = new Widget("Blank64x64.png");
 	back->SetPosition(Vector2i(530, 2));
-	back->SetText("Menu", TextAlignment::Centre);
+	back->SetText("Back", TextAlignment::Centre);
+	back->OnClick.connect(boost::bind(&ModeGame::QuitClick, this, _1));
 
 	GameGridWidget* click_catcher = new GameGridWidget(Vector2i(26, 17), Vector2i(24, 24));
 	click_catcher->SetPosition(Vector2i(8, 69));
@@ -81,15 +84,7 @@ std::vector<RenderItem> ModeGame::Draw()
 	const float below = -1;
 	const float above = 1;
 	vector<RenderItem> draw_list;
-	draw_list.reserve(1 + world_->GetEnemies().size());
-
-	{
-		RenderItem ri;
-		ri.position_ = Vector2f(0, 0);
-		ri.frame_ = StandardTextures::grid_animation->GetCurrentFrame();
-		ri.depth = below;	
-		draw_list.push_back(ri);
-	}
+	draw_list.reserve(1 + world_->GetEnemies().size() + world_->GetSpawners().size());
 
 	vector<Vector2f> rings = world_->GetProblemPoints();
 	BOOST_FOREACH(Vector2f point, rings)
@@ -107,10 +102,19 @@ std::vector<RenderItem> ModeGame::Draw()
 		RenderItem ri;
 		ri.position_ = p_walker->GetPosition();
 		ri.frame_ = p_walker->GetEnemyType()->directions[p_walker->GetDirection()]->GetCurrentFrame();
-		//ri.frame_ = StandardTextures::cat_animations[p_walker->GetDirection()]->GetCurrentFrame();
 		ri.depth = 0;
 		draw_list.push_back(ri);
 	}
+
+	BOOST_FOREACH(Spawner spawner, world_->GetSpawners())
+	{
+		RenderItem ri;
+		ri.position_ = spawner.Position;
+		ri.frame_ = StandardTextures::spawner_animation->GetCurrentFrame();
+		ri.depth = below;
+		draw_list.push_back(ri);
+	}
+
 
 	for(int x = 0; x < world_->GetSize().x; x++)
 	{
@@ -168,8 +172,18 @@ std::vector<RenderItem> ModeGame::Draw()
 	BOOST_FOREACH(RenderItem& render_item, draw_list)
 	{
 		render_item.position_ *= grid_size;
+		render_item.position_ += Vector2i(2, 2);
 		render_item.depth *= grid_size.y;
 	}
+
+	{
+		RenderItem ri;
+		ri.position_ = Vector2f(0, 0);
+		ri.frame_ = StandardTextures::grid_animation->GetCurrentFrame();
+		ri.depth = below * grid_size.y;	
+		draw_list.push_back(ri);
+	}
+
 	return draw_list;
 }
 
@@ -177,9 +191,20 @@ void ModeGame::SkillClick(Widget* _widget)
 {
 	Skills::Enum skill = Skills::FromString(_widget->GetTag());
 	Logger::DiagnosticOut() << "Using skill " << _widget->GetTag() << ", " << skill << ", " << Skills::ToString(skill) <<"\n";
+	selected_skill_ = Skills::FromString(_widget->GetTag());
 }
 
 void ModeGame::GridClick(Widget* _widget, MouseEventArgs _args)
 {
 	Logger::DiagnosticOut() << "Clicked grid item " << _args.x << "," << _args.y << "\n";
+	switch(selected_skill_)
+	{
+	case Skills::Arrows:
+		break;
+	}
+}
+
+void ModeGame::QuitClick(Widget* _widget)
+{
+	pend_mode_ = new ModeDeckConfiguration(level_, progression_);
 }

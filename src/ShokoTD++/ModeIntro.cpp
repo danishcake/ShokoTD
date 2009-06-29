@@ -13,11 +13,12 @@ void ModeIntro::Setup()
 {
 	Widget* splash = new Widget("Blank128x32.png");
 	splash->SetPosition(Vector2i(640 - 128 - 10, 480 - 32 - 10));
-	splash->SetText("Start!", TextAlignment::Centre);
+	splash->SetText("Skip!", TextAlignment::Centre);
 	splash->OnClick.connect(boost::bind(&ModeIntro::IntroClick, this, _1));
 
 	logo_ = new Widget("gamedevchallenge2.png");
 	logo_position_ = Vector2f(-(logo_->GetSize().x + 100), (480 - logo_->GetSize().y ) / 2);
+	logo_->SetRejectsFocus(true);
 	
 	logo_->SetPosition(logo_position_);
 

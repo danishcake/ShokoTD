@@ -395,54 +395,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Sprites\GUI\Blank128x32.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\GUI\Blank128x64.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\GUI\Blank226x384.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\GUI\Blank32x32.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\GUI\Blank364x32.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\GUI\Blank384x32.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\GUI\Blank384x384.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\GUI\Blank384x66.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\GUI\Blank384x96.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\GUI\Blank64x64.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\GUI\Blank96x32.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\GUI\Blank96x384.png"
-					>
-				</File>
-				<File
 					RelativePath=".\Sprites\GUI\BrowseLeft.png"
 					>
 				</File>
@@ -487,6 +439,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Sprites\GUI\Instructions.png"
+					>
+				</File>
+				<File
+					RelativePath=".\Sprites\GUI\Instructions2.png"
+					>
+				</File>
+				<File
 					RelativePath=".\Sprites\GUI\Options.png"
 					>
 				</File>
@@ -511,6 +471,78 @@
 					</File>
 					<File
 						RelativePath=".\Sprites\GUI\Slow_icon.png"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Level Icons"
+					>
+					<File
+						RelativePath=".\Sprites\GUI\Beaten.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Locked.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Unlocked.png"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Blanks"
+					>
+					<File
+						RelativePath=".\Sprites\GUI\Blank128x32.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank128x64.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank226x192.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank226x384.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank32x32.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank364x32.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank384x32.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank384x384.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank384x66.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank384x96.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank64x64.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank96x32.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Blank96x384.png"
 						>
 					</File>
 				</Filter>
@@ -595,6 +627,18 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Spawner"
+				>
+				<File
+					RelativePath=".\Sprites\FlyingSaucer.animation"
+					>
+				</File>
+				<File
+					RelativePath=".\Sprites\FlyingSaucer.png"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Levels"
@@ -623,14 +667,6 @@
 				RelativePath=".\Campaigns\ToHellAndBack.Campaign"
 				>
 			</File>
-			<Filter
-				Name="LevelIcons"
-				>
-				<File
-					RelativePath=".\Sprites\GUI\Locked.png"
-					>
-				</File>
-			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

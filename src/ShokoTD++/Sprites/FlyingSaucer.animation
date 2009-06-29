@@ -1,0 +1,8 @@
+<AnimationSet>
+  <Animation Name="Wobble">
+    <Frame Width="24" Height="24" Top="0" Left="0" File="FlyingSaucer.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="0" Left="24" File="FlyingSaucer.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="0" Left="48" File="FlyingSaucer.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="0" Left="72" File="FlyingSaucer.png" Time="0.3"/>
+  </Animation>
+</AnimationSet>

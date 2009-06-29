@@ -8,6 +8,8 @@ class ModeTutorial :
 private:
 	Widget* next_;
 	Widget* finish_;
+
+	Widget* page1_;
 	void NextClick(Widget* _widget);
 	void FinishClick(Widget* _widget);
 public:

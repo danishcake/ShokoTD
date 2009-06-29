@@ -40,6 +40,7 @@ public:
 
 	void AddUnlock(bool _good, bool _neutral, bool _evil, std::vector<std::string> _levels, std::vector<std::string> _skills);
 	void GetRewards(GameReport _gr, std::vector<std::string> &_levels, std::vector<std::string>& _skills);
+	void GetUnlockables(std::vector<std::string> &_levels, std::vector<std::string>& _skills);
 
 
 };

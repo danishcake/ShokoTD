@@ -141,6 +141,30 @@ bool SkillManager::SkillExists(std::string _skill)
 	return false;
 }
 
+bool SkillManager::SkillAvailable(std::string _skill)
+{
+	for(std::vector<Skill*>::iterator it = skills_.begin(); it != skills_.end(); ++it)
+	{
+		if((*it)->GetName() == _skill)
+		{
+			return (*it)->GetUnlocked();
+		}
+	}
+	return false;
+}
+
+bool SkillManager::SkillPurchased(std::string _skill)
+{
+	for(std::vector<Skill*>::iterator it = skills_.begin(); it != skills_.end(); ++it)
+	{
+		if((*it)->GetName() == _skill)
+		{
+			return (*it)->GetPurchased();
+		}
+	}
+	return false;
+}
+
 std::vector<Skill*> SkillManager::GetAvailableSkills()
 {
 	std::vector<Skill*> skills;
@@ -184,3 +208,5 @@ Skill* SkillManager::GetSkill(std::string _skill)
 	}
 	return NULL;
 }
+
+

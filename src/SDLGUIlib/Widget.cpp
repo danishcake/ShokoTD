@@ -361,10 +361,11 @@ void Widget::HandleEvent(Event _event)
 void Widget::SetText(std::string _text, TextAlignment::Enum _alignment)
 {
 	bool change = false;
-	change = widget_text_.text != _text || widget_text_.alignment != _alignment;
+
+	change = widget_text_.GetText() != _text || widget_text_.alignment != _alignment;
 
 	widget_text_.alignment = _alignment;
-	widget_text_.text = _text;
+	widget_text_.SetText(_text);
 
 	if(change)
 		Invalidate();
@@ -375,7 +376,7 @@ void Widget::Redraw()
 	//Draw self - puts backbuffer onto front buffer. Use raw blit to copy alpha
 	back_rect_->RawBlit(Vector2i(0,0), blit_rect_);
 	//Superimpose text
-	blit_rect_->BlitText(widget_text_.text, widget_text_.alignment);
+	blit_rect_->BlitTextLines(widget_text_.GetTextLines(), widget_text_.alignment);
 	if(widget_with_focus_ == this && !hides_highlight_)
 		blit_rect_->Fade(0.25f, 255, 255, 255);
 	if(widget_with_highlight_ == this && !hides_highlight_)

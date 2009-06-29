@@ -6,8 +6,6 @@ class World;
 
 namespace StandardTextures
 {
-	extern Animation* cat_animations[5]; //Each direction
-	extern Animation* cat_death;
 	extern Animation* arrows[5];
 	extern Animation* half_arrows[5];
 	extern Animation* rocket_normal_animation;
@@ -18,6 +16,7 @@ namespace StandardTextures
 	extern Animation* wall_horz_animation;
 	extern Animation* wall_vert_animation;
 	extern Animation* grid_animation;
+	extern Animation* spawner_animation;
 
 
 	void LoadTextures();

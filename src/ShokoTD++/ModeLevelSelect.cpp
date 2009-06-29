@@ -7,6 +7,7 @@
 #include <vector>
 #include <ProgressLevel.h>
 #include <Progression.h>
+#include <boost/lexical_cast.hpp>
 
 
 ModeLevelSelect::ModeLevelSelect(Progression* _progression)
@@ -27,7 +28,7 @@ void ModeLevelSelect::Setup()
 	std::vector<ProgressLevel*> lockedlevels = progression_->GetLocked();
 	for(std::vector<ProgressLevel*>::iterator it = openlevels.begin(); it != openlevels.end(); ++it)
 	{
-		levels.push_back((*it)->GetFilename());
+		levels.push_back((*it)->GetName());
 	}
 	for(std::vector<ProgressLevel*>::iterator it = lockedlevels.begin(); it != lockedlevels.end(); ++it)
 	{
@@ -45,9 +46,14 @@ void ModeLevelSelect::Setup()
 	description_->SetText("Description", TextAlignment::Centre);
 	description_->SetRejectsFocus(true);
 	
-	stats_ = new Widget("Blank226x384.png");
-	stats_->SetPosition(Vector2i(404, 10));
-	stats_->SetRejectsFocus(true);
+	level_unlocks_ = new Widget("Blank226x192.png");
+	level_unlocks_->SetPosition(Vector2i(404, 10));
+	level_unlocks_->SetRejectsFocus(true);
+
+	skill_unlocks_ = new Widget("Blank226x192.png");
+	skill_unlocks_->SetPosition(Vector2i(404, 212));
+	skill_unlocks_->SetRejectsFocus(true);
+
 
 	Widget* play = new Widget("Blank96x32.png");
 	play->SetPosition(Vector2i(404, 436));
@@ -81,7 +87,55 @@ std::vector<RenderItem> ModeLevelSelect::Draw()
 void ModeLevelSelect::ItemClick(Widget* _widget, std::string _text)
 {
 	description_->SetText(_text, TextAlignment::TopLeft);
-	last_selected_level_ = _text;
+	last_selected_level_ = progression_->GetLevelFilename(_text);
+	if(_text != "Locked")
+	{
+		std::vector<std::string> unlocked_skills;
+		std::vector<std::string> locked_skills;
+		std::vector<std::string> unlocked_levels;
+		std::vector<std::string> locked_levels;
+		progression_->GetRewards(_text, unlocked_skills, locked_skills, unlocked_levels, locked_levels);
+
+		std::string skill_text;
+		if(unlocked_skills.size()+ locked_skills.size() == 0)
+		{
+			skill_text = "Skills:\nNo unlocks";
+		} else
+		{
+			skill_text = "Skills:\n";
+			for(std::vector<std::string>::iterator it = unlocked_skills.begin(); it != unlocked_skills.end(); ++it)
+			{
+				skill_text = skill_text + *it + "\n";
+				//skill_text.append(*it); skill_text.append("\n");
+			}
+			skill_text = skill_text + "\n" + boost::lexical_cast<std::string, size_t>(unlocked_skills.size()) + "/" + 
+											 boost::lexical_cast<std::string, size_t>(unlocked_skills.size()+ locked_skills.size());
+		}
+		skill_unlocks_->SetText(skill_text, TextAlignment::TopLeft);
+
+		std::string level_text;
+		if(unlocked_levels.size()+ locked_levels.size() == 0)
+		{
+			level_text = "Levels:\nNo unlocks";
+		} else
+		{
+			level_text = "Levels:\n";
+			for(std::vector<std::string>::iterator it = unlocked_levels.begin(); it != unlocked_levels.end(); ++it)
+			{
+				level_text = level_text + *it + "\n";
+				//level_text.append(*it); level_text.append("\n");
+			}
+			level_text = level_text + "\n" + boost::lexical_cast<std::string, size_t>(unlocked_levels.size()) + "/" + 
+											 boost::lexical_cast<std::string, size_t>(unlocked_levels.size()+ locked_levels.size());
+		}
+		level_unlocks_->SetText(level_text, TextAlignment::TopLeft);
+	} else
+	{
+		level_unlocks_->SetText("Locked", TextAlignment::TopLeft);
+		skill_unlocks_->SetText("Locked", TextAlignment::TopLeft);
+	}
+
+
 }
 
 void ModeLevelSelect::ReturnToMenuClick(Widget* _widget)
@@ -103,5 +157,9 @@ void ModeLevelSelect::ItemRender(Widget* _widget, BlittableRect** _rect, std::st
 {
 	if(_text == "Locked")
 		*_rect = new BlittableRect("Locked.png");
+	else
+		*_rect = new BlittableRect("Unlocked.png");
+	
+	//TODO parse unlockables
 }
 

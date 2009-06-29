@@ -5,6 +5,7 @@
 #include <BlittableRect.h>
 #include "Logger.h"
 #include "ModeGame.h"
+#include "ModeLevelSelect.h"
 #include "Progression.h"
 #include "Skill.h"
 
@@ -57,6 +58,12 @@ void ModeDeckConfiguration::Setup()
 	upgrades_pane_ = new Widget("Blank384x384.png");
 	upgrades_pane_->SetPosition(Vector2i(148, 84));
 	upgrades_pane_->SetRejectsFocus(true);
+	upgrades_pane_->SetText("Drag skills to bar", TextAlignment::Centre);
+
+	Widget* go_back = new Widget("Blank96x32.png");
+	go_back->SetPosition(Vector2i(534, 396));
+	go_back->SetText("Back", TextAlignment::Centre);
+	go_back->OnClick.connect(boost::bind(&ModeDeckConfiguration::GoBack, this, _1));
 }
 
 ModeAction::Enum ModeDeckConfiguration::Tick(float _dt)
@@ -110,6 +117,11 @@ void ModeDeckConfiguration::ItemDragEnter(Widget* _widget, DragEventArgs* _drag_
 void ModeDeckConfiguration::Accept(Widget* _widget)
 {
 	pend_mode_ = new ModeGame(next_level_, selected_skills_->GetItems(), progression_);
+}
+
+void ModeDeckConfiguration::GoBack(Widget* _widget)
+{
+	pend_mode_ = new ModeLevelSelect(progression_);
 }
 
 void ModeDeckConfiguration::ItemClick(Widget* _widget, std::string _item)

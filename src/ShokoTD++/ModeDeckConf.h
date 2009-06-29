@@ -18,6 +18,7 @@ private:
 	void ItemClick(Widget* _widget, std::string _item);
 
 	void Accept(Widget* _widget);
+	void GoBack(Widget* _widget);
 
 	ItemBrowserWidget* known_skills_;
 	ItemBrowserWidget* selected_skills_;

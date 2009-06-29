@@ -22,6 +22,11 @@ void ModeTutorial::Setup()
 	next_->SetPosition(Vector2i(640 - 256 - 20, 480 - 32 - 10));
 	next_->SetText("Next", TextAlignment::Centre);
 	next_->OnClick.connect(boost::bind(&ModeTutorial::NextClick, this, _1));
+	
+	page1_ = new Widget("Instructions.png");
+	page1_->SetPosition(Vector2i(10, 10));
+	page1_->SetRejectsFocus(true);
+	
 }
 
 ModeAction::Enum ModeTutorial::Tick(float _dt)
@@ -50,6 +55,8 @@ void ModeTutorial::NextClick(Widget* _widget)
 		finish_->SetText("Finish", TextAlignment::Centre);
 		finish_->SetPosition(Vector2i(640 - 128 - 10, 480 - 32 - 10));
 		finish_->OnClick.connect(boost::bind(&ModeTutorial::FinishClick, this, _1));
+		delete page1_;
+		Widget* page2 = new Widget("Instructions2.png");
 	}
 }
 

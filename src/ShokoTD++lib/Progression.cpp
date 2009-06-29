@@ -207,9 +207,45 @@ void Progression::Unlock(std::string _level)
 		}
 	}
 }
-
-std::vector<ProgressLevel*> Progression::GetUnlocked(GameReport _report)
+void Progression::GetRewards(std::string _level, std::vector<std::string>& _unlocked_skills, 
+												 std::vector<std::string>& _locked_skills,
+												 std::vector<std::string>& _unlocked_levels,
+												 std::vector<std::string>& _locked_levels)
 {
-	return std::vector<ProgressLevel*>();
+	for(std::vector<ProgressLevel*>::iterator it = levels_.begin(); it != levels_.end(); ++it)
+	{
+		if((*it)->GetName() == _level)
+		{
+			std::vector<std::string> reward_skills;
+			std::vector<std::string> reward_levels;
+			(*it)->GetUnlockables(reward_levels, reward_skills);
+			for(std::vector<std::string>::iterator it = reward_levels.begin(); it != reward_levels.end(); ++it)
+			{
+				if(IsUnlocked(*it))
+					_unlocked_levels.push_back(*it);
+				else
+					_locked_levels.push_back(*it);
+			}
+			for(std::vector<std::string>::iterator it = reward_skills.begin(); it != reward_skills.end(); ++it)
+			{
+				if(skill_manager_.SkillAvailable(*it))
+					_unlocked_skills.push_back(*it);
+				else
+					_locked_skills.push_back(*it);
+			}
+
+		}
+	}
 }
 
+std::string Progression::GetLevelFilename(std::string _name)
+{
+	for(std::vector<ProgressLevel*>::iterator it = levels_.begin(); it != levels_.end(); ++it)
+	{
+		if((*it)->GetName() == _name)
+		{
+			return (*it)->GetFilename();
+		}
+	}
+	return "";
+}

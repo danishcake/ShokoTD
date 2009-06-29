@@ -9,15 +9,15 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="78"
-   height="60"
+   width="64"
+   height="64"
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.46"
    version="1.0"
    sodipodi:docname="BrowseRight.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="C:\LocalFiles\ShokoRocket++\src\ShokoRocket++\Sprites\GUI\BrowseRight.png"
+   inkscape:export-filename="C:\Documents and Settings\Edward\My Documents\Visual Studio 2005\Projects\ShokoTD\src\ShokoTD++\Sprites\GUI\BrowseRight.svg.png"
    inkscape:export-xdpi="89.999992"
    inkscape:export-ydpi="89.999992">
   <defs
@@ -100,6 +100,16 @@
        y1="40"
        x2="-72"
        y2="8" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3257"
+       id="linearGradient5982"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.4534853,0,0,0.4651204,43.761318,7.674489)"
+       x1="-40"
+       y1="40"
+       x2="-72"
+       y2="8" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -111,18 +121,18 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6"
-     inkscape:cx="41.832358"
-     inkscape:cy="52.003981"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="42.531327"
+     inkscape:cy="25.623178"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="645"
-     inkscape:window-height="1002"
-     inkscape:window-x="176"
-     inkscape:window-y="0"
+     inkscape:window-width="1280"
+     inkscape:window-height="964"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
      inkscape:snap-bbox="true"
-     inkscape:snap-nodes="false">
+     inkscape:snap-nodes="true">
     <inkscape:grid
        type="xygrid"
        id="grid2383"
@@ -148,32 +158,28 @@
      inkscape:groupmode="layer"
      id="layer1">
     <g
-       id="g3276"
-       transform="matrix(0.4534853,0,0,0.4651204,0.2267293,0.2325626)"
-       inkscape:export-filename="C:\Documents and Settings\Edward\My Documents\Visual Studio 2005\Projects\ShokoRocket++\src\ShokoRocket++\Sprites\GUI\BrowseRight.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       id="g5985">
       <rect
-         ry="23.693071"
-         y="-0.0016901708"
-         x="-0.0016901708"
-         height="128.0034"
-         width="171.0034"
+         ry="10.941358"
+         y="0.22956394"
+         x="0.22375031"
+         height="63.543793"
+         width="63.549606"
          id="rect3278"
-         style="fill:#0000ff;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.99661964px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+         style="fill:#0000ff;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.45328847px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       <rect
-         ry="23.784994"
-         y="8"
-         x="8"
-         height="112"
-         width="112"
+         ry="11.062886"
+         y="3.9535258"
+         x="3.8546116"
+         height="52.093483"
+         width="50.790352"
          id="rect3280"
-         style="fill:url(#linearGradient3284);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+         style="fill:url(#linearGradient5982);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       <path
          sodipodi:nodetypes="cccccccc"
          id="path3282"
-         d="M 85.50001,24.000007 L 85.50001,44.000007 L 45.500011,44.000007 L 45.500011,84.000007 L 85.50001,84.000007 L 85.50001,104.00001 L 125.50001,64.000007 L 85.50001,24.000007 z"
-         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:6.375;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+         d="M 31.998553,13.396643 L 31.998553,22.699051 L 13.859141,22.699051 L 13.859141,41.303867 L 31.998553,41.303867 L 31.998553,50.606277 L 50.137965,32.001459 L 31.998553,13.396643 z"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:2.92782068;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
   </g>
 </svg>

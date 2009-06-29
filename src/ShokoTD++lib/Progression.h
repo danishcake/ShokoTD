@@ -41,7 +41,11 @@ public:
 	bool Has(std::string _level);
 	bool IsUnlocked(std::string _level);
 	void Unlock(std::string _level);
-	std::vector<ProgressLevel*> GetUnlocked(GameReport _report);
+	void GetRewards(std::string _level, std::vector<std::string>& _unlocked_skills, 
+										std::vector<std::string>& _locked_skills,
+										std::vector<std::string>& _unlocked_levels,
+										std::vector<std::string>& _locked_levels);
+	std::string GetLevelFilename(std::string _name);
 
 	/* Skills */
 	SkillManager& GetSkillsManager(){return skill_manager_;}

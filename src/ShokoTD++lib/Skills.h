@@ -7,7 +7,9 @@ namespace Skills
 {
 	enum Enum
 	{
-		Arrows, Slow, Fireball
+		Arrows, Slow, Fireball,
+
+		None
 	};
 
 	Enum FromString(std::string _skill);

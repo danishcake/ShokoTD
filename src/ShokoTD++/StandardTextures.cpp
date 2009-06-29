@@ -12,8 +12,6 @@
 
 namespace StandardTextures
 {
-	Animation* cat_animations[5] = {0, 0, 0, 0, 0}; //Each direction
-	Animation* cat_death = NULL;
 	Animation* arrows[5] = {0, 0, 0, 0, 0};
 	Animation* half_arrows[5] = {0, 0, 0, 0, 0};
 	Animation* rocket_normal_animation = 0;
@@ -24,6 +22,7 @@ namespace StandardTextures
 	Animation* tile_b_animation = 0;
 	Animation* wall_horz_animation = 0;
 	Animation* wall_vert_animation = 0;
+	Animation* spawner_animation = 0;
 	
 	void LoadTextures()
 	{
@@ -58,25 +57,19 @@ namespace StandardTextures
 			Logger::ErrorOut() << "Unable to load Wall animations\n";
 		}
 
-
-		AnimationSet* cat_animation_set = SDLTextureManager::GetAnimationSet(Settings::GetCatSprite());
-		if(cat_animation_set)
+		AnimationSet* spawner_animation_set = SDLTextureManager::GetAnimationSet("FlyingSaucer.animation");
+		if(spawner_animation_set)
 		{
-			for(int i = 0; i < 5; i++)
+			spawner_animation =  spawner_animation_set->GetAnimation("Wobble");
+			if(!spawner_animation)
 			{
-				cat_animations[i] = cat_animation_set->GetAnimation(Direction::ToString((Direction::Enum)i));
-				if(!cat_animations[i])
-				{
-					Logger::ErrorOut() << "Unable to find direction " << Direction::ToString((Direction::Enum)i) << " in Cat.animation\n";
-				}
+				Logger::ErrorOut() << "Unable to load spawner animation 'Wobble'\n";
 			}
-			cat_death = cat_animation_set->GetAnimation("Death");
-			if(!cat_death)
-				Logger::ErrorOut() << "Unable to find Cat death animation\n";
 		} else
 		{
-			Logger::ErrorOut() << "Unable to load Cat animations\n";
+			Logger::ErrorOut() << "Unable to load FlyingSaucer animations\n";
 		}
+
 
 		AnimationSet* arrow_animation_set = SDLTextureManager::GetAnimationSet(Settings::GetArrowsSprite());
 		if(arrow_animation_set)
@@ -134,11 +127,8 @@ namespace StandardTextures
 
 	void TickAnimations(float _dt)
 	{
-		for(int i = 0; i < 5; i++)
-		{
-			cat_animations[i]->Tick(_dt);
-		}
 		hole_animation->Tick(_dt);
 		rocket_normal_animation->Tick(_dt);		
+		spawner_animation->Tick(_dt);
 	}
 }

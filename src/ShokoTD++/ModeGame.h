@@ -1,5 +1,6 @@
 #pragma once
 #include <IMode.h>
+#include <Skills.h>
 class Widget;
 class ItemBrowserWidget;
 class BlittableRect;
@@ -8,15 +9,19 @@ class Progression;
 struct MouseEventArgs;
 struct DragEventArgs;
 
+
+
 class ModeGame :
 	public IMode
 {
 private:
 	std::vector<std::string> skills_;
+	Skills::Enum selected_skill_;
 	std::string level_;
 	World* world_;
 
 	void SkillClick(Widget* _widget);
+	void QuitClick(Widget* _widget);
 	void GridClick(Widget* _widget, MouseEventArgs _args);
 
 	Progression* progression_;

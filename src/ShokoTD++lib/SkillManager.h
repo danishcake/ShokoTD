@@ -19,6 +19,8 @@ public:
 	void Unlock(std::string _skill);
 	void Purchase(std::string _skill);
 	bool SkillExists(std::string _skill);
+	bool SkillAvailable(std::string _skill);
+	bool SkillPurchased(std::string _skill);
 
 	std::vector<Skill*> GetUnlockedSkills();
 	std::vector<Skill*> GetPurchasedSkills();

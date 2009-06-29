@@ -14,7 +14,8 @@ private:
 	std::string last_selected_level_;
 
 	Widget* description_;
-	Widget* stats_;
+	Widget* level_unlocks_;
+	Widget* skill_unlocks_;
 
 	void ItemClick(Widget* _widget, std::string _text);
 	void ReturnToMenuClick(Widget* _widget);
