@@ -87,6 +87,33 @@ namespace StandardTextures
 			Logger::ErrorOut() << "Unable to load Burning animations\n";
 		}
 
+		AnimationSet* craze_animation_set = SDLTextureManager::GetAnimationSet("Craze.animation");
+		if(craze_animation_set)
+		{
+			craze_animation =  craze_animation_set->GetAnimation("Craze");
+			if(!craze_animation)
+			{
+				Logger::ErrorOut() << "Unable to load craze animation 'Craze'\n";
+			}
+		} else
+		{
+			Logger::ErrorOut() << "Unable to load Craze animations\n";
+		}
+
+		AnimationSet* slow_animation_set = SDLTextureManager::GetAnimationSet("Slow.animation");
+		if(slow_animation_set)
+		{
+			slow_animation =  slow_animation_set->GetAnimation("Slow");
+			if(!slow_animation)
+			{
+				Logger::ErrorOut() << "Unable to load slow animation 'Slow'\n";
+			}
+		} else
+		{
+			Logger::ErrorOut() << "Unable to load Slow animations\n";
+		}
+
+
 		AnimationSet* arrow_animation_set = SDLTextureManager::GetAnimationSet(Settings::GetArrowsSprite());
 		if(arrow_animation_set)
 		{
@@ -154,5 +181,7 @@ namespace StandardTextures
 		rocket_normal_animation->Tick(_dt);
 		spawner_animation->Tick(_dt);
 		burning_animation->Tick(_dt);
+		craze_animation->Tick(_dt);
+		slow_animation->Tick(_dt);
 	}
 }

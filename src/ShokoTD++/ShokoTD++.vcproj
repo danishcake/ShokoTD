@@ -716,16 +716,44 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Burning"
+				Name="Skills"
 				>
-				<File
-					RelativePath=".\Sprites\Burning.animation"
+				<Filter
+					Name="Burning"
 					>
-				</File>
-				<File
-					RelativePath=".\Sprites\Burning.png"
+					<File
+						RelativePath=".\Sprites\Burning.animation"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\Burning.png"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Craze"
 					>
-				</File>
+					<File
+						RelativePath=".\Sprites\Craze.animation"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\Craze.png"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Slow"
+					>
+					<File
+						RelativePath=".\Sprites\Slow.animation"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\Slow.png"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

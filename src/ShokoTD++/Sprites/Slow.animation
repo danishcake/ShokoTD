@@ -1,0 +1,12 @@
+<AnimationSet>
+  <Animation Name="Slow">
+    <Frame Width="72" Height="72" Top="0" Left="0" OffsetX="24" OffsetY="24" File="Slow.png" Time="0.125"/>
+    <Frame Width="72" Height="72" Top="0" Left="72" OffsetX="24" OffsetY="24" File="Slow.png" Time="0.125"/>
+    <Frame Width="72" Height="72" Top="0" Left="144" OffsetX="24" OffsetY="24" File="Slow.png" Time="0.125"/>
+    <Frame Width="72" Height="72" Top="0" Left="216" OffsetX="24" OffsetY="24" File="Slow.png" Time="0.125"/>
+    <Frame Width="72" Height="72" Top="0" Left="288" OffsetX="24" OffsetY="24" File="Slow.png" Time="0.125"/>
+    <Frame Width="72" Height="72" Top="0" Left="360" OffsetX="24" OffsetY="24" File="Slow.png" Time="0.125"/>
+    <Frame Width="72" Height="72" Top="0" Left="432" OffsetX="24" OffsetY="24" File="Slow.png" Time="0.125"/>
+    <Frame Width="72" Height="72" Top="0" Left="504" OffsetX="24" OffsetY="24" File="Slow.png" Time="0.125"/>
+  </Animation>
+</AnimationSet>

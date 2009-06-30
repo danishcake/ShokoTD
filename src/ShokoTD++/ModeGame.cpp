@@ -313,9 +313,9 @@ void ModeGame::DoSlow(Vector2i _position)
 		}
 	}
 	Decoration d;
-	d.animation = StandardTextures::burning_animation;
+	d.animation = StandardTextures::slow_animation;
 	d.position = _position;
-	d.time_to_live = 0.5;
+	d.time_to_live = 1;
 	decorations_.push_back(d);
 	
 	cooldowns_["Slow"] = cooldown;
@@ -338,9 +338,9 @@ void ModeGame::DoCraze(Vector2i _position)
 		}
 	}
 	Decoration d;
-	d.animation = StandardTextures::burning_animation;
+	d.animation = StandardTextures::craze_animation;
 	d.position = _position;
-	d.time_to_live = 0.5;
+	d.time_to_live = 2.5f;
 	decorations_.push_back(d);
 	
 	cooldowns_["Craze"] = cooldown;
