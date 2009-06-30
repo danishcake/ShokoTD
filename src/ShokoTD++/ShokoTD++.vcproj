@@ -864,7 +864,47 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Campaigns\ToHellAndBack\Level 6.Level"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Level copier"
+						LevelSet="ToHellAndBack"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="Level copier"
+						LevelSet="ToHellAndBack"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Campaigns\ToHellAndBack\Secret 1.Level"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Level copier"
+						LevelSet="ToHellAndBack"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="Level copier"
+						LevelSet="ToHellAndBack"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Campaigns\ToHellAndBack\Secret 2.Level"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"

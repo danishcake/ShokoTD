@@ -1,4 +1,4 @@
-<?xml ?>
+<?xml version="1.0" ?>
 <Level>
   <Name>The harder path to walk</Name>
   <Author>Edward Woolhouse</Author>
@@ -145,5 +145,5 @@
   <Spawner x="4" y="4" d="South" />
   <Wave number="1" gap="3" start="5">
     <EnemyType type="Swarmer" weight="1"/>
-  </Wave>  
+  </Wave>
 </Level>

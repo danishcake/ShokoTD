@@ -474,7 +474,7 @@ WorldState::Enum World::Tick(float _dt)
 			(*it)->DeathTick(_dt);
 		}
 
-		if(state_ == WorldState::OK && lives_ == 0)
+		if(state_ == WorldState::OK && lives_ <= 0)
 		{
 			state_ = WorldState::Defeat;
 		}

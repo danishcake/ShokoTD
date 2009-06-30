@@ -36,16 +36,27 @@
       <LevelUnlock name="Level 5"/>
     </Unlockable>
     <Unlockable>
+      <Condition flawless="1"/>
+      <LevelUnlock name="Secret 2"/>
+    </Unlockable>
+    <Unlockable>
       <Condition alignment="Evil"/>
       <SkillUnlock name="Craze"/>
     </Unlockable>
   </Level>
   <Level name="Level 5" file="ToHellAndBack/Level 5.level" locked="1">
+    <Unlockable>
+      <SkillUnlock name="Level 6"/>
+    </Unlockable>
+  </Level>
+  <Level name="Level 6" file="ToHellAndBack/Level 6.level" locked="1">
   </Level>
   <Level name="Secret 1" file="ToHellAndBack/Secret 1.level" locked="1">
     <Unlockable>
       <Condition alignment="Good"/>
       <SkillUnlock name="PermaSlow"/>
     </Unlockable>
+  </Level>
+  <Level name="Secret 2" file="ToHellAndBack/Secret 2.level" locked="1">
   </Level>
 </Campaign>
