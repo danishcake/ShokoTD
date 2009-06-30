@@ -470,11 +470,23 @@
 						>
 					</File>
 					<File
+						RelativePath=".\Sprites\GUI\Craze_icon.png"
+						>
+					</File>
+					<File
 						RelativePath=".\Sprites\GUI\Padlock.png"
 						>
 					</File>
 					<File
+						RelativePath=".\Sprites\GUI\Permaslow_icon.png"
+						>
+					</File>
+					<File
 						RelativePath=".\Sprites\GUI\Slow_icon.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\SpawnPause_icon.png"
 						>
 					</File>
 				</Filter>

@@ -96,10 +96,17 @@ ModeAction::Enum ModeGame::Tick(float _dt)
 			end_dialogue_->SetText("Failed to load:\n" + level_, TextAlignment::TopLeft);
 		if(ltv_world_state_ == WorldState::Victory)
 		{
-			end_dialogue_->SetText("You are victorious!", TextAlignment::TopLeft);
 			GameReport gr;
 			gr.SetAlignment(AlignmentVector(world_->GetGoodKills(), world_->GetEvilKills()));
 			gr.SetFlawless(world_->GetLives() == world_->GetMaxLives());
+			std::string end_text = "You are victorious!\n\nYou saved:"  + boost::lexical_cast<std::string, int>(world_->GetGoodKills()) +
+														"\nYou doomed:" + boost::lexical_cast<std::string, int>(world_->GetEvilKills()) +
+														"\nSlippery slope effect:\nGood: +" + boost::lexical_cast<std::string, int>(gr.GetAlignment().GetGoodScore()) +
+														"\nEvil: +" + boost::lexical_cast<std::string, int>(gr.GetAlignment().GetEvilScore());
+
+			end_dialogue_->SetText(end_text, TextAlignment::TopLeft);
+			
+
 			progression_->ReportCompletion(level_, gr);
 		}
 		if(ltv_world_state_ == WorldState::Defeat)

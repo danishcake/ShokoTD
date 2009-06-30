@@ -55,7 +55,7 @@ public:
 	void SetHealth(float _health){health_ = _health;}
 	float GetHealth(){return health_;}
 	void TakeGoodDamage(float _damage){health_ -= _damage; good_damage_ += _damage;}
-	void TakeEvilDamage(float _damage){health_ -= _damage; good_damage_ += _damage;}
+	void TakeEvilDamage(float _damage){health_ -= _damage; evil_damage_ += _damage;}
 	float MoreEvilThanGood(){return evil_damage_ > good_damage_;}
 	/* Gets and sets the walker type */
 	void SetEnemyType(EnemyTypes::EnemyType* _enemy_type);

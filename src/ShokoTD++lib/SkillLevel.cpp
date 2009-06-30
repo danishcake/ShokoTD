@@ -9,7 +9,10 @@ SkillLevel::SkillLevel(std::string _level_name)
 
 unsigned int SkillLevel::GetUpgradeCost()
 {
-	return rank_costs_[level_ - 1];
+	if(level_ < max_level_)
+		return rank_costs_[level_ - 1];
+	else
+		return 0;
 }
 
 void SkillLevel::AddRank(unsigned int _cost)

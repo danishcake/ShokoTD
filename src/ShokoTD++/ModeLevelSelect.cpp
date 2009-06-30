@@ -8,6 +8,7 @@
 #include <ProgressLevel.h>
 #include <Progression.h>
 #include <boost/lexical_cast.hpp>
+#include <World.h>
 
 
 ModeLevelSelect::ModeLevelSelect(Progression* _progression)
@@ -86,7 +87,6 @@ std::vector<RenderItem> ModeLevelSelect::Draw()
 
 void ModeLevelSelect::ItemClick(Widget* _widget, std::string _text)
 {
-	description_->SetText(_text, TextAlignment::TopLeft);
 	last_selected_level_ = _text;
 	if(_text != "Locked")
 	{
@@ -99,38 +99,41 @@ void ModeLevelSelect::ItemClick(Widget* _widget, std::string _text)
 		std::string skill_text;
 		if(unlocked_skills.size()+ locked_skills.size() == 0)
 		{
-			skill_text = "Skills:\nNo unlocks";
+			skill_text = "Skills:\n\nNo unlocks";
 		} else
 		{
-			skill_text = "Skills:\n";
+			skill_text = "Skills:" + boost::lexical_cast<std::string, size_t>(unlocked_skills.size()) + "/" + 
+									 boost::lexical_cast<std::string, size_t>(unlocked_skills.size()+ locked_skills.size()) + "\n\n";
 			for(std::vector<std::string>::iterator it = unlocked_skills.begin(); it != unlocked_skills.end(); ++it)
 			{
 				skill_text = skill_text + *it + "\n";
-				//skill_text.append(*it); skill_text.append("\n");
 			}
-			skill_text = skill_text + "\n" + boost::lexical_cast<std::string, size_t>(unlocked_skills.size()) + "/" + 
-											 boost::lexical_cast<std::string, size_t>(unlocked_skills.size()+ locked_skills.size());
 		}
 		skill_unlocks_->SetText(skill_text, TextAlignment::TopLeft);
 
 		std::string level_text;
 		if(unlocked_levels.size()+ locked_levels.size() == 0)
 		{
-			level_text = "Levels:\nNo unlocks";
+			level_text = "Levels:\n\nNo unlocks";
 		} else
 		{
-			level_text = "Levels:\n";
+			level_text = "Levels:" + boost::lexical_cast<std::string, size_t>(unlocked_levels.size()) + "/" + 
+									 boost::lexical_cast<std::string, size_t>(unlocked_levels.size()+ locked_levels.size()) + "\n\n";
 			for(std::vector<std::string>::iterator it = unlocked_levels.begin(); it != unlocked_levels.end(); ++it)
 			{
 				level_text = level_text + *it + "\n";
-				//level_text.append(*it); level_text.append("\n");
 			}
-			level_text = level_text + "\n" + boost::lexical_cast<std::string, size_t>(unlocked_levels.size()) + "/" + 
-											 boost::lexical_cast<std::string, size_t>(unlocked_levels.size()+ locked_levels.size());
 		}
 		level_unlocks_->SetText(level_text, TextAlignment::TopLeft);
+		
+		World world(progression_->GetLevelFilename(_text));
+		if(!world.GetError())
+			description_->SetText(_text + "\n" + world.GetName(), TextAlignment::TopLeft);
+		else
+			description_->SetText(_text, TextAlignment::TopLeft);
 	} else
 	{
+		description_->SetText("Locked", TextAlignment::TopLeft);
 		level_unlocks_->SetText("Locked", TextAlignment::TopLeft);
 		skill_unlocks_->SetText("Locked", TextAlignment::TopLeft);
 	}

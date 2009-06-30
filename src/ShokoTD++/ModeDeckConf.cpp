@@ -109,13 +109,13 @@ void ModeDeckConfiguration::UpdateUpgradesPane()
 				switch(skill->GetAlignment())
 				{
 				case SkillAlignment::Good:
-					upgrades_pane_->SetText("Upgrades:\nAlignment: Good", TextAlignment::TopLeft);
+					upgrades_pane_->SetText(skill->GetName() + "\nUpgrades:\nAlignment: Good", TextAlignment::TopLeft);
 					break;
 				case SkillAlignment::Neutral:
-					upgrades_pane_->SetText("Upgrades:\nAlignment: Neutral", TextAlignment::TopLeft);
+					upgrades_pane_->SetText(skill->GetName() + "\nUpgrades:\nAlignment: Neutral", TextAlignment::TopLeft);
 					break;
 				case SkillAlignment::Evil:
-					upgrades_pane_->SetText("Upgrades:\nAlignment: Evil", TextAlignment::TopLeft);
+					upgrades_pane_->SetText(skill->GetName() + "\nUpgrades:\nAlignment: Evil", TextAlignment::TopLeft);
 					break;
 				}
 				
@@ -123,25 +123,25 @@ void ModeDeckConfiguration::UpdateUpgradesPane()
 				for(std::vector<SkillLevel>::iterator it = skill_levels.begin(); it != skill_levels.end(); ++it)
 				{
 					Widget* upgrade_name = new Widget("Blank192x32.png");
-					upgrade_name->SetPosition(Vector2i(10, 74) + Vector2i(0, 42) * upgrade_id);
+					upgrade_name->SetPosition(Vector2i(10, 98) + Vector2i(0, 42) * upgrade_id);
 					upgrade_name->SetText(it->GetName(), TextAlignment::Centre);
 					upgrade_name->SetRejectsFocus(true);
 					upgrades_pane_->AddChild(upgrade_name);
 					Widget* current_rank = new Widget("Blank32x32.png");
 					current_rank->SetText(boost::lexical_cast<std::string, int>(it->GetLevel()), TextAlignment::Centre);
-					current_rank->SetPosition(Vector2i(212, 74) + Vector2i(0, 42) * upgrade_id);
+					current_rank->SetPosition(Vector2i(212, 98) + Vector2i(0, 42) * upgrade_id);
 					current_rank->SetRejectsFocus(true);
 					upgrades_pane_->AddChild(current_rank);
 					if(it->GetLevel() < it->GetMaxLevel())
 					{
 						Widget* upgrade_cost = new Widget("Blank64x32.png");
-						upgrade_cost->SetPosition((Vector2i(254, 74) + Vector2i(0, 42) * upgrade_id));
+						upgrade_cost->SetPosition((Vector2i(254, 98) + Vector2i(0, 42) * upgrade_id));
 						upgrade_cost->SetText(boost::lexical_cast<std::string, unsigned int>(it->GetUpgradeCost()), TextAlignment::Centre);
 						upgrade_cost->SetRejectsFocus(true);
 						upgrades_pane_->AddChild(upgrade_cost);
 
 						Widget* upgrade_plus_one = new Widget("Blank32x32.png");
-						upgrade_plus_one->SetPosition(Vector2i(326, 74) + Vector2i(0, 42) * upgrade_id);
+						upgrade_plus_one->SetPosition(Vector2i(326, 98) + Vector2i(0, 42) * upgrade_id);
 						upgrade_plus_one->SetText("+", TextAlignment::Centre);
 						upgrade_plus_one->SetTag(it->GetName());
 						upgrades_pane_->AddChild(upgrade_plus_one);
@@ -156,13 +156,13 @@ void ModeDeckConfiguration::UpdateUpgradesPane()
 				switch(skill->GetAlignment())
 				{
 				case SkillAlignment::Good:
-					skill_text = "Skill locked\nAlignment: Good\n";
+					skill_text = skill->GetName() + "\nSkill locked\nAlignment: Good\n";
 					break;
 				case SkillAlignment::Neutral:
-					skill_text = "Skill locked\nAlignment: Neutral\n";
+					skill_text = skill->GetName() + "\nSkill locked\nAlignment: Neutral\n";
 					break;
 				case SkillAlignment::Evil:
-					skill_text = "Skill locked\nAlignment: Evil\n";
+					skill_text = skill->GetName() + "\nSkill locked\nAlignment: Evil\n";
 					break;
 				}
 				upgrades_pane_->SetText(skill_text + "Cost: " + boost::lexical_cast<std::string, unsigned int>(skill->GetCost()), TextAlignment::TopLeft);
@@ -197,6 +197,7 @@ void ModeDeckConfiguration::BuySkillClick(Widget* _widget)
 				progression_->SpendPoints(skill->GetCost(), 0);
 				skill->SetPurchased(true);
 				known_skills_->PerformItemLayout();
+				selected_skills_->PerformItemLayout();
 				skill_needs_update_ = true;
 			}
 			break;
@@ -207,6 +208,7 @@ void ModeDeckConfiguration::BuySkillClick(Widget* _widget)
 				progression_->SpendPoints(skill->GetCost(), skill->GetCost());
 				skill->SetPurchased(true);
 				known_skills_->PerformItemLayout();
+				selected_skills_->PerformItemLayout();
 				skill_needs_update_ = true;
 			}
 			break;
@@ -216,6 +218,7 @@ void ModeDeckConfiguration::BuySkillClick(Widget* _widget)
 				progression_->SpendPoints(0, skill->GetCost());
 				skill->SetPurchased(true);
 				known_skills_->PerformItemLayout();
+				selected_skills_->PerformItemLayout();
 				skill_needs_update_ = true;
 			}
 			break;
