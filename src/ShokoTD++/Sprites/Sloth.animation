@@ -1,15 +1,15 @@
 <AnimationSet>
   <Animation Name="North">
-    <Frame Width="24" Height="24" Top="96" Left="0" File="Sloth.png" Time="0.3"/>
-    <Frame Width="24" Height="24" Top="96" Left="24" File="Sloth.png" Time="0.3"/>
-    <Frame Width="24" Height="24" Top="96" Left="48" File="Sloth.png" Time="0.3"/>
-    <Frame Width="24" Height="24" Top="96" Left="72" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="72" Left="0" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="72" Left="24" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="72" Left="48" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="72" Left="72" File="Sloth.png" Time="0.3"/>
   </Animation>
   <Animation Name="South">
-    <Frame Width="24" Height="24" Top="64" Left="0" File="Sloth.png" Time="0.3"/>
-    <Frame Width="24" Height="24" Top="64" Left="24" File="Sloth.png" Time="0.3"/>
-    <Frame Width="24" Height="24" Top="64" Left="48" File="Sloth.png" Time="0.3"/>
-    <Frame Width="24" Height="24" Top="64" Left="72" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="48" Left="0" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="48" Left="24" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="48" Left="48" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="48" Left="72" File="Sloth.png" Time="0.3"/>
   </Animation>
   <Animation Name="East">
     <Frame Width="24" Height="24" Top="0" Left="0" File="Sloth.png" Time="0.3"/>
@@ -18,10 +18,10 @@
     <Frame Width="24" Height="24" Top="0" Left="72" File="Sloth.png" Time="0.3"/>
   </Animation>
   <Animation Name="West">
-    <Frame Width="24" Height="24" Top="32" Left="0" File="Sloth.png" Time="0.3"/>
-    <Frame Width="24" Height="24" Top="32" Left="24" File="Sloth.png" Time="0.3"/>
-    <Frame Width="24" Height="24" Top="32" Left="48" File="Sloth.png" Time="0.3"/>
-    <Frame Width="24" Height="24" Top="32" Left="72" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="24" Left="0" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="24" Left="24" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="24" Left="48" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="24" Left="72" File="Sloth.png" Time="0.3"/>
   </Animation>
   <Animation Name="Stopped">
     <Frame Width="24" Height="24" Top="0" Left="0" File="Sloth.png" Time="0.3"/>
