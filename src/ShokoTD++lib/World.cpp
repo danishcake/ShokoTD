@@ -466,17 +466,15 @@ WorldState::Enum World::Tick(float _dt)
 			(*it)->DeathTick(_dt);
 		}
 
-		if(state_ == WorldState::OK && active_waves_.size() == 0 && enemies_.size() == 0)
-		{
-			state_ = WorldState::Victory;
-		}
-
 		if(state_ == WorldState::OK && lives_ == 0)
 		{
 			state_ = WorldState::Defeat;
 		}
 
-		
+		if(state_ == WorldState::OK && active_waves_.size() == 0 && enemies_.size() == 0)
+		{
+			state_ = WorldState::Victory;
+		}
 	}
 
 	//Tick enemies

@@ -15,5 +15,21 @@
     </Unlockable>
   </Level>
   <Level name="Level 3" file="ToHellAndBack/Level 3.level" locked="1">
+    <Unlockable>
+      <LevelUnlock name="Level 4"/>
+    </Unlockable>
+    <Unlockable>
+      <Condition alignment="Good"/>
+      <LevelUnlock name="Secret 1"/>
+    </Unlockable>    
+  </Level>
+  <Level name="Level 4" file="ToHellAndBack/Level 4.level" locked="1">
+    <Unlockable>
+      <LevelUnlock name="Level 5"/>
+    </Unlockable>
+  </Level>
+  <Level name="Level 5" file="ToHellAndBack/Level 5.level" locked="1">
+  </Level>
+  <Level name="Secret 1" file="ToHellAndBack/Secret 1.level" locked="1">
   </Level>
 </Campaign>

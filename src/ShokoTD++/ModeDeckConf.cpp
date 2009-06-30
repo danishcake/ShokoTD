@@ -297,12 +297,18 @@ void ModeDeckConfiguration::ItemDragEnter(Widget* _widget, DragEventArgs* _drag_
 
 void ModeDeckConfiguration::Accept(Widget* _widget)
 {
-	pend_mode_ = new ModeGame(next_level_, progression_->GetLevelFilename(next_level_), selected_skills_->GetItems(), progression_);
+	if(!pend_mode_ && selected_skills_->GetItems().size() > 0)
+	{
+		pend_mode_ = new ModeGame(next_level_, progression_->GetLevelFilename(next_level_), selected_skills_->GetItems(), progression_);
+	}
 }
 
 void ModeDeckConfiguration::GoBack(Widget* _widget)
 {
-	pend_mode_ = new ModeLevelSelect(progression_);
+	if(!pend_mode_)
+	{
+		pend_mode_ = new ModeLevelSelect(progression_);
+	}
 }
 
 void ModeDeckConfiguration::ItemClick(Widget* _widget, std::string _item)

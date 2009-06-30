@@ -1,5 +1,6 @@
 <Enemies>
 	<Enemy name="Swarmer" animation="swarmer.animation" health ="100" speed ="3"/>
-	<Enemy name="Bludgeoner" animation="bludgeoner.animation" health ="100" speed ="3"/>
+	<Enemy name="Bludgeoner" animation="bludgeoner.animation" health ="160" speed ="3"/>
   <Enemy name="Sloth" animation="sloth.animation" health ="600" speed ="1"/>
+  <Enemy name="Sprinter" animation="sprinter.animation" health ="50" speed ="8"/>
 </Enemies>

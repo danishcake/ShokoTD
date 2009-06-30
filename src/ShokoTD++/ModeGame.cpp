@@ -117,8 +117,11 @@ ModeAction::Enum ModeGame::Tick(float _dt)
 			end_dialogue_->SetPosition(Vector2i(320-192, 240 - 192));
 		}
 	}
-
-
+	
+	BOOST_FOREACH(cooldown_t::value_type &cooldown, cooldowns_)
+	{
+		cooldown.second -= _dt;
+	}
 
 	ModeAction::Enum result = IMode::Tick(_dt);
 	Widget::SetFade(fade_);
@@ -144,7 +147,13 @@ void ModeGame::GridClick(Widget* _widget, MouseEventArgs _args)
 	switch(selected_skill_)
 	{
 	case Skills::Arrows:
-		
+		if(_args.btns == MouseButton::Right)
+			world_->ClearArrow(Vector2i(_args.x, _args.y));
+		if(_args.btns == MouseButton::Middle)
+			world_->ClearArrows();
+		break;
+	case Skills::Burn:
+		DoBurn(Vector2i(_args.x, _args.y));
 		break;
 	}
 }
@@ -177,27 +186,10 @@ void ModeGame::GridGesture(Widget* _widget, GridGestureEventArgs _args)
 		switch(selected_skill_)
 		{
 		case Skills::Arrows:
-			if(direction != Direction::Stopped)
-			{
-				//if(world_->GetArrowsInUse() < progression_->GetSkillsManager().GetSkill("Arrows")->Get
-				if(world_->GetArrowsInUse() < progression_->GetSkillsManager().GetSkill("Arrows")->GetSkillLevel("Maximum")->GetLevel() + 1)
-				{
-					world_->ToggleArrow(Vector2i(_args.x, _args.y), direction, progression_->GetSkillsManager().GetSkill("Arrows")->GetSkillLevel("Durability")->GetLevel() + 1);
-				} else
-				{
-					world_->ClearArrow(Vector2i(_args.x, _args.y));
-				}
-			}
+			DoArrows(Vector2i(_args.x, _args.y), direction);
 			break;
 		case Skills::Burn:
-			std::vector<Walker*> walkers = world_->GetEnemies();
-			for(std::vector<Walker*>::iterator it = walkers.begin(); it != walkers.end(); ++it)
-			{
-				if(((*it)->GetPosition() - Vector2f(_args.x, _args.y)).length() < 1)
-				{
-					(*it)->TakeEvilDamage(200);
-				}
-			}
+			DoBurn(Vector2i(_args.x, _args.y));
 			break;
 		}
 	}
@@ -217,7 +209,33 @@ void ModeGame::QuitClick(Widget* _widget)
 }
 
 
-
+void ModeGame::DoArrows(Vector2i _position, Direction::Enum _direction)
+{
+	if(_direction != Direction::Stopped)
+	{
+		if(world_->GetArrowsInUse() < progression_->GetSkillsManager().GetSkill("Arrows")->GetSkillLevel("Maximum")->GetLevel() + 1)
+		{
+			world_->ToggleArrow(_position, _direction, progression_->GetSkillsManager().GetSkill("Arrows")->GetSkillLevel("Durability")->GetLevel() + 1);
+		} else
+		{
+			world_->ClearArrow(_position);
+		}
+	}
+}
+void ModeGame::DoBurn(Vector2i _position)
+{
+	std::vector<Walker*> walkers = world_->GetEnemies();
+	for(std::vector<Walker*>::iterator it = walkers.begin(); it != walkers.end(); ++it)
+	{
+		if(((*it)->GetPosition() - _position).length() < 1)
+		{
+			float damage = progression_->GetSkillsManager().GetSkill("Burn")->GetSkillLevel("Damage")->GetLevel() * 80;
+			float cooldown = 5.0f - progression_->GetSkillsManager().GetSkill("Burn")->GetSkillLevel("Cooldown")->GetLevel() * 0.6f;
+			(*it)->TakeEvilDamage(damage);
+			cooldowns_["Burn"] = cooldown;
+		}
+	}
+}
 
 
 

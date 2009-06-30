@@ -2,6 +2,7 @@
 #include <IMode.h>
 #include <Skills.h>
 #include <GameGridWidget.h>
+#include <map>
 class Widget;
 class ItemBrowserWidget;
 class BlittableRect;
@@ -11,6 +12,11 @@ struct MouseEventArgs;
 struct DragEventArgs;
 
 namespace WorldState
+{
+	enum Enum;
+}
+
+namespace Direction
 {
 	enum Enum;
 }
@@ -36,6 +42,12 @@ private:
 	void GridGesture(Widget* _widget, GridGestureEventArgs _args);
 
 	Progression* progression_;
+
+	/* Skill firing */
+	typedef std::map<std::string, float> cooldown_t;
+	cooldown_t cooldowns_;
+	void DoArrows(Vector2i _position, Direction::Enum _direction);
+	void DoBurn(Vector2i _position);
 	
 public:
 	ModeGame(std::string _level_name, std::string _level_file, std::vector<std::string> _skills, Progression* _progression);

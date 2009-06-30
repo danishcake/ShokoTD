@@ -382,6 +382,14 @@
 							LevelSet=""
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="Level copier"
+							LevelSet=""
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath=".\Skills.xml"
