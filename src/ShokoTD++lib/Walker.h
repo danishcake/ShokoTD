@@ -33,6 +33,8 @@ protected:
 
 	WalkerState::Enum walker_state_;
 	float death_time_;
+	float slow_time_;
+	float slow_factor_;
 
 public:
 	Walker(void);
@@ -51,6 +53,7 @@ public:
 	/* Gets and sets the walker speed */
 	void SetSpeed(float _speed);
 	float GetSpeed(){return speed_;}
+	void SlowDown(float _slowtime, float _slowfactor){slow_time_ = _slowtime; slow_factor_ = _slowfactor;}
 	/* Gets and sets the walker health */
 	void SetHealth(float _health){health_ = _health;}
 	float GetHealth(){return health_;}
@@ -60,7 +63,6 @@ public:
 	/* Gets and sets the walker type */
 	void SetEnemyType(EnemyTypes::EnemyType* _enemy_type);
 	EnemyTypes::EnemyType* GetEnemyType(){return enemy_type_;}
-
 
 
 	/* Gets and sets the world */

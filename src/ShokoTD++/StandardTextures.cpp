@@ -25,6 +25,8 @@ namespace StandardTextures
 	Animation* wall_vert_animation = 0;
 	Animation* spawner_animation = 0;
 	Animation* burning_animation = 0;
+	Animation* slow_animation = 0;
+	Animation* craze_animation = 0;
 
 	void LoadTextures()
 	{

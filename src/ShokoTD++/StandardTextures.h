@@ -19,7 +19,9 @@ namespace StandardTextures
 	extern Animation* grid_animation;
 	extern Animation* spawner_animation;
 	extern Animation* burning_animation;
-
+	extern Animation* slow_animation;
+	extern Animation* craze_animation;
+	extern Animation* burning_animation;
 
 	void LoadTextures();
 	void TickAnimations(float _dt);

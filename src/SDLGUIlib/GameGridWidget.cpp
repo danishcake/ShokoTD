@@ -52,8 +52,8 @@ void GameGridWidget::GridDragStart(Widget* _widget, DragEventArgs* _args)
 void GameGridWidget::GridDragReset(Widget* _widget, DragEventArgs* _args)
 {
 	GridGestureEventArgs e;
-	e.x = _args->sx / item_size_.x;
-	e.y = _args->sy / item_size_.y;
+	e.x = (_args->sx + offset_.x) / item_size_.x;
+	e.y = (_args->sy + offset_.y) / item_size_.y;
 	e.direction = GestureDirection::Center;
 
 	float angle = atan2f(_args->x, -_args->y);

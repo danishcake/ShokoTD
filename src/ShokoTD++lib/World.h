@@ -83,6 +83,7 @@ protected:
 	vector<Spawner> spawners_;
 	
 	float sum_time_;
+	float spawn_pause_time_;
 	vector<Wave> active_waves_;
 	vector<Wave> finsished_waves_;
 
@@ -132,7 +133,10 @@ public:
 	void ToggleHole(Vector2i _position);
 	//TODO void ToggleSpawner(Vector2i _position, Direction::Enum
 
+	//Spawning functions
 	vector<Spawner> GetSpawners(){return spawners_;}
+	void SpawnPause(float _duration){spawn_pause_time_ = _duration;}
+
 
 	//Gets / sets the name of the level
 	string GetName(){return name_;}

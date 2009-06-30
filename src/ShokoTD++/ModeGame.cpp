@@ -65,7 +65,7 @@ void ModeGame::Setup()
 	click_catcher->SetPosition(Vector2i(8, 69));
 	click_catcher->OnGridClick.connect(boost::bind(&ModeGame::GridClick, this, _1, _2));
 	click_catcher->OnGridGesture.connect(boost::bind(&ModeGame::GridGesture, this, _1, _2));
-	click_catcher->SetOffset(Vector2i(49, 0));
+	click_catcher->SetOffset(Vector2i(0, 0));
 
 	end_dialogue_ = new Widget("Blank384x384.png");
 	
@@ -171,6 +171,18 @@ void ModeGame::GridClick(Widget* _widget, MouseEventArgs _args)
 	case Skills::Burn:
 		DoBurn(Vector2i(_args.x, _args.y));
 		break;
+		case Skills::PermaSlow:
+			DoPermaSlow();
+			break;
+		case Skills::Craze:
+			DoCraze(Vector2i(_args.x, _args.y));
+			break;
+		case Skills::Slow:
+			DoSlow(Vector2i(_args.x, _args.y));
+			break;
+		case Skills::SpawnPause:
+			DoSpawnPause();
+			break;
 	}
 }
 
@@ -207,6 +219,18 @@ void ModeGame::GridGesture(Widget* _widget, GridGestureEventArgs _args)
 		case Skills::Burn:
 			DoBurn(Vector2i(_args.x, _args.y));
 			break;
+		case Skills::PermaSlow:
+			DoPermaSlow();
+			break;
+		case Skills::Craze:
+			DoCraze(Vector2i(_args.x, _args.y));
+			break;
+		case Skills::Slow:
+			DoSlow(Vector2i(_args.x, _args.y));
+			break;
+		case Skills::SpawnPause:
+			DoSpawnPause();
+			break;
 		}
 	}
 }
@@ -222,6 +246,15 @@ void ModeGame::QuitClick(Widget* _widget)
 			pend_mode_ = new ModeDeckConfiguration(level_, progression_);
 	}
 	
+}
+
+bool ModeGame::CooldownOK(std::string _skillname)
+{
+	if(cooldowns_.find(_skillname) != cooldowns_.end())
+	{
+		return cooldowns_[_skillname] <= 0;
+	}
+	return true;
 }
 
 void ModeGame::DoArrows(Vector2i _position, Direction::Enum _direction)
@@ -240,15 +273,18 @@ void ModeGame::DoArrows(Vector2i _position, Direction::Enum _direction)
 
 void ModeGame::DoBurn(Vector2i _position)
 {
+	if(!CooldownOK("Burn"))
+		return;
+	
+	float damage = progression_->GetSkillsManager().GetSkill("Burn")->GetSkillLevel("Damage")->GetLevel() * 80;
+	float cooldown = 4.0f - progression_->GetSkillsManager().GetSkill("Burn")->GetSkillLevel("Cooldown")->GetLevel() * 0.6f;
+
 	std::vector<Walker*> walkers = world_->GetEnemies();
 	for(std::vector<Walker*>::iterator it = walkers.begin(); it != walkers.end(); ++it)
 	{
 		if(((*it)->GetPosition() - _position).length() < 1)
 		{
-			float damage = progression_->GetSkillsManager().GetSkill("Burn")->GetSkillLevel("Damage")->GetLevel() * 80;
-			float cooldown = 5.0f - progression_->GetSkillsManager().GetSkill("Burn")->GetSkillLevel("Cooldown")->GetLevel() * 0.6f;
 			(*it)->TakeEvilDamage(damage);
-			cooldowns_["Burn"] = cooldown;
 		}
 	}
 	Decoration d;
@@ -256,7 +292,74 @@ void ModeGame::DoBurn(Vector2i _position)
 	d.position = _position;
 	d.time_to_live = 0.5;
 	decorations_.push_back(d);
+	
+	cooldowns_["Burn"] = cooldown;
 }
+
+void ModeGame::DoSlow(Vector2i _position)
+{
+	if(!CooldownOK("Slow"))
+		return;
+
+	float duration = progression_->GetSkillsManager().GetSkill("Slow")->GetSkillLevel("Duration")->GetLevel() * 1.0f + 2.0f;
+	float cooldown = 4.0f - progression_->GetSkillsManager().GetSkill("Slow")->GetSkillLevel("Cooldown")->GetLevel() * 0.6f;
+
+	std::vector<Walker*> walkers = world_->GetEnemies();
+	for(std::vector<Walker*>::iterator it = walkers.begin(); it != walkers.end(); ++it)
+	{
+		if(((*it)->GetPosition() - _position).length() < 2)
+		{
+			(*it)->SlowDown(duration, 0.3f);
+		}
+	}
+	Decoration d;
+	d.animation = StandardTextures::burning_animation;
+	d.position = _position;
+	d.time_to_live = 0.5;
+	decorations_.push_back(d);
+	
+	cooldowns_["Slow"] = cooldown;
+}
+
+void ModeGame::DoCraze(Vector2i _position)
+{
+	
+}
+
+void ModeGame::DoSpawnPause()
+{
+	if(!CooldownOK("SpawnPause"))
+		return;
+
+	float cooldown = 16.5 - progression_->GetSkillsManager().GetSkill("SpawnPause")->GetSkillLevel("Cooldown")->GetLevel() * 1.5f;
+	float duration = 4 + progression_->GetSkillsManager().GetSkill("SpawnPause")->GetSkillLevel("Duration")->GetLevel() * 1.0f;
+
+	world_->SpawnPause(duration);
+	
+
+	cooldowns_["SpawnPause"] = cooldown;
+}
+
+void ModeGame::DoPermaSlow()
+{
+	if(!CooldownOK("PermaSlow"))
+		return;
+
+	float cooldown = 16.5 - progression_->GetSkillsManager().GetSkill("PermaSlow")->GetSkillLevel("Cooldown")->GetLevel() * 1.5f;
+
+	std::vector<Walker*> walkers = world_->GetEnemies();
+	for(std::vector<Walker*>::iterator it = walkers.begin(); it != walkers.end(); ++it)
+	{
+		(*it)->SlowDown(10000.0f, 0.25f); //Approximately forver ;)
+	}
+
+	cooldowns_["PermaSlow"] = cooldown;
+}
+
+
+
+
+
 
 std::vector<RenderItem> ModeGame::Draw()
 {

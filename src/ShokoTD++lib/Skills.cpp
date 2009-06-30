@@ -4,7 +4,10 @@ namespace Skills
 {
 	static const char* EnumStr[] = {STRME(Arrows),
 								STRME(Slow),
-								STRME(Burn)};
+								STRME(Burn),
+								STRME(Craz), 
+								STRME(SpawnPause), 
+								STRME(PermaSlow)};
 
 	Enum FromString(std::string _skill)
 	{

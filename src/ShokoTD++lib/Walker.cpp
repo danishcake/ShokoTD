@@ -25,6 +25,8 @@ Walker::Walker(void)
 	health_ = 100;
 	evil_damage_ = 0;
 	good_damage_ = 0;
+	slow_factor_ = 1;
+	slow_time_ = 0;
 }
 
 Walker::~Walker(void)
@@ -56,7 +58,11 @@ bool Walker::DoTurns()
 
 void Walker::Advance(float _timespan)
 {
-	float distance_to_go = speed_ * _timespan;
+	if(slow_time_ > 0)
+		slow_time_ -= _timespan;
+	else
+		slow_factor_ = 1;
+	float distance_to_go = speed_ * _timespan * slow_factor_;
 	while(distance_to_go > 0)
 	{	
 		float distance_to_next = 0;

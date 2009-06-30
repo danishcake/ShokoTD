@@ -60,8 +60,13 @@ private:
 	/* Skill firing */
 	typedef std::map<std::string, float> cooldown_t;
 	cooldown_t cooldowns_;
+	bool CooldownOK(std::string _skillname);
 	void DoArrows(Vector2i _position, Direction::Enum _direction);
 	void DoBurn(Vector2i _position);
+	void DoSlow(Vector2i _position);
+	void DoCraze(Vector2i _position);
+	void DoSpawnPause();
+	void DoPermaSlow();
 
 	
 public:

@@ -64,6 +64,7 @@ namespace SquareType
 World::World(void)
 {
 	sum_time_ = 0;
+	spawn_pause_time_ = 0;
 	size_ = Vector2i(20, 20);
 	walls_ = vector<vector<TopLeft>>(size_.x, vector<TopLeft>(size_.y));
 	special_squares_ = vector<vector<SquareType::Enum>>(size_.x, vector<SquareType::Enum>(size_.y));
@@ -84,6 +85,7 @@ World::World(void)
 World::World(std::string _filename)
 {
 	sum_time_ = 0;
+	spawn_pause_time_ = 0;
 	neutral_kills_ = 0;
 	evil_kills_ = 0;
 	good_kills_ = 0;
@@ -416,28 +418,34 @@ WorldState::Enum World::Tick(float _dt)
 
 	if(state_ == WorldState::OK)
 	{
-		//Tick waves
-		for(vector<Wave>::iterator it = active_waves_.begin(); it != active_waves_.end(); ++it)
+		if(spawn_pause_time_ > 0)
 		{
-			if(sum_time_ > it->start_time)
+			spawn_pause_time_ -= _dt;
+		} else
+		{
+			//Tick waves
+			for(vector<Wave>::iterator it = active_waves_.begin(); it != active_waves_.end(); ++it)
 			{
-				//Spawn enemy
-				it->enemy_count--;
-				it->start_time = sum_time_ + it->spawn_time_gap;
-				for(vector<Spawner>::iterator it2 = spawners_.begin(); it2 != spawners_.end(); ++it2)
+				if(sum_time_ > it->start_time)
 				{
-					Walker* spawned_walker = it->Spawn();
-					spawned_walker->SetPosition(it2->Position);
-					spawned_walker->SetDirection(it2->Direction);
-					spawned_walker->SetWorld(this);
-					enemies_.push_back(spawned_walker);
+					//Spawn enemy
+					it->enemy_count--;
+					it->start_time = sum_time_ + it->spawn_time_gap;
+					for(vector<Spawner>::iterator it2 = spawners_.begin(); it2 != spawners_.end(); ++it2)
+					{
+						Walker* spawned_walker = it->Spawn();
+						spawned_walker->SetPosition(it2->Position);
+						spawned_walker->SetDirection(it2->Direction);
+						spawned_walker->SetWorld(this);
+						enemies_.push_back(spawned_walker);
+					}
 				}
+				if(it->enemy_count == 0)
+					finsished_waves_.push_back(*it);
 			}
-			if(it->enemy_count == 0)
-				finsished_waves_.push_back(*it);
+			active_waves_.erase(std::remove_if(active_waves_.begin(),active_waves_.end(),
+								&Wave::IsDone), active_waves_.end());
 		}
-		active_waves_.erase(std::remove_if(active_waves_.begin(),active_waves_.end(),
-							&Wave::IsDone), active_waves_.end());
 
 		//Walk forward
 		for(vector<Walker*>::iterator it = enemies_.begin(); it != enemies_.end(); ++it)
