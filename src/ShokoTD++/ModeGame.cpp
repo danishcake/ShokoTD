@@ -123,6 +123,14 @@ ModeAction::Enum ModeGame::Tick(float _dt)
 		cooldown.second -= _dt;
 	}
 
+	BOOST_FOREACH(Decoration& decoration, decorations_)
+	{
+		decoration.time_to_live -= _dt;
+	}
+
+	decorations_.erase(std::remove_if(decorations_.begin(), decorations_.end(), boost::bind(&Decoration::IsDead, _1)), decorations_.end());
+
+
 	ModeAction::Enum result = IMode::Tick(_dt);
 	Widget::SetFade(fade_);
 	return result;
@@ -222,6 +230,7 @@ void ModeGame::DoArrows(Vector2i _position, Direction::Enum _direction)
 		}
 	}
 }
+
 void ModeGame::DoBurn(Vector2i _position)
 {
 	std::vector<Walker*> walkers = world_->GetEnemies();
@@ -235,11 +244,12 @@ void ModeGame::DoBurn(Vector2i _position)
 			cooldowns_["Burn"] = cooldown;
 		}
 	}
+	Decoration d;
+	d.animation = StandardTextures::burning_animation;
+	d.position = _position;
+	d.time_to_live = 0.5;
+	decorations_.push_back(d);
 }
-
-
-
-
 
 std::vector<RenderItem> ModeGame::Draw()
 {
@@ -287,6 +297,15 @@ std::vector<RenderItem> ModeGame::Draw()
 		ri.position_ = spawner.Position;
 		ri.frame_ = StandardTextures::spawner_animation->GetCurrentFrame();
 		ri.depth = below;
+		draw_list.push_back(ri);
+	}
+
+	BOOST_FOREACH(Decoration& decoration, decorations_)
+	{
+		RenderItem ri;
+		ri.position_ = decoration.position;
+		ri.frame_ = decoration.animation->GetCurrentFrame();
+		ri.depth = above;
 		draw_list.push_back(ri);
 	}
 

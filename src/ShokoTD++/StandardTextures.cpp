@@ -24,8 +24,8 @@ namespace StandardTextures
 	Animation* wall_horz_animation = 0;
 	Animation* wall_vert_animation = 0;
 	Animation* spawner_animation = 0;
+	Animation* burning_animation = 0;
 
-	
 	void LoadTextures()
 	{
 		//Free textures if already loaded TODO
@@ -72,6 +72,18 @@ namespace StandardTextures
 			Logger::ErrorOut() << "Unable to load FlyingSaucer animations\n";
 		}
 
+		AnimationSet* burning_animation_set = SDLTextureManager::GetAnimationSet("Burning.animation");
+		if(burning_animation_set)
+		{
+			burning_animation =  burning_animation_set->GetAnimation("Burn");
+			if(!burning_animation)
+			{
+				Logger::ErrorOut() << "Unable to load burning animation 'Burn'\n";
+			}
+		} else
+		{
+			Logger::ErrorOut() << "Unable to load Burning animations\n";
+		}
 
 		AnimationSet* arrow_animation_set = SDLTextureManager::GetAnimationSet(Settings::GetArrowsSprite());
 		if(arrow_animation_set)
@@ -139,5 +151,6 @@ namespace StandardTextures
 		cross_animation->Tick(_dt);
 		rocket_normal_animation->Tick(_dt);
 		spawner_animation->Tick(_dt);
+		burning_animation->Tick(_dt);
 	}
 }

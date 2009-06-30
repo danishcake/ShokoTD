@@ -18,6 +18,7 @@ namespace StandardTextures
 	extern Animation* wall_vert_animation;
 	extern Animation* grid_animation;
 	extern Animation* spawner_animation;
+	extern Animation* burning_animation;
 
 
 	void LoadTextures();

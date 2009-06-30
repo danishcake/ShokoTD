@@ -703,6 +703,18 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Burning"
+				>
+				<File
+					RelativePath=".\Sprites\Burning.animation"
+					>
+				</File>
+				<File
+					RelativePath=".\Sprites\Burning.png"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Levels"

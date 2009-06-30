@@ -10,6 +10,7 @@ class World;
 class Progression;
 struct MouseEventArgs;
 struct DragEventArgs;
+class Animation;
 
 namespace WorldState
 {
@@ -21,10 +22,23 @@ namespace Direction
 	enum Enum;
 }
 
+struct Decoration
+{
+	Vector2i position;
+	Animation* animation;
+	float time_to_live;
+
+	static bool IsDead(Decoration _deco)
+	{
+		return _deco.time_to_live < 0;
+	}
+};
+
 class ModeGame :
 	public IMode
 {
 private:
+	std::vector<Decoration> decorations_;
 	std::vector<std::string> skills_;
 	Skills::Enum selected_skill_;
 	std::string level_;
@@ -48,6 +62,7 @@ private:
 	cooldown_t cooldowns_;
 	void DoArrows(Vector2i _position, Direction::Enum _direction);
 	void DoBurn(Vector2i _position);
+
 	
 public:
 	ModeGame(std::string _level_name, std::string _level_file, std::vector<std::string> _skills, Progression* _progression);

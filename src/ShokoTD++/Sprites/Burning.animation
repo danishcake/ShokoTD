@@ -1,0 +1,12 @@
+<AnimationSet>
+  <Animation Name="Burn">
+    <Frame Width="48" Height="48" Top="0" Left="0" OffsetX="12" OffsetY="24" File="Burning.png" Time="0.05"/>
+    <Frame Width="48" Height="48" Top="0" Left="48" OffsetX="12" OffsetY="24" File="Burning.png" Time="0.05"/>
+    <Frame Width="48" Height="48" Top="0" Left="96" OffsetX="12" OffsetY="24" File="Burning.png" Time="0.05"/>
+    <Frame Width="48" Height="48" Top="0" Left="144" OffsetX="12" OffsetY="24" File="Burning.png" Time="0.05"/>
+    <Frame Width="48" Height="48" Top="0" Left="192" OffsetX="12" OffsetY="24" File="Burning.png" Time="0.05"/>
+    <Frame Width="48" Height="48" Top="0" Left="240" OffsetX="12" OffsetY="24" File="Burning.png" Time="0.05"/>
+    <Frame Width="48" Height="48" Top="0" Left="288" OffsetX="12" OffsetY="24" File="Burning.png" Time="0.05"/>
+    <Frame Width="48" Height="48" Top="0" Left="336" OffsetX="12" OffsetY="24" File="Burning.png" Time="0.05"/>
+  </Animation>
+</AnimationSet>

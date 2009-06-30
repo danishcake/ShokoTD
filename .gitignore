@@ -11,6 +11,7 @@ bin/SDLGUIlibTests/Release/SDLGUIlibTests.exe
 bin/SDLGUIlibTests/Release/SDLGUIlibTests.pdb
 bin/SDLGUIlibTests/Release/animations/
 bin/ShokoTD/Debug/ShokoTD++.exe
+bin/ShokoTD/Debug/Enemies.xml
 bin/ShokoTD/Debug/Diagnostic.txt
 bin/ShokoTD/Debug/ErrorLog.txt
 bin/ShokoTD/Debug/ShokoTD++.ilk
@@ -25,6 +26,7 @@ bin/ShokoTD/Release/ErrorLog.txt
 bin/ShokoTD/Release/Settings.xml
 bin/ShokoTD/Release/ShokoTD++.pdb
 bin/ShokoTD/Release/Skills.xml
+bin/ShokoTD/Release/Enemies.xml
 bin/ShokoTD/Release/animations/
 bin/ShokoTD/Release/levels/
 bin/shokotdlibtests/
