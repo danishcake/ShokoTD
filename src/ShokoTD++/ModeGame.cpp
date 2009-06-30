@@ -99,6 +99,7 @@ ModeAction::Enum ModeGame::Tick(float _dt)
 			end_dialogue_->SetText("You are victorious!", TextAlignment::TopLeft);
 			GameReport gr;
 			gr.SetAlignment(AlignmentVector(world_->GetGoodKills(), world_->GetEvilKills()));
+			gr.SetFlawless(world_->GetLives() == world_->GetMaxLives());
 			progression_->ReportCompletion(level_, gr);
 		}
 		if(ltv_world_state_ == WorldState::Defeat)
@@ -215,7 +216,6 @@ void ModeGame::QuitClick(Widget* _widget)
 	}
 	
 }
-
 
 void ModeGame::DoArrows(Vector2i _position, Direction::Enum _direction)
 {

@@ -14,6 +14,21 @@
       <Level rank="5" cost="120" effect="+1"/>
     </Upgrade>
   </Skill>
+  <Skill name="SpawnPause" alignment="neutral">
+    <InitialCost>60</InitialCost>
+    <Upgrade name ="Cooldown">
+      <Level rank="2" cost="50" />
+      <Level rank="3" cost="100" />
+      <Level rank="4" cost="150" />
+      <Level rank="5" cost="200" />
+    </Upgrade>
+    <Upgrade name ="Duration">
+      <Level rank="2" cost="50" />
+      <Level rank="3" cost="100" />
+      <Level rank="4" cost="150" />
+      <Level rank="5" cost="200" />
+    </Upgrade>
+  </Skill>
   <Skill name="Burn" alignment="evil">
     <InitialCost>35</InitialCost>
     <Upgrade name ="Cooldown">
@@ -27,6 +42,45 @@
       <Level rank="3" cost="30" effect="+1"/>
       <Level rank="4" cost="50" effect="+1"/>
       <Level rank="5" cost="70" effect="+1"/>
+    </Upgrade>
+  </Skill>
+  <Skill name="Craze" alignment="evil">
+    <InitialCost>80</InitialCost>
+    <Upgrade name ="Cooldown">
+      <Level rank="2" cost="50" />
+      <Level rank="3" cost="100" />
+      <Level rank="4" cost="150" />
+      <Level rank="5" cost="200" />
+    </Upgrade>
+    <Upgrade name ="Duration">
+      <Level rank="2" cost="50" />
+      <Level rank="3" cost="100" />
+      <Level rank="4" cost="150" />
+      <Level rank="5" cost="200" />
+    </Upgrade>
+  </Skill>
+  <Skill name="Slow" alignment="good">
+    <InitialCost>35</InitialCost>
+    <Upgrade name ="Cooldown">
+      <Level rank="2" cost="20" />
+      <Level rank="3" cost="30" />
+      <Level rank="4" cost="50" />
+      <Level rank="5" cost="70" />
+    </Upgrade>
+    <Upgrade name ="Duration">
+      <Level rank="2" cost="20" />
+      <Level rank="3" cost="30" />
+      <Level rank="4" cost="50" />
+      <Level rank="5" cost="70" />
+    </Upgrade>
+  </Skill>
+  <Skill name="PermaSlow" alignment="good">
+    <InitialCost>80</InitialCost>
+    <Upgrade name ="Cooldown">
+      <Level rank="2" cost="20" />
+      <Level rank="3" cost="30" />
+      <Level rank="4" cost="50" />
+      <Level rank="5" cost="70" />
     </Upgrade>
   </Skill>
 </Skills>

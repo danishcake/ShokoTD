@@ -9,7 +9,7 @@ struct Unlockable
 	{
 		bool good;
 		bool evil;
-		bool neutral;
+		bool flawless;
 	} condition;
 	struct
 	{
@@ -42,7 +42,7 @@ public:
 	void SetBeaten(bool _beaten){beaten_ = _beaten;}
 	bool GetBeaten(){return beaten_;}
 
-	void AddUnlock(bool _good, bool _neutral, bool _evil, std::vector<std::string> _levels, std::vector<std::string> _skills);
+	void AddUnlock(bool _good, bool _evil, bool _flawless, std::vector<std::string> _levels, std::vector<std::string> _skills);
 	void GetRewards(GameReport _gr, std::vector<std::string> &_levels, std::vector<std::string>& _skills);
 	void GetUnlockables(std::vector<std::string> &_levels, std::vector<std::string>& _skills);
 

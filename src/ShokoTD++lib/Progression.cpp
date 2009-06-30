@@ -40,8 +40,8 @@ bool Progression::LoadUnlockables(TiXmlElement* _first, ProgressLevel* _progress
 	while(unlockable)
 	{
 		bool require_good = false;
-		bool require_neutral = false;
 		bool require_evil = false;
+		bool require_flawless = false;
 		std::vector<std::string> skill_unlocks;
 		std::vector<std::string> level_unlocks;
 
@@ -57,11 +57,9 @@ bool Progression::LoadUnlockables(TiXmlElement* _first, ProgressLevel* _progress
 				} else if(alignment == "Good")
 				{
 					require_good = true;
-				} else if(alignment == "Neutral")
-				{
-					require_neutral = true;
 				}
 			}
+			condition->QueryValueAttribute("flawless", &require_flawless);
 			condition = condition->NextSiblingElement("Condition");
 		}
 		
@@ -90,7 +88,7 @@ bool Progression::LoadUnlockables(TiXmlElement* _first, ProgressLevel* _progress
 				skill_unlocks.push_back(name);
 			skill_unlock = skill_unlock ->NextSiblingElement("SkillUnlock");
 		}
-		_progress_level->AddUnlock(require_good, require_neutral, require_evil, level_unlocks, skill_unlocks);
+		_progress_level->AddUnlock(require_good, require_evil, require_flawless, level_unlocks, skill_unlocks);
 		
 		unlockable = unlockable->NextSiblingElement("Unlockable");
 	}
