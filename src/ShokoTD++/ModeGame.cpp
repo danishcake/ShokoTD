@@ -98,7 +98,7 @@ ModeAction::Enum ModeGame::Tick(float _dt)
 		{
 			end_dialogue_->SetText("You are victorious!", TextAlignment::TopLeft);
 			GameReport gr;
-			gr.SetAlignment(AlignmentVector(world_->GetGoodKills(), world_->GetEvilKills(), world_->GetNeutralKills()));
+			gr.SetAlignment(AlignmentVector(world_->GetGoodKills(), world_->GetEvilKills()));
 			progression_->ReportCompletion(level_, gr);
 		}
 		if(ltv_world_state_ == WorldState::Defeat)
@@ -180,15 +180,24 @@ void ModeGame::GridGesture(Widget* _widget, GridGestureEventArgs _args)
 			if(direction != Direction::Stopped)
 			{
 				//if(world_->GetArrowsInUse() < progression_->GetSkillsManager().GetSkill("Arrows")->Get
-				if(world_->GetArrowsInUse() < 3)
+				if(world_->GetArrowsInUse() < progression_->GetSkillsManager().GetSkill("Arrows")->GetSkillLevel("Maximum")->GetLevel() + 1)
 				{
-					world_->ToggleArrow(Vector2i(_args.x, _args.y), direction);
+					world_->ToggleArrow(Vector2i(_args.x, _args.y), direction, progression_->GetSkillsManager().GetSkill("Arrows")->GetSkillLevel("Durability")->GetLevel() + 1);
 				} else
 				{
 					world_->ClearArrow(Vector2i(_args.x, _args.y));
 				}
 			}
-				
+			break;
+		case Skills::Burn:
+			std::vector<Walker*> walkers = world_->GetEnemies();
+			for(std::vector<Walker*>::iterator it = walkers.begin(); it != walkers.end(); ++it)
+			{
+				if(((*it)->GetPosition() - Vector2f(_args.x, _args.y)).length() < 1)
+				{
+					(*it)->TakeEvilDamage(200);
+				}
+			}
 			break;
 		}
 	}
@@ -303,21 +312,13 @@ std::vector<RenderItem> ModeGame::Draw()
 			case SquareType::EastArrow:
 			case SquareType::WestArrow:
 				{
+					int square_count = world_->GetSquareCount(Vector2i(x, y));
 					RenderItem ri;
 					ri.position_ = Vector2f((float)x, (float)y);
-					ri.frame_ = StandardTextures::arrows[SquareType::GetDirection(square_type)]->GetCurrentFrame();
-					ri.depth = below;
-					draw_list.push_back(ri);
-				}
-				break;
-			case SquareType::HalfNorthArrow:
-			case SquareType::HalfSouthArrow: 
-			case SquareType::HalfEastArrow: 
-			case SquareType::HalfWestArrow:
-				{
-					RenderItem ri;
-					ri.position_ = Vector2f((float)x, (float)y);
-					ri.frame_ = StandardTextures::half_arrows[SquareType::GetDirection(square_type)]->GetCurrentFrame();
+					if(square_count > 1)
+						ri.frame_ = StandardTextures::arrows[SquareType::GetDirection(square_type)]->GetCurrentFrame();
+					else
+						ri.frame_ = StandardTextures::half_arrows[SquareType::GetDirection(square_type)]->GetCurrentFrame();
 					ri.depth = below;
 					draw_list.push_back(ri);
 				}

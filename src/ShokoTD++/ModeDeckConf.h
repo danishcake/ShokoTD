@@ -24,7 +24,6 @@ private:
 	ItemBrowserWidget* selected_skills_;
 	Widget* upgrades_pane_;
 	Widget* good_points_;
-	Widget* neutral_points_;
 	Widget* evil_points_;
 
 	std::string last_skill_selected_;

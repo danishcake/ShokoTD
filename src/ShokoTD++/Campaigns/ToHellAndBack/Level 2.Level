@@ -1,0 +1,80 @@
+<?xml ?>
+<Level>
+  <Name>Cross to bear</Name>
+  <Author>Edward Woolhouse</Author>
+  <Lives>20</Lives>
+  <Size x="8" y="8" />
+  <V x="0" y="0" />
+  <V x="0" y="1" />
+  <V x="0" y="2" />
+  <V x="0" y="3" />
+  <V x="0" y="4" />
+  <V x="0" y="5" />
+  <V x="0" y="6" />
+  <V x="0" y="7" />
+  <V x="2" y="2" />
+  <V x="2" y="3" />
+  <V x="3" y="1" />
+  <V x="3" y="4" />
+  <V x="3" y="5" />
+  <V x="3" y="6" />
+  <V x="5" y="1" />
+  <V x="5" y="4" />
+  <V x="5" y="5" />
+  <V x="5" y="6" />
+  <V x="6" y="2" />
+  <V x="6" y="3" />
+  <H x="0" y="0" />
+  <H x="1" y="0" />
+  <H x="2" y="0" />
+  <H x="2" y="2" />
+  <H x="2" y="4" />
+  <H x="3" y="0" />
+  <H x="3" y="1" />
+  <H x="3" y="7" />
+  <H x="4" y="0" />
+  <H x="4" y="1" />
+  <H x="4" y="7" />
+  <H x="5" y="0" />
+  <H x="5" y="2" />
+  <H x="5" y="4" />
+  <H x="6" y="0" />
+  <H x="7" y="0" />
+  <Hole x="2" y="2" />
+  <Hole x="2" y="3" />
+  <Rocket x="3" y="1" />
+  <Rocket x="4" y="1" />
+  <Cross x="5" y="2"/>
+  <Cross x="5" y="3"/>
+  <Spawner x="3" y="6" d="North"/>
+  <Spawner x="4" y="6" d="North"/>
+  
+  <Wave number="2" gap="1.5" start="5">
+    <EnemyType type="Swarmer" weight="1"/>
+  </Wave>
+  <Wave number="2" gap="1.5" start="8">
+    <EnemyType type="Bludgeoner" weight="1"/>
+  </Wave>
+  <Wave number="2" gap="1.5" start="11">
+    <EnemyType type="Swarmer" weight="1"/>
+  </Wave>
+  <Wave number="2" gap="1.4" start="14">
+    <EnemyType type="Bludgeoner" weight="1"/>
+  </Wave>
+  
+  <Wave number="2" gap="1.3" start="16.8">
+    <EnemyType type="Swarmer" weight="1"/>
+  </Wave>
+  <Wave number="2" gap="1.2" start="19.4">
+    <EnemyType type="Bludgeoner" weight="1"/>
+  </Wave>
+  <Wave number="2" gap="1.1" start="21.8">
+    <EnemyType type="Swarmer" weight="1"/>
+  </Wave>
+  <Wave number="10" gap="1.0" start="24">
+    <EnemyType type="Bludgeoner" weight="1"/>
+    <EnemyType type="Swarmer" weight="1"/>
+  </Wave>
+  
+  
+</Level>

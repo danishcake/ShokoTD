@@ -33,8 +33,8 @@ private:
 	bool Progression::LoadUnlockables(TiXmlElement* _first, ProgressLevel* _progress_level);
 
 	unsigned int good_points_;
-	unsigned int neutral_points_;
 	unsigned int evil_points_;
+	static bool cheat_;
 
 public:
 	Progression(std::string _campaign, std::string _savefile);
@@ -59,11 +59,12 @@ public:
 
 	/* Score */
 	unsigned int GetGoodPoints(){return good_points_;}
-	unsigned int GetNeutralPoints(){return neutral_points_;}
 	unsigned int GetEvilPoints(){return evil_points_;}
-	void SpendPoints(unsigned int _good, unsigned int _neutral, unsigned int _evil){good_points_ -= _good; neutral_points_ -= _neutral; evil_points_ -= _evil;}
+	void SpendPoints(unsigned int _good, unsigned int _evil){good_points_ -= _good; evil_points_ -= _evil;}
 
 
 	/* Other */
 	bool GetError(){return state_ != ProgressionState::OK;}
+
+	static void SetCheatMode(){cheat_ = true;}
 };

@@ -1,0 +1,39 @@
+<AnimationSet>
+  <Animation Name="North">
+    <Frame Width="24" Height="24" Top="96" Left="0" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="96" Left="24" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="96" Left="48" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="96" Left="72" File="Sloth.png" Time="0.3"/>
+  </Animation>
+  <Animation Name="South">
+    <Frame Width="24" Height="24" Top="64" Left="0" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="64" Left="24" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="64" Left="48" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="64" Left="72" File="Sloth.png" Time="0.3"/>
+  </Animation>
+  <Animation Name="East">
+    <Frame Width="24" Height="24" Top="0" Left="0" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="0" Left="24" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="0" Left="48" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="0" Left="72" File="Sloth.png" Time="0.3"/>
+  </Animation>
+  <Animation Name="West">
+    <Frame Width="24" Height="24" Top="32" Left="0" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="32" Left="24" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="32" Left="48" File="Sloth.png" Time="0.3"/>
+    <Frame Width="24" Height="24" Top="32" Left="72" File="Sloth.png" Time="0.3"/>
+  </Animation>
+  <Animation Name="Stopped">
+    <Frame Width="24" Height="24" Top="0" Left="0" File="Sloth.png" Time="0.3"/>
+  </Animation>
+  <Animation Name="Death">
+    <Frame Width="24" Height="24" Top="0" Left="0" File="SlothDeath.png" Time="0.125"/>
+    <Frame Width="24" Height="24" Top="0" Left="24" File="SlothDeath.png" Time="0.125"/>
+    <Frame Width="24" Height="24" Top="0" Left="48" File="SlothDeath.png" Time="0.125"/>
+    <Frame Width="24" Height="24" Top="0" Left="72" File="SlothDeath.png" Time="0.125"/>
+    <Frame Width="24" Height="24" Top="0" Left="96" File="SlothDeath.png" Time="0.125"/>
+    <Frame Width="24" Height="24" Top="0" Left="120" File="SlothDeath.png" Time="0.125"/>
+    <Frame Width="24" Height="24" Top="0" Left="144" File="SlothDeath.png" Time="0.125"/>
+    <Frame Width="24" Height="24" Top="0" Left="168" File="SlothDeath.png" Time="0.125"/>
+  </Animation>
+</AnimationSet>

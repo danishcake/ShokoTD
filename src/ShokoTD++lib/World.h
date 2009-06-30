@@ -19,14 +19,12 @@ namespace SquareType
 {
 	enum Enum
 	{
-		Empty, Rocket, Hole, Cross, NorthArrow, SouthArrow, EastArrow, WestArrow, HalfNorthArrow, HalfSouthArrow, HalfEastArrow, HalfWestArrow, NorthSpawner, SouthSpawner, EastSpawner, WestSpawner,
+		Empty, Rocket, Hole, Cross, NorthArrow, SouthArrow, EastArrow, WestArrow, NorthSpawner, SouthSpawner, EastSpawner, WestSpawner,
 	};
 
 	Direction::Enum GetDirection(Enum _square_type);
 	Enum ArrowFromDirection(Direction::Enum _direction);
 	Enum SpawnerFromDirection(Direction::Enum _direction);
-	Enum Diminish(Enum _square_type);
-	Enum RestoreToFull(Enum _square_type);
 }
 
 namespace WorldState
@@ -77,6 +75,7 @@ protected:
 	Vector2i size_;
 	vector<vector<TopLeft>> walls_;
 	vector<vector<SquareType::Enum>> special_squares_;
+	vector<vector<int>> special_squares_count_;
 	vector<Walker*> enemies_;
 	vector<Walker*> just_dead_enemies_;
 	vector<Walker*> dead_enemies_;
@@ -127,6 +126,7 @@ public:
 
 	//Gets / sets the square type
 	SquareType::Enum GetSquareType(Vector2i _point);
+	int GetSquareCount(Vector2i _point);
 	bool SetSquareType(Vector2i _point, SquareType::Enum _square_type);
 	void ToggleRocket(Vector2i _position);
 	void ToggleHole(Vector2i _position);
@@ -142,11 +142,7 @@ public:
 
 	//Arrow helper functions and stock querier
 	void ClearArrow(Vector2i _position);
-	void ToggleArrow(Vector2i _position, Direction::Enum _direction);
-	void ToggleNorthArrow(Vector2i _position){ToggleArrow(_position, Direction::North);}
-	void ToggleSouthArrow(Vector2i _position){ToggleArrow(_position, Direction::South);}
-	void ToggleEastArrow(Vector2i _position){ToggleArrow(_position, Direction::East);}
-	void ToggleWestArrow(Vector2i _position){ToggleArrow(_position, Direction::West);}
+	void ToggleArrow(Vector2i _position, Direction::Enum _direction, int _count);
 	void ClearArrows();
 	int GetArrowsInUse();
 

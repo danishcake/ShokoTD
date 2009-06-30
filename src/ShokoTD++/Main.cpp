@@ -10,6 +10,7 @@
 #include "StandardTextures.h"
 #include "EnemyTypes.h"
 #include "Widget.h"
+#include <Progression.h>
 
 SDL_Surface* p_screen = NULL;
 BlittableRect* p_screen_rect = NULL;
@@ -93,6 +94,16 @@ int _tmain(int argc, _TCHAR* argv[])
 	bool bFinished = false;
 	p_screen = SDL_init();
 	ltv_time = clock();
+
+	for(int arg = 1; arg < argc; arg++)
+	{
+		Logger::DiagnosticOut() << "Command line parameter:" << argv[arg] << "\n";
+		if(!strcmp("-cheat", argv[arg]))
+		{
+			Progression::SetCheatMode();
+			SkillManager::SetCheatMode();
+		}
+	}
 	
 	if(p_screen)
 	{

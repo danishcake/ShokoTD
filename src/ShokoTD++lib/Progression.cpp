@@ -6,6 +6,7 @@
 #include "Logger.h"
 #include "Skill.h"
 
+bool Progression::cheat_ = false;
 
 Progression::Progression(std::string _campaign, std::string _savefile)
 {
@@ -23,9 +24,13 @@ Progression::Progression(std::string _campaign, std::string _savefile)
 		Logger::ErrorOut() << "Error: " << doc.ErrorDesc() << "\n";
 		state_ = ProgressionState::LoadError;
 	}
-	good_points_ =100;
-	neutral_points_ = 100;
-	evil_points_ = 100;
+	good_points_ = 10;
+	evil_points_ = 10;
+	if(cheat_)
+	{
+		good_points_ = 999;
+		evil_points_ = 999;
+	}
 }
 
 bool Progression::LoadUnlockables(TiXmlElement* _first, ProgressLevel* _progress_level)
@@ -114,7 +119,10 @@ bool Progression::LoadCampaign(TiXmlDocument* _doc)
 			else
 			{
 				ProgressLevel* pl = new ProgressLevel(levelname, filename);
-				pl->SetLocked(locked);
+				if(cheat_)
+					pl->SetLocked(false);
+				else
+					pl->SetLocked(locked);
 				LoadUnlockables(level->FirstChildElement("Unlockable"), pl);
 				levels_.push_back(pl);
 			}
@@ -290,6 +298,5 @@ void Progression::ReportCompletion(std::string _level, GameReport _gr)
 		}
 	}
 	good_points_ += _gr.GetAlignment().GetGoodScore();
-	neutral_points_ += _gr.GetAlignment().GetNeutralScore();
 	evil_points_ += _gr.GetAlignment().GetEvilScore();
 }

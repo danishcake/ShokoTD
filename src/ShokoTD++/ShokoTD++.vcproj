@@ -632,30 +632,6 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Swarmer"
-				>
-				<File
-					RelativePath=".\Sprites\KapuKapuRed.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\KapuKapuRedDeath.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\Swarmer.animation"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Bludgeoner"
-				>
-				<File
-					RelativePath=".\Sprites\Bludgeoner.animation"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Spawner"
 				>
 				<File
@@ -666,6 +642,50 @@
 					RelativePath=".\Sprites\FlyingSaucer.png"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Walkers"
+				>
+				<Filter
+					Name="Bludgeoner"
+					>
+					<File
+						RelativePath=".\Sprites\Bludgeoner.animation"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Sloth"
+					>
+					<File
+						RelativePath=".\Sprites\Sloth.animation"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\Sloth.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\SlothDeath.png"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Swarmer"
+					>
+					<File
+						RelativePath=".\Sprites\KapuKapuRed.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\KapuKapuRedDeath.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\Swarmer.animation"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -683,7 +703,55 @@
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet=""
+						LevelSet="ToHellAndBack"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="Level copier"
+						LevelSet="ToHellAndBack"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Campaigns\ToHellAndBack\Level 2.Level"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Level copier"
+						LevelSet="ToHellAndBack"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="Level copier"
+						LevelSet="ToHellAndBack"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Campaigns\ToHellAndBack\Level 3.Level"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Level copier"
+						LevelSet="ToHellAndBack"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="Level copier"
+						LevelSet="ToHellAndBack"
 					/>
 				</FileConfiguration>
 			</File>

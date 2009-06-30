@@ -7,6 +7,7 @@ class SkillManager
 {
 private:
 	bool error_;
+	static bool cheat_;
 	std::vector<Skill*> skills_;
 public:
 	SkillManager(void);
@@ -27,5 +28,7 @@ public:
 	std::vector<Skill*> GetAvailableSkills(); //Means unlocked but not purchased
 
 	Skill* GetSkill(std::string _skill);
+	static void SetCheatMode(){cheat_ = true;}
+
 
 };

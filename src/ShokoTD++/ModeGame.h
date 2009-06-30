@@ -15,9 +15,6 @@ namespace WorldState
 	enum Enum;
 }
 
-
-
-
 class ModeGame :
 	public IMode
 {
@@ -28,6 +25,7 @@ private:
 	World* world_;
 	WorldState::Enum ltv_world_state_;
 	float dialogue_timer_;
+
 
 	Widget* end_dialogue_;
 	Widget* lives_left_;

@@ -2112,17 +2112,17 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="6"
-     inkscape:cx="290.69639"
-     inkscape:cy="257.18484"
+     inkscape:zoom="1.5"
+     inkscape:cx="391.10956"
+     inkscape:cy="95.97209"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-bbox="true"
      inkscape:window-width="1280"
      inkscape:window-height="964"
-     inkscape:window-x="-4"
-     inkscape:window-y="-4">
+     inkscape:window-x="0"
+     inkscape:window-y="26">
     <inkscape:grid
        type="xygrid"
        id="grid2383"
@@ -2197,7 +2197,7 @@
              width="337.33334"
              id="rect7437" /></flowRegion><flowPara
            style="font-size:26px;text-align:start;text-anchor:start"
-           id="flowPara7439">Protect your rockets! Place arrows to direct enemies into pits or a cross. The skills you use will affect your alignment and future skills!</flowPara></flowRoot>    </g>
+           id="flowPara7439">Protect your rockets! Place arrows to direct enemies into pits or crosses. The skills you use will affect your alignment and future skills!</flowPara></flowRoot>    </g>
     <g
        id="g3415"
        inkscape:export-filename="C:\Documents and Settings\Edward\My Documents\Visual Studio 2005\Projects\ShokoTD\src\ShokoTD++\Sprites\GUI\Arrows_icontn.png"

@@ -4,6 +4,8 @@
 #include "Logger.h"
 #include <boost/lexical_cast.hpp>
 
+bool SkillManager::cheat_ = false;
+
 SkillManager::SkillManager(void)
 {
 	error_ = false;
@@ -89,6 +91,8 @@ SkillManager::SkillManager(void)
 					error_ = true;
 					break;
 				}
+				if(cheat_)
+					sk->SetUnlocked(true);
 				skills_.push_back(sk);
 			}
 

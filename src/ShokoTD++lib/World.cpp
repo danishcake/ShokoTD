@@ -21,14 +21,6 @@ namespace SquareType
 			return Direction::West;
 		case EastArrow:
 			return Direction::East;
-		case HalfNorthArrow:
-			return Direction::North;
-		case HalfSouthArrow:
-			return Direction::South;
-		case HalfWestArrow:
-			return Direction::West;
-		case HalfEastArrow:
-			return Direction::East;
 		default:
 			return Direction::Stopped;
 		}
@@ -67,44 +59,6 @@ namespace SquareType
 			return Empty;
 		}
 	}
-
-	Enum Diminish(Enum _square_type)
-	{
-		switch(_square_type)
-		{
-		case NorthArrow:
-			return SquareType::HalfNorthArrow;
-		case SouthArrow:
-			return SquareType::HalfSouthArrow;
-		case WestArrow:
-			return SquareType::HalfWestArrow;
-		case EastArrow:
-			return SquareType::HalfEastArrow;
-		case HalfNorthArrow:
-		case HalfSouthArrow:
-		case HalfWestArrow:		
-		case HalfEastArrow:
-			return SquareType::Empty;
-		default:
-			return SquareType::Empty;
-		}
-	}
-	Enum RestoreToFull(Enum _square_type)
-	{
-		switch(_square_type)
-		{
-		case HalfNorthArrow:
-			return NorthArrow;
-		case HalfSouthArrow:
-			return SouthArrow;
-		case HalfWestArrow:
-			return WestArrow;
-		case HalfEastArrow:
-			return EastArrow;
-		default:
-			return _square_type;
-		}
-	}
 }
 
 World::World(void)
@@ -113,6 +67,7 @@ World::World(void)
 	size_ = Vector2i(20, 20);
 	walls_ = vector<vector<TopLeft>>(size_.x, vector<TopLeft>(size_.y));
 	special_squares_ = vector<vector<SquareType::Enum>>(size_.x, vector<SquareType::Enum>(size_.y));
+	special_squares_count_ = vector<vector<int>>(size_.x, vector<int>(size_.y));
 	for(int x = 0; x < size_.x; x++)
 		walls_[x][0].top = true;
 	for(int y = 0; y < size_.y; y++)
@@ -162,6 +117,7 @@ World::World(std::string _filename)
 				{
 					walls_ = vector<vector<TopLeft>>(size_.x, vector<TopLeft>(size_.y));
 					special_squares_ = vector<vector<SquareType::Enum>>(size_.x, vector<SquareType::Enum>(size_.y));
+					special_squares_count_ = vector<vector<int>>(size_.x, vector<int>(size_.y));
 				}
 			} else
 				state_ = WorldState::FileLoadError;
@@ -402,6 +358,12 @@ SquareType::Enum World::GetSquareType(Vector2i _point)
 	assert(_point.x >= 0 && _point.x < size_.x && _point.y >= 0	&& _point.y < size_.y);
 	return special_squares_[_point.x][_point.y];
 }
+int World::GetSquareCount(Vector2i _point)
+{
+	assert(_point.x >= 0 && _point.x < size_.x && _point.y >= 0	&& _point.y < size_.y);
+	return special_squares_count_[_point.x][_point.y];
+}
+
 
 bool World::SetSquareType(Vector2i _point, SquareType::Enum _square_type)
 {
@@ -481,6 +443,14 @@ WorldState::Enum World::Tick(float _dt)
 		for(vector<Walker*>::iterator it = enemies_.begin(); it != enemies_.end(); ++it)
 		{
 			(*it)->Advance(_dt);
+			if((*it)->GetHealth() <= 0)
+			{
+				just_dead_enemies_.push_back(*it);
+				if((*it)->MoreEvilThanGood())
+					evil_kills_++;
+				else
+					good_kills_++;
+			}
 		}
 
 		//Remove enemies that have just died, from holes, rockets and towers etc
@@ -637,7 +607,7 @@ void World::Reset()
 		for(int y= 0; y < size_.y; y++)
 		{
 			//TODO clear everything save
-			special_squares_[x][y] = SquareType::RestoreToFull(special_squares_[x][y]);
+			
 		}
 	}
 	
@@ -684,15 +654,19 @@ void World::WalkerReachNewSquare(Walker* _walker)
 	if(SquareType::GetDirection(square_type) != Direction::Stopped)
 	{
 		Direction::Enum direction = SquareType::GetDirection(square_type);
-		if(SquareType::GetDirection(square_type) == Direction::TurnAround(_walker->GetDirection()))
+		if(direction != _walker->GetDirection())
 		{
-			special_squares_[position_grid.x][position_grid.y] = SquareType::Diminish(square_type);
+			special_squares_count_[position_grid.x][position_grid.y]--;
+			if(special_squares_count_[position_grid.x][position_grid.y] == 0)
+			{
+				special_squares_[position_grid.x][position_grid.y] = SquareType::Empty;
+			}
 		}
 		_walker->EncounterArrow(direction);
 	}
 }
 
-void World::ToggleArrow(Vector2i _position, Direction::Enum _direction)
+void World::ToggleArrow(Vector2i _position, Direction::Enum _direction, int _count)
 {
 	assert(_direction != Direction::Stopped);
 	assert(_position.x >= 0);
@@ -706,6 +680,7 @@ void World::ToggleArrow(Vector2i _position, Direction::Enum _direction)
 	} else if(special_squares_[_position.x][_position.y] == SquareType::Empty)
 	{
 		special_squares_[_position.x][_position.y] = SquareType::ArrowFromDirection(_direction);
+		special_squares_count_[_position.x][_position.y] = _count;
 	} else if(SquareType::GetDirection(special_squares_[_position.x][_position.y]) != Direction::Stopped)
 	{
 		special_squares_[_position.x][_position.y] = SquareType::ArrowFromDirection(_direction);
@@ -722,11 +697,7 @@ int World::GetArrowsInUse()
 			if(special_squares_[x][y] == SquareType::EastArrow		||
 			   special_squares_[x][y] == SquareType::WestArrow		||
 			   special_squares_[x][y] == SquareType::NorthArrow		||
-			   special_squares_[x][y] == SquareType::SouthArrow		||
-			   special_squares_[x][y] == SquareType::HalfEastArrow	||
-			   special_squares_[x][y] == SquareType::HalfWestArrow	||
-			   special_squares_[x][y] == SquareType::HalfNorthArrow	||
-			   special_squares_[x][y] == SquareType::HalfSouthArrow)
+			   special_squares_[x][y] == SquareType::SouthArrow)
 			{
 				arrow_count++;
 			}

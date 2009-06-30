@@ -26,6 +26,8 @@ protected:
 	Direction::Enum initial_direction_;
 	float speed_;
 	float health_;
+	float evil_damage_;
+	float good_damage_;
 	EnemyTypes::EnemyType* enemy_type_;
 	World* pWorld_;
 
@@ -52,6 +54,9 @@ public:
 	/* Gets and sets the walker health */
 	void SetHealth(float _health){health_ = _health;}
 	float GetHealth(){return health_;}
+	void TakeGoodDamage(float _damage){health_ -= _damage; good_damage_ += _damage;}
+	void TakeEvilDamage(float _damage){health_ -= _damage; good_damage_ += _damage;}
+	float MoreEvilThanGood(){return evil_damage_ > good_damage_;}
 	/* Gets and sets the walker type */
 	void SetEnemyType(EnemyTypes::EnemyType* _enemy_type);
 	EnemyTypes::EnemyType* GetEnemyType(){return enemy_type_;}

@@ -24,15 +24,13 @@ void ProgressLevel::GetRewards(GameReport _gr, std::vector<std::string> &_levels
 {
 	bool meet_evil = (float)_gr.GetAlignment().GetEvil() / (float)_gr.GetAlignment().GetSum() > 0.8f;
 	bool meet_good = (float)_gr.GetAlignment().GetGood() / (float)_gr.GetAlignment().GetSum() > 0.8f;
-	bool meet_neutral = (float)_gr.GetAlignment().GetNeutral() / (float)_gr.GetAlignment().GetSum() > 0.8f;
 
 	std::vector<std::string> skills_to_unlock;
 	std::vector<std::string> levels_to_unlock;
 	for(std::vector<Unlockable>::iterator it = unlockables_.begin(); it != unlockables_.end(); ++it)
 	{
 		if((!it->condition.evil    || (it->condition.evil && meet_evil)) &&
-		   (!it->condition.good    || (it->condition.good && meet_good)) &&
-		   (!it->condition.neutral || (it->condition.neutral&& meet_neutral)))
+		   (!it->condition.good    || (it->condition.good && meet_good)))
 		{
 			for(std::vector<std::string>::iterator it2 = it->reward.levels.begin(); it2 != it->reward.levels.end(); ++it2)
 			{

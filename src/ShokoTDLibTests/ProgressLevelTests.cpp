@@ -16,7 +16,7 @@ TEST(ProgressLevelUnlocks)
 	skills.push_back("Fireball");
 	pl.AddUnlock(true, false, false, std::vector<std::string>(), skills);
 	GameReport gr;
-	gr.SetAlignment(AlignmentVector(50, 5, 5));
+	gr.SetAlignment(AlignmentVector(50, 5));
 
 	std::vector<std::string> unlocked_skills;
 	std::vector<std::string> unlocked_levels;

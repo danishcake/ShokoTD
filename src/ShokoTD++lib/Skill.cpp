@@ -22,3 +22,4 @@ SkillLevel* Skill::GetSkillLevel(std::string _name)
 		}
 	}
 }
+

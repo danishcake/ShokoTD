@@ -7,7 +7,7 @@ namespace Skills
 {
 	enum Enum
 	{
-		Arrows, Slow, Fireball,
+		Arrows, Slow, Burn,
 
 		None
 	};
