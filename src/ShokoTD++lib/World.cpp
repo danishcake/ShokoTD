@@ -634,14 +634,14 @@ void World::WalkerReachNewSquare(Walker* _walker)
 		{
 			just_dead_enemies_.push_back(_walker);
 			_walker->Kill();
-		}
-		if(square_type== SquareType::Hole)
-		{
-			evil_kills_++;
-		}
-		if(square_type== SquareType::Cross)
-		{
-			good_kills_++;
+			if(square_type== SquareType::Hole)
+			{
+				evil_kills_++;
+			}
+			if(square_type== SquareType::Cross)
+			{
+				good_kills_++;
+			}
 		}
 	} else if(square_type == SquareType::Rocket)
 	{

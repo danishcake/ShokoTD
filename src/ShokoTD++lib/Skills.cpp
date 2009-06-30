@@ -5,7 +5,7 @@ namespace Skills
 	static const char* EnumStr[] = {STRME(Arrows),
 								STRME(Slow),
 								STRME(Burn),
-								STRME(Craz), 
+								STRME(Craze), 
 								STRME(SpawnPause), 
 								STRME(PermaSlow)};
 

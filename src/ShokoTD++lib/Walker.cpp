@@ -27,6 +27,7 @@ Walker::Walker(void)
 	good_damage_ = 0;
 	slow_factor_ = 1;
 	slow_time_ = 0;
+	craze_time_ = 0;
 }
 
 Walker::~Walker(void)
@@ -47,6 +48,10 @@ bool Walker::DoTurns()
 		if(position_.x <= -1.0f)
 			position_.x += pWorld_->GetSize().x;
 
+		if(craze_time_ > 0)
+		{
+			direction_ = (Direction::Enum)(rand() %4);
+		}
 		Direction::Enum old_direction = direction_;
 		pWorld_->WalkerReachNewSquare(this);
 		GridSquare gs = pWorld_->GetGridSquare(Vector2i(position_.x, position_.y));
@@ -62,6 +67,8 @@ void Walker::Advance(float _timespan)
 		slow_time_ -= _timespan;
 	else
 		slow_factor_ = 1;
+	if(craze_time_ > 0)
+		craze_time_ -= _timespan;
 	float distance_to_go = speed_ * _timespan * slow_factor_;
 	while(distance_to_go > 0)
 	{	

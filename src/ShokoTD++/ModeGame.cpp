@@ -323,7 +323,27 @@ void ModeGame::DoSlow(Vector2i _position)
 
 void ModeGame::DoCraze(Vector2i _position)
 {
+	if(!CooldownOK("Craze"))
+		return;
+
+	float duration = progression_->GetSkillsManager().GetSkill("Craze")->GetSkillLevel("Duration")->GetLevel() * 1.0f + 2.0f;
+	float cooldown = 4.0f - progression_->GetSkillsManager().GetSkill("Craze")->GetSkillLevel("Cooldown")->GetLevel() * 0.6f;
+
+	std::vector<Walker*> walkers = world_->GetEnemies();
+	for(std::vector<Walker*>::iterator it = walkers.begin(); it != walkers.end(); ++it)
+	{
+		if(((*it)->GetPosition() - _position).length() < 2)
+		{
+			(*it)->SetCrazed(duration);
+		}
+	}
+	Decoration d;
+	d.animation = StandardTextures::burning_animation;
+	d.position = _position;
+	d.time_to_live = 0.5;
+	decorations_.push_back(d);
 	
+	cooldowns_["Craze"] = cooldown;
 }
 
 void ModeGame::DoSpawnPause()

@@ -57,6 +57,7 @@ void ModeTutorial::NextClick(Widget* _widget)
 		finish_->OnClick.connect(boost::bind(&ModeTutorial::FinishClick, this, _1));
 		delete page1_;
 		Widget* page2 = new Widget("Instructions2.png");
+		page2->SetRejectsFocus(true);
 	}
 }
 

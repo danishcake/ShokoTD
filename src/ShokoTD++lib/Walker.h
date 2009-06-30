@@ -36,6 +36,8 @@ protected:
 	float slow_time_;
 	float slow_factor_;
 
+	float craze_time_;
+
 public:
 	Walker(void);
 	~Walker(void);
@@ -54,6 +56,7 @@ public:
 	void SetSpeed(float _speed);
 	float GetSpeed(){return speed_;}
 	void SlowDown(float _slowtime, float _slowfactor){slow_time_ = _slowtime; slow_factor_ = _slowfactor;}
+	void SetCrazed(float _craze_time){craze_time_ = _craze_time;}
 	/* Gets and sets the walker health */
 	void SetHealth(float _health){health_ = _health;}
 	float GetHealth(){return health_;}
