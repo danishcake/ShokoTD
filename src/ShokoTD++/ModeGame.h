@@ -45,6 +45,7 @@ private:
 	World* world_;
 	WorldState::Enum ltv_world_state_;
 	float dialogue_timer_;
+	Vector2i last_grid_position_;
 
 
 	Widget* end_dialogue_;
@@ -53,6 +54,9 @@ private:
 	void SkillClick(Widget* _widget);
 	void QuitClick(Widget* _widget);
 	void GridClick(Widget* _widget, MouseEventArgs _args);
+	void GridMove(Widget* _widget, MouseEventArgs _args);
+	boost::signals::scoped_connection  keypress_connection_;
+	void Keypress(Widget* _widget, KeyPressEventArgs _args);
 	void GridGesture(Widget* _widget, GridGestureEventArgs _args);
 
 	Progression* progression_;

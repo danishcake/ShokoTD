@@ -9,8 +9,33 @@ namespace
 	{
 		widgetevent_callback_count++;
 	}
+
+	int global_key_callback_count = 0;
+	void global_keyevent_callback(Widget* _widget, KeyPressEventArgs _args)
+	{
+		global_key_callback_count ++;
+	}
 }
 
+TEST_FIXTURE(SDL_fixture, WidgetGlobalKeyEvents)
+{
+	UNITTEST_TIME_CONSTRAINT(50);
+
+	CHECK(SDL_init_ok);
+	if(SDL_init_ok)
+	{
+		Widget::OnGlobalKeyUp.connect(&global_keyevent_callback);
+		CHECK_EQUAL(0, global_key_callback_count);
+		
+		SDL_Event ev;
+		ev.type = SDL_KEYUP;
+		ev.key.keysym.sym = SDLK_RETURN;
+		Widget::DistributeSDLEvents(&ev);
+
+		CHECK_EQUAL(1, global_key_callback_count);
+	}
+
+}
 TEST_FIXTURE(SDL_fixture, FlatWidgets)
 {
 	UNITTEST_TIME_CONSTRAINT(50);

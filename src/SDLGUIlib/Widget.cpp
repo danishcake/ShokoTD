@@ -8,6 +8,11 @@ Widget* Widget::widget_with_highlight_ = NULL;
 Widget* Widget::widget_with_depression_ = NULL;
 Widget* Widget::widget_with_drag_ = NULL;
 Widget* Widget::widget_with_modal_ = NULL;
+
+Widget::KeyEvent Widget::OnGlobalKeyUp;
+
+
+
 DragEventArgs Widget::drag_event_args_ = DragEventArgs();
 Vector2i Widget::drag_start_position_ = Vector2i(0, 0);
 
@@ -231,7 +236,7 @@ void Widget::HandleEvent(Event _event)
 	if((_event.event_type == EventType::MouseUp || _event.event_type == EventType::MouseMove || _event.event_type == EventType::MouseDown) &&
 		(Collisions2i::PointInRectangle(Vector2i(_event.event.mouse_event.x, _event.event.mouse_event.y), Vector2i(0, 0), GetSize())))
 	{
-		if(_event.event_type == EventType::MouseUp || _event.event_type == EventType::MouseDown)
+		if(_event.event_type == EventType::MouseUp || _event.event_type == EventType::MouseDown || _event.event_type == EventType::MouseMove)
 		{
 			for(vector<Widget*>::iterator it = children_.begin(); it != children_.end(); ++it)
 			{
@@ -290,10 +295,15 @@ void Widget::HandleEvent(Event _event)
 				if(_event.event.mouse_event.x < size_.x && _event.event.mouse_event.x >= 0 &&
 				   _event.event.mouse_event.y < size_.y && _event.event.mouse_event.y >= 0)
 				{
+					MouseEventArgs e;
+					e.x = _event.event.mouse_event.x;
+					e.y = _event.event.mouse_event.y;
+					e.btns = _event.event.mouse_event.btns;
+					OnMouseMove(this, e);
 					SetHighlight();
 					/* Handle start of drag and drop*/
-
-				}
+					
+				}				
 			}
 		}
 
@@ -562,6 +572,7 @@ void Widget::ClearRoot()
 	widget_with_drag_ = NULL;
 	drag_event_args_ = DragEventArgs();
 
+
 	//root_.clear(); // The destructors do this automatically
 }
 
@@ -592,7 +603,7 @@ void Widget::RenderRoot(BlittableRect* _screen)
 void Widget::DistributeSDLEvents(SDL_Event* event)
 {
 	Event e;
-	if(event->type == SDL_MOUSEBUTTONUP)
+	if(event->type == SDL_MOUSEBUTTONUP || event->type == SDL_MOUSEBUTTONDOWN)
 	{
 		e.event.mouse_event.x = event->button.x;
 		e.event.mouse_event.y = event->button.y;
@@ -601,17 +612,10 @@ void Widget::DistributeSDLEvents(SDL_Event* event)
 													   ((event->button.button == SDL_BUTTON_MIDDLE) ? MouseButton::Middle : MouseButton::None) |
 													   ((event->button.button == SDL_BUTTON_WHEELUP) ? MouseButton::ScrollUp : MouseButton::None) |
 													   ((event->button.button == SDL_BUTTON_WHEELDOWN) ? MouseButton::ScrollDown : MouseButton::None));
-		e.event_type = EventType::MouseUp;
-	}  else if(event->type == SDL_MOUSEBUTTONDOWN)
-	{
-		e.event.mouse_event.x = event->button.x;
-		e.event.mouse_event.y = event->button.y;
-		e.event.mouse_event.btns = (MouseButton::Enum)(((event->button.button == SDL_BUTTON_LEFT) ? MouseButton::Left : MouseButton::None) |
-													   ((event->button.button == SDL_BUTTON_RIGHT) ? MouseButton::Right : MouseButton::None) |
-													   ((event->button.button == SDL_BUTTON_MIDDLE) ? MouseButton::Middle : MouseButton::None) |
-													   ((event->button.button == SDL_BUTTON_WHEELUP) ? MouseButton::ScrollUp : MouseButton::None) |
-													   ((event->button.button == SDL_BUTTON_WHEELDOWN) ? MouseButton::ScrollDown : MouseButton::None));
-		e.event_type = EventType::MouseDown;
+		if(event->type == SDL_MOUSEBUTTONDOWN)
+			e.event_type = EventType::MouseDown;
+		else
+			e.event_type = EventType::MouseUp;
 	} else if(event->type == SDL_KEYUP)
 	{
 		if(event->key.keysym.sym == SDLK_LEFT)
@@ -728,7 +732,12 @@ void Widget::DistributeSDLEvents(SDL_Event* event)
 		Widget* focus = Widget::GetWidgetWithFocus();
 		if(focus)
 			focus->HandleEvent(e);
+
+		KeyPressEventArgs kp_args;
+		kp_args.key_code = e.event.key_event.key_code;
+		Widget::OnGlobalKeyUp(NULL, kp_args);
 	}
+	
 }
 
 Vector2i Widget::GetGlobalPosition()

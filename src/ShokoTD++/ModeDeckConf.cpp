@@ -32,7 +32,8 @@ void ModeDeckConfiguration::Setup()
 	std::vector<std::string> items;
 	for(std::vector<Skill*>::iterator it = purchased_skills_ .begin(); it != purchased_skills_ .end(); ++it)
 	{
-		items.push_back((*it)->GetName());
+		if((*it)->GetName() != "Arrows")
+			items.push_back((*it)->GetName());
 	}
 	for(std::vector<Skill*>::iterator it = unlocked_skills_ .begin(); it != unlocked_skills_ .end(); ++it)
 	{
@@ -46,6 +47,7 @@ void ModeDeckConfiguration::Setup()
 	known_skills_->OnItemClick.connect(boost::bind(&ModeDeckConfiguration::ItemClick, this, _1, _2));
 
 	std::vector<std::string> none;
+	none.push_back("Arrows");
 	selected_skills_ = new ItemBrowserWidget(none, Vector2i(7, 1), Vector2i(64, 64));
 	selected_skills_->SetPosition(Vector2i(128 + 20, 10));
 	selected_skills_->SetAllowScroll(false);
@@ -63,6 +65,11 @@ void ModeDeckConfiguration::Setup()
 	next_level->SetPosition(Vector2i(534, 438));
 	next_level->SetText("Done", TextAlignment::Centre);
 	next_level->OnClick.connect(boost::bind(&ModeDeckConfiguration::Accept, this, _1));
+
+	Widget* reset_deck = new Widget("Blank96x32.png");
+	reset_deck->SetPosition(Vector2i(534, 354));
+	reset_deck->SetText("Reset", TextAlignment::Centre);
+	reset_deck->OnClick.connect(boost::bind(&ModeDeckConfiguration::ResetDeck, this, _1));
 
 	upgrades_pane_ = new Widget("Blank384x384.png");
 	upgrades_pane_->SetPosition(Vector2i(148, 84));
@@ -92,6 +99,13 @@ ModeAction::Enum ModeDeckConfiguration::Tick(float _dt)
 	ModeAction::Enum result = IMode::Tick(_dt);
 	Widget::SetFade(fade_);
 	return result;
+}
+
+void ModeDeckConfiguration::ResetDeck(Widget* _widget)
+{
+	std::vector<std::string> skills;
+	skills.push_back("Arrows");
+	selected_skills_->SetItems(skills);
 }
 
 void ModeDeckConfiguration::UpdateUpgradesPane()
@@ -279,7 +293,7 @@ void ModeDeckConfiguration::ItemDragLand(Widget* _widget, DragEventArgs* _drag_a
 	std::vector<std::string> items = selected_skills_->GetItems();
 	if(std::find(items.begin(), items.end(), tag) == items.end())
 	{
-		items.push_back(tag);
+		items.insert(items.end() - 1, tag);
 		selected_skills_->SetItems(items);
 	}
 }

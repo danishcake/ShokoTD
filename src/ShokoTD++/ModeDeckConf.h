@@ -19,6 +19,7 @@ private:
 
 	void Accept(Widget* _widget);
 	void GoBack(Widget* _widget);
+	void ResetDeck(Widget* _widget);
 
 	ItemBrowserWidget* known_skills_;
 	ItemBrowserWidget* selected_skills_;

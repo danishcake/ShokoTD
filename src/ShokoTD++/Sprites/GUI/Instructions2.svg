@@ -2112,9 +2112,9 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.5"
-     inkscape:cx="391.10956"
-     inkscape:cy="95.97209"
+     inkscape:zoom="3"
+     inkscape:cx="190.23907"
+     inkscape:cy="325.0594"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -2203,7 +2203,7 @@
        inkscape:export-filename="C:\Documents and Settings\Edward\My Documents\Visual Studio 2005\Projects\ShokoTD\src\ShokoTD++\Sprites\GUI\Arrows_icontn.png"
        inkscape:export-xdpi="45"
        inkscape:export-ydpi="45"
-       transform="translate(254.81221,8.5704993)">
+       transform="translate(102.81221,12)">
       <g
          id="g2575"
          transform="translate(-86.81221,0)">
@@ -2249,7 +2249,7 @@
        inkscape:export-filename="C:\Documents and Settings\Edward\My Documents\Visual Studio 2005\Projects\ShokoTD\src\ShokoTD++\Sprites\GUI\Slow_icontn.png"
        inkscape:export-xdpi="45.00016"
        inkscape:export-ydpi="45.00016"
-       transform="translate(-47.999886,10.000114)">
+       transform="translate(104,11.999885)">
       <g
          id="g3507">
         <rect
@@ -2299,7 +2299,7 @@
        inkscape:export-filename="C:\Documents and Settings\Edward\My Documents\Visual Studio 2005\Projects\ShokoTD\src\ShokoTD++\Sprites\GUI\Fire_icontn.png"
        inkscape:export-xdpi="45"
        inkscape:export-ydpi="45"
-       transform="translate(191.99999,10)">
+       transform="translate(191.99999,12)">
       <g
          id="g3519">
         <rect

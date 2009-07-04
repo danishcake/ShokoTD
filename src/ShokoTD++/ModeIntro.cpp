@@ -22,6 +22,12 @@ void ModeIntro::Setup()
 	
 	logo_->SetPosition(logo_position_);
 
+
+	logo2_ = new Widget("logo.png");
+	logo2_position_ = Vector2f(-(logo2_->GetSize().x + 100), (480 - logo2_->GetSize().y ) / 2);
+	logo2_->SetRejectsFocus(true);
+	logo2_->SetPosition(logo2_position_);
+
 }
 
 ModeType::Enum ModeIntro::GetType()
@@ -35,9 +41,12 @@ ModeAction::Enum ModeIntro::Tick(float _dt)
 	static const float intro_time_1 = 1.0f;
 	static const float intro_time_2 = 2.0f;
 	static const float intro_time_3 = 2.5f;
-	static const float intro_time_4 = 5.0f;
+	static const float intro_time_4 = 3.7f;
+	static const float intro_time_5 = 5.7f;
+	static const float intro_time_6 = 6.0f;
 
 	float pos_frac = 0;
+	float pos_frac2 = -1;
 	if(age_ < intro_time_0)
 	{
 		pos_frac = -1;
@@ -50,17 +59,28 @@ ModeAction::Enum ModeIntro::Tick(float _dt)
 	} else if(age_ < intro_time_3)
 	{
 		pos_frac = (age_ - intro_time_2) / (intro_time_3 - intro_time_2);
+	} else if(age_ < intro_time_4)
+	{
+		pos_frac = 1;
+		pos_frac2 = -1.0 + (age_ - intro_time_3) / (intro_time_4 - intro_time_3);
 	} else
 	{
 		pos_frac = 1;
+		pos_frac2 = 0;
 	}
+
 	pos_frac = pos_frac * fabs(pos_frac);
+	pos_frac2 = pos_frac2 * fabs(pos_frac2);
 
 	logo_position_ = Vector2f(320 - logo_->GetSize().x / 2, 240 - logo_->GetSize().y / 2);
 	logo_position_ += Vector2f(400 + logo_->GetSize().x, 0) * pos_frac;
 	logo_->SetPosition(logo_position_);
 
-	if(!pend_mode_ && age_ > intro_time_4)
+	logo2_position_ = Vector2f(320 - logo2_->GetSize().x / 2 , 240 - logo2_->GetSize().y / 2);
+	logo2_position_ += Vector2f(0, 250 + logo_->GetSize().y) * pos_frac2;
+	logo2_->SetPosition(logo2_position_);
+
+	if(!pend_mode_ && age_ > intro_time_6)
 		pend_mode_ = new ModeMenu();
 
 

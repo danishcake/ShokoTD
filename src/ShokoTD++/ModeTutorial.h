@@ -7,11 +7,10 @@ class ModeTutorial :
 {
 private:
 	Widget* next_;
-	Widget* finish_;
 
-	Widget* page1_;
+	int page_index_;
+	Widget* page_;
 	void NextClick(Widget* _widget);
-	void FinishClick(Widget* _widget);
 public:
 	ModeTutorial();
 	virtual IMode* Teardown();

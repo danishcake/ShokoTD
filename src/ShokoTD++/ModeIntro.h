@@ -11,7 +11,9 @@ class ModeIntro :
 private:
 	void IntroClick(Widget* _widget);
 	Widget* logo_;
+	Widget* logo2_;
 	Vector2f logo_position_;
+	Vector2f logo2_position_;
 public:
 	virtual IMode* Teardown();
 	virtual void Setup();

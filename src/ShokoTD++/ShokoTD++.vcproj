@@ -439,11 +439,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Sprites\GUI\Instructions.png"
-					>
-				</File>
-				<File
-					RelativePath=".\Sprites\GUI\Instructions2.png"
+					RelativePath=".\Sprites\GUI\Logo.png"
 					>
 				</File>
 				<File
@@ -575,6 +571,30 @@
 					</File>
 					<File
 						RelativePath=".\Sprites\GUI\Blank96x64.png"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Instructions"
+					>
+					<File
+						RelativePath=".\Sprites\GUI\Instructions.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Instructions2.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Instructions3.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Instructions4.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Instructions5.png"
 						>
 					</File>
 				</Filter>

@@ -91,9 +91,11 @@ public:
 	WidgetEvent OnClick;
 	WidgetEvent OnFocusedClick;
 	MouseEvent  OnMouseClick;
+	MouseEvent  OnMouseMove;
 	WidgetEvent OnGainFocus;
 	WidgetEvent OnLostFocus;
 	KeyEvent    OnKeyUp;
+	static KeyEvent OnGlobalKeyUp;
 
 	DragEvent   OnDragStart; //Allows filling of drag data - drag_type must be non zero
 	DragEvent   OnDragReset;
@@ -153,6 +155,8 @@ public:
 	void Redraw();
 	void Invalidate();
 	void SetText(std::string _text, TextAlignment::Enum _alignment);
+	BlittableRect* GetBackRect(){return back_rect_;}
+
 
 	/* Root handling and drawing */
 	static void ClearRoot();

@@ -44,16 +44,21 @@ IMode* ModeGame::Teardown()
 void ModeGame::Setup()
 {
 	assert(skills_.size() <= 8);
+	
 	StandardTextures::grid_animation = CreateGridTexture(world_, Vector2i(24, 24));
 
 	Vector2i skill_position(2, 2);
+	int skill_id = 1;
 	for(std::vector<std::string>::iterator it = skills_.begin(); it != skills_.end(); it++)
 	{
 		Widget* skill = new Widget(*it + "_icon.png");
+		if(skill_id != skills_.size())
+			skill->GetBackRect()->BlitText(boost::lexical_cast<std::string, int>(skill_id), TextAlignment::BottomRight);
 		skill->SetPosition(skill_position);
 		skill_position.x += 66;
 		skill->SetTag(*it);
 		skill->OnClick.connect(boost::bind(&ModeGame::SkillClick, this, _1));
+		skill_id++;
 	}
 
 	Widget* back = new Widget("Blank64x64.png");
@@ -66,6 +71,7 @@ void ModeGame::Setup()
 	click_catcher->OnGridClick.connect(boost::bind(&ModeGame::GridClick, this, _1, _2));
 	click_catcher->OnGridGesture.connect(boost::bind(&ModeGame::GridGesture, this, _1, _2));
 	click_catcher->SetOffset(Vector2i(0, 0));
+	click_catcher->OnMouseMove.connect(boost::bind(&ModeGame::GridMove, this, _1, _2));
 
 	end_dialogue_ = new Widget("Blank384x384.png");
 	
@@ -84,7 +90,7 @@ void ModeGame::Setup()
 	lives_left_->SetText(boost::lexical_cast<std::string, int>(world_->GetLives()) + "/" + 
 						 boost::lexical_cast<std::string, int>(world_->GetMaxLives()), TextAlignment::Centre);
 
-	
+	keypress_connection_ = Widget::OnGlobalKeyUp.connect(boost::bind(&ModeGame::Keypress, this, _1, _2));
 }
 
 ModeAction::Enum ModeGame::Tick(float _dt)
@@ -155,35 +161,77 @@ void ModeGame::SkillClick(Widget* _widget)
 	Skills::Enum skill = Skills::FromString(_widget->GetTag());
 	Logger::DiagnosticOut() << "Using skill " << _widget->GetTag() << ", " << skill << ", " << Skills::ToString(skill) <<"\n";
 	selected_skill_ = Skills::FromString(_widget->GetTag());
+
+	switch(selected_skill_)
+	{
+	case Skills::PermaSlow:
+		DoPermaSlow();
+		break;
+	case Skills::SpawnPause:
+		DoSpawnPause();
+		break;
+	}
+
+}
+
+void ModeGame::Keypress(Widget* _widget, KeyPressEventArgs _args)
+{
+	if(_args.key_code >= 49 && _args.key_code <= 59)
+	{
+		int skill_index = _args.key_code - 49;
+		if(skill_index < skills_.size())
+		{
+			Skills::Enum skill = Skills::FromString(skills_[skill_index]);
+			switch(skill)
+			{
+			case Skills::Burn:
+				DoBurn(last_grid_position_);
+				break;
+			case Skills::Craze:
+				DoCraze(last_grid_position_);
+				break;
+			case Skills::PermaSlow:
+				DoPermaSlow();
+				break;
+			case Skills::SpawnPause:
+				DoSpawnPause();
+				break;
+			case Skills::Slow:
+				DoSlow(last_grid_position_);
+				break;
+
+			}
+		}
+	} else if(_args.key_code == 119) //W
+	{ 
+		DoArrows(last_grid_position_, Direction::North);
+	} else if(_args.key_code == 97)  //A
+	{
+		DoArrows(last_grid_position_, Direction::West);
+	} else if(_args.key_code == 115) //S
+	{
+		DoArrows(last_grid_position_, Direction::South);
+	} else if(_args.key_code == 100) //D
+	{
+		DoArrows(last_grid_position_, Direction::East);
+	}
+
+}
+
+void ModeGame::GridMove(Widget* _widget, MouseEventArgs _args)
+{
+	//Logger::DiagnosticOut() << "Mouse moved to " << _args.x << "," << _args.y << "\n";
+	last_grid_position_ = Vector2i(_args.x / 24, _args.y / 24);
+	//Logger::DiagnosticOut() << "Mouse moved to " << last_grid_position_ << "\n";
 }
 
 void ModeGame::GridClick(Widget* _widget, MouseEventArgs _args)
 {
 	Logger::DiagnosticOut() << "Clicked grid item " << _args.x << "," << _args.y << "\n";
-	switch(selected_skill_)
-	{
-	case Skills::Arrows:
-		if(_args.btns == MouseButton::Right)
-			world_->ClearArrow(Vector2i(_args.x, _args.y));
-		if(_args.btns == MouseButton::Middle)
-			world_->ClearArrows();
-		break;
-	case Skills::Burn:
-		DoBurn(Vector2i(_args.x, _args.y));
-		break;
-		case Skills::PermaSlow:
-			DoPermaSlow();
-			break;
-		case Skills::Craze:
-			DoCraze(Vector2i(_args.x, _args.y));
-			break;
-		case Skills::Slow:
-			DoSlow(Vector2i(_args.x, _args.y));
-			break;
-		case Skills::SpawnPause:
-			DoSpawnPause();
-			break;
-	}
+	if(_args.btns == MouseButton::Right)
+		world_->ClearArrow(Vector2i(_args.x, _args.y));
+	if(_args.btns == MouseButton::Middle)
+		world_->ClearArrows();
 }
 
 void ModeGame::GridGesture(Widget* _widget, GridGestureEventArgs _args)
@@ -211,27 +259,7 @@ void ModeGame::GridGesture(Widget* _widget, GridGestureEventArgs _args)
 	if((_args.x < world_->GetSize().x) && (_args.x >= 0) &&
 	   (_args.y < world_->GetSize().y) && (_args.y >= 0))
 	{
-		switch(selected_skill_)
-		{
-		case Skills::Arrows:
-			DoArrows(Vector2i(_args.x, _args.y), direction);
-			break;
-		case Skills::Burn:
-			DoBurn(Vector2i(_args.x, _args.y));
-			break;
-		case Skills::PermaSlow:
-			DoPermaSlow();
-			break;
-		case Skills::Craze:
-			DoCraze(Vector2i(_args.x, _args.y));
-			break;
-		case Skills::Slow:
-			DoSlow(Vector2i(_args.x, _args.y));
-			break;
-		case Skills::SpawnPause:
-			DoSpawnPause();
-			break;
-		}
+		DoArrows(Vector2i(_args.x, _args.y), direction);
 	}
 }
 
@@ -335,6 +363,7 @@ void ModeGame::DoCraze(Vector2i _position)
 		if(((*it)->GetPosition() - _position).length() < 2)
 		{
 			(*it)->SetCrazed(duration);
+			(*it)->SlowDown(duration, 0.7f);
 		}
 	}
 	Decoration d;
