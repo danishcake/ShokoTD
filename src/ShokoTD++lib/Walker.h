@@ -26,6 +26,7 @@ protected:
 	Direction::Enum initial_direction_;
 	float speed_;
 	float health_;
+	float max_health_;
 	float evil_damage_;
 	float good_damage_;
 	EnemyTypes::EnemyType* enemy_type_;
@@ -58,7 +59,8 @@ public:
 	void SlowDown(float _slowtime, float _slowfactor){slow_time_ = _slowtime; slow_factor_ = _slowfactor;}
 	void SetCrazed(float _craze_time){craze_time_ = _craze_time;}
 	/* Gets and sets the walker health */
-	void SetHealth(float _health){health_ = _health;}
+	void SetHealth(float _health){health_ = _health; max_health_ = _health;}
+	float GetMaxHealth(){return max_health_;}
 	float GetHealth(){return health_;}
 	void TakeGoodDamage(float _damage){health_ -= _damage; good_damage_ += _damage;}
 	void TakeEvilDamage(float _damage){health_ -= _damage; evil_damage_ += _damage;}

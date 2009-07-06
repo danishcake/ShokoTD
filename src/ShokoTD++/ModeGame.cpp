@@ -19,6 +19,8 @@
 #include <GameReport.h>
 #include <boost/lexical_cast.hpp>
 
+bool ModeGame::show_health_ = true;
+
 ModeGame::ModeGame(std::string _level_name, std::string _level_file, Progression* _progression)
 {
 	level_ = _level_name;
@@ -33,6 +35,10 @@ ModeGame::ModeGame(std::string _level_name, std::string _level_file, Progression
 ModeGame::~ModeGame()
 {
 	delete world_;
+	for(vector<BlittableRect*>::iterator it = cooldown_overlays_.begin(); it != cooldown_overlays_.end(); ++it)
+	{
+		delete *it;
+	}
 }
 
 IMode* ModeGame::Teardown()
@@ -47,18 +53,33 @@ void ModeGame::Setup()
 	
 	StandardTextures::grid_animation = CreateGridTexture(world_, Vector2i(24, 24));
 
+	cooldown_overlays_.push_back(new BlittableRect("Cooldown0.png"));
+	cooldown_overlays_.push_back(new BlittableRect("Cooldown1.png"));
+	cooldown_overlays_.push_back(new BlittableRect("Cooldown2.png"));
+	cooldown_overlays_.push_back(new BlittableRect("Cooldown3.png"));
+	cooldown_overlays_.push_back(new BlittableRect("Cooldown4.png"));
+	cooldown_overlays_.push_back(new BlittableRect("Cooldown5.png"));
+	cooldown_overlays_.push_back(new BlittableRect("Cooldown6.png"));
+	cooldown_overlays_.push_back(new BlittableRect("Cooldown7.png"));
+	cooldown_overlays_.push_back(new BlittableRect("Cooldown8.png"));
+	cooldown_overlays_.push_back(new BlittableRect("Cooldown9.png"));
+		
+
 	Vector2i skill_position(2, 2);
 	int skill_id = 1;
 	for(std::vector<std::string>::iterator it = skills_.begin(); it != skills_.end(); it++)
 	{
 		Widget* skill = new Widget(*it + "_icon.png");
+		
 		if(skill_id != skills_.size())
 			skill->GetBackRect()->BlitText(boost::lexical_cast<std::string, int>(skill_id), TextAlignment::BottomRight);
 		skill->SetPosition(skill_position);
 		skill_position.x += 66;
 		skill->SetTag(*it);
 		skill->OnClick.connect(boost::bind(&ModeGame::SkillClick, this, _1));
+		skill->OnDraw.connect(boost::bind(&ModeGame::SkillRedraw, this, _1, _2));
 		skill_id++;
+		cooldown_widgets_[*it] = skill;
 	}
 
 	Widget* back = new Widget("Blank64x64.png");
@@ -137,6 +158,11 @@ ModeAction::Enum ModeGame::Tick(float _dt)
 		cooldown.second -= _dt;
 	}
 
+	BOOST_FOREACH(widget_cooldown_t::value_type &widget_cooldown, cooldown_widgets_)
+	{
+		widget_cooldown.second->Invalidate();
+	}
+
 	BOOST_FOREACH(Decoration& decoration, decorations_)
 	{
 		decoration.time_to_live -= _dt;
@@ -155,6 +181,18 @@ ModeType::Enum ModeGame::GetType()
 	return ModeType::Game;
 }
 
+void ModeGame::SkillRedraw(Widget* _widget, BlittableRect* _blittable)
+{
+	if(cooldowns_.find(_widget->GetTag()) != cooldowns_.end())
+	{
+		float cooldown = GetCooldown(_widget->GetTag());
+		float frac = 1.0f - (cooldowns_[_widget->GetTag()] / cooldown);
+		frac = frac < 0 ? frac = 0 : frac > 1.0f ? 1.0f : frac;
+		int index = frac * 10;
+		if(index < 10)
+			cooldown_overlays_[index]->Blit(Vector2i(0, 0), _blittable);
+	}
+}
 
 void ModeGame::SkillClick(Widget* _widget)
 {
@@ -176,46 +214,53 @@ void ModeGame::SkillClick(Widget* _widget)
 
 void ModeGame::Keypress(Widget* _widget, KeyPressEventArgs _args)
 {
-	if(_args.key_code >= 49 && _args.key_code <= 59)
+	if((last_grid_position_.x < world_->GetSize().x) && (last_grid_position_.x >= 0) &&
+	   (last_grid_position_.y < world_->GetSize().y) && (last_grid_position_.y >= 0))
 	{
-		int skill_index = _args.key_code - 49;
-		if(skill_index < skills_.size())
+		if(_args.key_code >= 49 && _args.key_code <= 59)
 		{
-			Skills::Enum skill = Skills::FromString(skills_[skill_index]);
-			switch(skill)
+			int skill_index = _args.key_code - 49;
+			if(skill_index < skills_.size())
 			{
-			case Skills::Burn:
-				DoBurn(last_grid_position_);
-				break;
-			case Skills::Craze:
-				DoCraze(last_grid_position_);
-				break;
-			case Skills::PermaSlow:
-				DoPermaSlow();
-				break;
-			case Skills::SpawnPause:
-				DoSpawnPause();
-				break;
-			case Skills::Slow:
-				DoSlow(last_grid_position_);
-				break;
+				Skills::Enum skill = Skills::FromString(skills_[skill_index]);
+				switch(skill)
+				{
+				case Skills::Burn:
+					DoBurn(last_grid_position_);
+					break;
+				case Skills::Craze:
+					DoCraze(last_grid_position_);
+					break;
+				case Skills::PermaSlow:
+					DoPermaSlow();
+					break;
+				case Skills::SpawnPause:
+					DoSpawnPause();
+					break;
+				case Skills::Slow:
+					DoSlow(last_grid_position_);
+					break;
 
+				}
 			}
+		} else if(_args.key_code == 119) //W
+		{ 
+			DoArrows(last_grid_position_, Direction::North);
+		} else if(_args.key_code == 97)  //A
+		{
+			DoArrows(last_grid_position_, Direction::West);
+		} else if(_args.key_code == 115) //S
+		{
+			DoArrows(last_grid_position_, Direction::South);
+		} else if(_args.key_code == 100) //D
+		{
+			DoArrows(last_grid_position_, Direction::East);
 		}
-	} else if(_args.key_code == 119) //W
-	{ 
-		DoArrows(last_grid_position_, Direction::North);
-	} else if(_args.key_code == 97)  //A
-	{
-		DoArrows(last_grid_position_, Direction::West);
-	} else if(_args.key_code == 115) //S
-	{
-		DoArrows(last_grid_position_, Direction::South);
-	} else if(_args.key_code == 100) //D
-	{
-		DoArrows(last_grid_position_, Direction::East);
 	}
-
+	if(_args.key_code == 104) //H
+	{
+		show_health_ = !show_health_;
+	}
 }
 
 void ModeGame::GridMove(Widget* _widget, MouseEventArgs _args)
@@ -228,10 +273,14 @@ void ModeGame::GridMove(Widget* _widget, MouseEventArgs _args)
 void ModeGame::GridClick(Widget* _widget, MouseEventArgs _args)
 {
 	Logger::DiagnosticOut() << "Clicked grid item " << _args.x << "," << _args.y << "\n";
-	if(_args.btns == MouseButton::Right)
-		world_->ClearArrow(Vector2i(_args.x, _args.y));
-	if(_args.btns == MouseButton::Middle)
-		world_->ClearArrows();
+	if((_args.x < world_->GetSize().x) && (_args.x >= 0) &&
+	   (_args.y < world_->GetSize().y) && (_args.y >= 0))
+	{
+		if(_args.btns == MouseButton::Right)
+			world_->ClearArrow(Vector2i(_args.x, _args.y));
+		if(_args.btns == MouseButton::Middle)
+			world_->ClearArrows();
+	}
 }
 
 void ModeGame::GridGesture(Widget* _widget, GridGestureEventArgs _args)
@@ -276,6 +325,36 @@ void ModeGame::QuitClick(Widget* _widget)
 	
 }
 
+float ModeGame::GetCooldown(std::string _skill)
+{
+	float cooldown = 1;
+	Skills::Enum skill = Skills::FromString(_skill);
+	if(skill != Skills::None || skill != Skills::Arrows)
+	{
+		int cooldown_level = progression_->GetSkillsManager().GetSkill(_skill)->GetSkillLevel("Cooldown")->GetLevel();
+
+		switch(skill)
+		{
+		case Skills::Burn:
+			cooldown = 4.0f - cooldown_level * 0.6f;
+			break;
+		case Skills::Craze:
+			cooldown = 4.0f - cooldown_level * 0.6f;
+			break;
+		case Skills::Slow:
+			cooldown = 4.0f - cooldown_level * 0.6f;
+			break;
+		case Skills::PermaSlow:
+			cooldown = 16.5 - cooldown_level * 1.5f;
+			break;
+		case Skills::SpawnPause:
+			cooldown = 16.5 - cooldown_level * 1.5f;
+			break;
+		}
+	}
+	return cooldown;
+}
+
 bool ModeGame::CooldownOK(std::string _skillname)
 {
 	if(cooldowns_.find(_skillname) != cooldowns_.end())
@@ -305,7 +384,7 @@ void ModeGame::DoBurn(Vector2i _position)
 		return;
 	
 	float damage = progression_->GetSkillsManager().GetSkill("Burn")->GetSkillLevel("Damage")->GetLevel() * 80;
-	float cooldown = 4.0f - progression_->GetSkillsManager().GetSkill("Burn")->GetSkillLevel("Cooldown")->GetLevel() * 0.6f;
+	float cooldown = GetCooldown("Burn");
 
 	std::vector<Walker*> walkers = world_->GetEnemies();
 	for(std::vector<Walker*>::iterator it = walkers.begin(); it != walkers.end(); ++it)
@@ -330,7 +409,7 @@ void ModeGame::DoSlow(Vector2i _position)
 		return;
 
 	float duration = progression_->GetSkillsManager().GetSkill("Slow")->GetSkillLevel("Duration")->GetLevel() * 1.0f + 2.0f;
-	float cooldown = 4.0f - progression_->GetSkillsManager().GetSkill("Slow")->GetSkillLevel("Cooldown")->GetLevel() * 0.6f;
+	float cooldown = GetCooldown("Slow");
 
 	std::vector<Walker*> walkers = world_->GetEnemies();
 	for(std::vector<Walker*>::iterator it = walkers.begin(); it != walkers.end(); ++it)
@@ -355,7 +434,7 @@ void ModeGame::DoCraze(Vector2i _position)
 		return;
 
 	float duration = progression_->GetSkillsManager().GetSkill("Craze")->GetSkillLevel("Duration")->GetLevel() * 1.0f + 2.0f;
-	float cooldown = 4.0f - progression_->GetSkillsManager().GetSkill("Craze")->GetSkillLevel("Cooldown")->GetLevel() * 0.6f;
+	float cooldown = GetCooldown("Craze");
 
 	std::vector<Walker*> walkers = world_->GetEnemies();
 	for(std::vector<Walker*>::iterator it = walkers.begin(); it != walkers.end(); ++it)
@@ -380,7 +459,7 @@ void ModeGame::DoSpawnPause()
 	if(!CooldownOK("SpawnPause"))
 		return;
 
-	float cooldown = 16.5 - progression_->GetSkillsManager().GetSkill("SpawnPause")->GetSkillLevel("Cooldown")->GetLevel() * 1.5f;
+	float cooldown = GetCooldown("SpawnPause");
 	float duration = 4 + progression_->GetSkillsManager().GetSkill("SpawnPause")->GetSkillLevel("Duration")->GetLevel() * 1.0f;
 
 	world_->SpawnPause(duration);
@@ -394,7 +473,7 @@ void ModeGame::DoPermaSlow()
 	if(!CooldownOK("PermaSlow"))
 		return;
 
-	float cooldown = 16.5 - progression_->GetSkillsManager().GetSkill("PermaSlow")->GetSkillLevel("Cooldown")->GetLevel() * 1.5f;
+	float cooldown = GetCooldown("PermaSlow");
 
 	std::vector<Walker*> walkers = world_->GetEnemies();
 	for(std::vector<Walker*>::iterator it = walkers.begin(); it != walkers.end(); ++it)
@@ -436,6 +515,16 @@ std::vector<RenderItem> ModeGame::Draw()
 		ri.frame_ = p_walker->GetEnemyType()->directions[p_walker->GetDirection()]->GetCurrentFrame();
 		ri.depth = 0;
 		draw_list.push_back(ri);
+
+		if(show_health_)
+		{
+			RenderItem ri2;
+			ri2.position_ = p_walker->GetPosition() + Vector2f(0, 1.05f);
+			int frame = (1.0f - (p_walker->GetHealth() / p_walker->GetMaxHealth())) * 9;
+			ri2.frame_ = StandardTextures::healthbar_animation->GetFrameByIndex(frame);
+			ri2.depth = above * 2;
+			draw_list.push_back(ri2);
+		}
 	}
 
 	BOOST_FOREACH(p_walker, world_->GetDeadEnemies())
@@ -445,7 +534,7 @@ std::vector<RenderItem> ModeGame::Draw()
 			RenderItem ri;
 			ri.position_ = p_walker->GetPosition();
 			ri.frame_ = p_walker->GetEnemyType()->death_animation->GetFrame(p_walker->GetDeathTime());
-			ri.depth = 0;
+			ri.depth = above * 2;
 			draw_list.push_back(ri);
 		}
 	}

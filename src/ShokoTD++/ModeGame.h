@@ -40,12 +40,14 @@ class ModeGame :
 private:
 	std::vector<Decoration> decorations_;
 	std::vector<std::string> skills_;
+	std::vector<BlittableRect*> cooldown_overlays_;
 	Skills::Enum selected_skill_;
 	std::string level_;
 	World* world_;
 	WorldState::Enum ltv_world_state_;
 	float dialogue_timer_;
 	Vector2i last_grid_position_;
+	static bool show_health_;
 
 
 	Widget* end_dialogue_;
@@ -58,12 +60,15 @@ private:
 	boost::signals::scoped_connection  keypress_connection_;
 	void Keypress(Widget* _widget, KeyPressEventArgs _args);
 	void GridGesture(Widget* _widget, GridGestureEventArgs _args);
+	void SkillRedraw(Widget* _widget, BlittableRect* _blittable);
 
 	Progression* progression_;
 
 	/* Skill firing */
 	typedef std::map<std::string, float> cooldown_t;
 	cooldown_t cooldowns_;
+	typedef std::map<std::string, Widget*> widget_cooldown_t;
+	widget_cooldown_t cooldown_widgets_;
 	bool CooldownOK(std::string _skillname);
 	void DoArrows(Vector2i _position, Direction::Enum _direction);
 	void DoBurn(Vector2i _position);
@@ -71,6 +76,8 @@ private:
 	void DoCraze(Vector2i _position);
 	void DoSpawnPause();
 	void DoPermaSlow();
+	float GetCooldown(std::string skill);
+
 
 	
 public:

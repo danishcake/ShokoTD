@@ -27,6 +27,7 @@ namespace StandardTextures
 	Animation* burning_animation = 0;
 	Animation* slow_animation = 0;
 	Animation* craze_animation = 0;
+	Animation* healthbar_animation = 0;
 
 	void LoadTextures()
 	{
@@ -45,6 +46,19 @@ namespace StandardTextures
 		} else
 		{
 			Logger::ErrorOut() << "Unable to load Tile animations\n";
+		}
+
+		AnimationSet* healthbar_animation_set = SDLTextureManager::GetAnimationSet("HealthBar.animation");
+		if(healthbar_animation_set)
+		{
+			healthbar_animation =  healthbar_animation_set->GetAnimation("Health");
+			if(!healthbar_animation)
+			{
+				Logger::ErrorOut() << "Unable to load HealthBar animation\n";
+			}
+		} else
+		{
+			Logger::ErrorOut() << "Unable to load HealthBar animations\n";
 		}
 
 		AnimationSet* wall_animation_set = SDLTextureManager::GetAnimationSet("Walls.animation");

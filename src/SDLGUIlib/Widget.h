@@ -61,6 +61,7 @@ public:
 	typedef boost::signal<void (Widget*, MouseEventArgs)> MouseEvent;
 	typedef boost::signal<void (Widget*, KeyPressEventArgs)> KeyEvent;
 	typedef boost::signal<void (Widget*, DragEventArgs*)> DragEvent;
+	typedef boost::signal<void (Widget*, BlittableRect*)> DrawEvent;
 
 	/* Constructors */
 	Widget(void);
@@ -95,6 +96,9 @@ public:
 	WidgetEvent OnGainFocus;
 	WidgetEvent OnLostFocus;
 	KeyEvent    OnKeyUp;
+	DrawEvent   OnDraw;
+	
+	/* Static signals */
 	static KeyEvent OnGlobalKeyUp;
 
 	DragEvent   OnDragStart; //Allows filling of drag data - drag_type must be non zero

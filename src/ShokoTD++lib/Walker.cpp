@@ -23,6 +23,7 @@ Walker::Walker(void)
 	walker_state_ = WalkerState::Live;
 	enemy_type_ = NULL;
 	health_ = 100;
+	max_health_ = 100;
 	evil_damage_ = 0;
 	good_damage_ = 0;
 	slow_factor_ = 1;

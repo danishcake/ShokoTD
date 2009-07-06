@@ -22,6 +22,7 @@ namespace StandardTextures
 	extern Animation* slow_animation;
 	extern Animation* craze_animation;
 	extern Animation* burning_animation;
+	extern Animation* healthbar_animation;
 
 	void LoadTextures();
 	void TickAnimations(float _dt);

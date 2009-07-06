@@ -397,12 +397,16 @@ void Widget::Redraw()
 	back_rect_->RawBlit(Vector2i(0,0), blit_rect_);
 	//Superimpose text
 	blit_rect_->BlitTextLines(widget_text_.GetTextLines(), widget_text_.alignment);
+	//Do any custom hooked drawing
+	OnDraw(this, blit_rect_);
+
 	if(widget_with_focus_ == this && !hides_highlight_)
 		blit_rect_->Fade(0.25f, 255, 255, 255);
 	if(widget_with_highlight_ == this && !hides_highlight_)
 		blit_rect_->Fade(0.10f, 0, 0, 255);
 	if(GetModalWidget() && !HasOrInheritsModal())
 		blit_rect_->Fade(0.5f, 0, 0, 0);
+
 
 	//Blit in children
 	for(vector<Widget*>::iterator it = children_.begin(); it != children_.end(); ++it)

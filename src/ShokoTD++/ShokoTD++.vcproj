@@ -598,6 +598,50 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Cooldown"
+					>
+					<File
+						RelativePath=".\Sprites\GUI\Cooldown0.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Cooldown1.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Cooldown2.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Cooldown3.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Cooldown4.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Cooldown5.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Cooldown6.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Cooldown7.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Cooldown8.png"
+						>
+					</File>
+					<File
+						RelativePath=".\Sprites\GUI\Cooldown9.png"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Arrows"
@@ -670,6 +714,14 @@
 			<Filter
 				Name="Walkers"
 				>
+				<File
+					RelativePath=".\Sprites\HealthBar.animation"
+					>
+				</File>
+				<File
+					RelativePath=".\Sprites\HealthBar.png"
+					>
+				</File>
 				<Filter
 					Name="Bludgeoner"
 					>
