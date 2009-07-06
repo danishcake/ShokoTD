@@ -25,7 +25,8 @@ private:
 	
 	std::vector<ProgressLevel*> levels_; //Map might have made more sense
 	
-	SkillManager skill_manager_;;
+	SkillManager skill_manager_;
+	std::vector<std::string> skill_deck_;
 	
 	ProgressionState::Enum state_;
 
@@ -56,6 +57,7 @@ public:
 
 	/* Skills */
 	SkillManager& GetSkillsManager(){return skill_manager_;}
+	std::vector<std::string>& GetSkillDeck(){return skill_deck_;}
 
 	/* Score */
 	unsigned int GetGoodPoints(){return good_points_;}

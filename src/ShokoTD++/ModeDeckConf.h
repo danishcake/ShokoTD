@@ -46,4 +46,5 @@ public:
 	virtual ModeAction::Enum Tick(float _dt);
 	virtual ModeType::Enum GetType();
 	virtual std::vector<RenderItem> Draw();
+	
 };

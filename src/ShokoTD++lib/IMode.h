@@ -38,7 +38,7 @@ protected:
 	float fade_;
 public:
 	IMode();
-
+	virtual ~IMode(){}
 	virtual IMode* Teardown();
 	virtual void Setup() = 0;
 	virtual ModeAction::Enum Tick(float _dt);

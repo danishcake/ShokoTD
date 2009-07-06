@@ -19,10 +19,10 @@
 #include <GameReport.h>
 #include <boost/lexical_cast.hpp>
 
-ModeGame::ModeGame(std::string _level_name, std::string _level_file, std::vector<std::string> _skills, Progression* _progression)
+ModeGame::ModeGame(std::string _level_name, std::string _level_file, Progression* _progression)
 {
 	level_ = _level_name;
-	skills_ = _skills;
+	skills_ = _progression->GetSkillDeck();
 	selected_skill_ = Skills::None;
 	progression_ = _progression;
 	world_ = new World(_level_file);

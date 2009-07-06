@@ -74,7 +74,7 @@ private:
 
 	
 public:
-	ModeGame(std::string _level_name, std::string _level_file, std::vector<std::string> _skills, Progression* _progression);
+	ModeGame(std::string _level_name, std::string _level_file, Progression* _progression);
 	virtual ~ModeGame();
 
 	virtual IMode* Teardown();

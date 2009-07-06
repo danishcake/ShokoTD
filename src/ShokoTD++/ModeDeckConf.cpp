@@ -26,6 +26,7 @@ IMode* ModeDeckConfiguration::Teardown()
 
 void ModeDeckConfiguration::Setup()
 {
+	
 	std::vector<Skill*> purchased_skills_ = progression_->GetSkillsManager().GetPurchasedSkills();
 	std::vector<Skill*> unlocked_skills_ = progression_->GetSkillsManager().GetUnlockedSkills();
 
@@ -46,9 +47,10 @@ void ModeDeckConfiguration::Setup()
 	known_skills_->OnItemDragStart.connect(boost::bind(&ModeDeckConfiguration::ItemDragStart, this, _1, _2));
 	known_skills_->OnItemClick.connect(boost::bind(&ModeDeckConfiguration::ItemClick, this, _1, _2));
 
-	std::vector<std::string> none;
-	none.push_back("Arrows");
-	selected_skills_ = new ItemBrowserWidget(none, Vector2i(7, 1), Vector2i(64, 64));
+	std::vector<std::string>& skill_deck = progression_->GetSkillDeck();
+	if(skill_deck.size() == 0)
+		skill_deck.push_back("Arrows");
+	selected_skills_ = new ItemBrowserWidget(skill_deck, Vector2i(7, 1), Vector2i(64, 64));
 	selected_skills_->SetPosition(Vector2i(128 + 20, 10));
 	selected_skills_->SetAllowScroll(false);
 	selected_skills_->OnItemRender.connect(boost::bind(&ModeDeckConfiguration::ItemRender, this, _1, _2, _3));
@@ -300,11 +302,11 @@ void ModeDeckConfiguration::ItemDragLand(Widget* _widget, DragEventArgs* _drag_a
 
 void ModeDeckConfiguration::ItemDragStart(Widget* _widget, DragEventArgs* _drag_args)
 {
-	static int c = 0;
-	c++;
-	Logger::DiagnosticOut() << "Drag start:" << c << "\n";
-	_drag_args->drag_type = 1;
-	_drag_args->data = _widget;
+	if(progression_->GetSkillsManager().SkillPurchased(_widget->GetTag()))
+	{
+		_drag_args->drag_type = 1;
+		_drag_args->data = _widget;
+	}
 }
 
 void ModeDeckConfiguration::ItemDragEnter(Widget* _widget, DragEventArgs* _drag_args)
@@ -316,7 +318,8 @@ void ModeDeckConfiguration::Accept(Widget* _widget)
 {
 	if(!pend_mode_ && selected_skills_->GetItems().size() > 0)
 	{
-		pend_mode_ = new ModeGame(next_level_, progression_->GetLevelFilename(next_level_), selected_skills_->GetItems(), progression_);
+		progression_->GetSkillDeck() = selected_skills_->GetItems();
+		pend_mode_ = new ModeGame(next_level_, progression_->GetLevelFilename(next_level_), progression_);
 	}
 }
 

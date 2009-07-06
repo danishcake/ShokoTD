@@ -572,7 +572,6 @@ void Widget::ClearRoot()
 	widget_with_drag_ = NULL;
 	drag_event_args_ = DragEventArgs();
 
-
 	//root_.clear(); // The destructors do this automatically
 }
 
