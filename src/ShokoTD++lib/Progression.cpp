@@ -298,3 +298,24 @@ void Progression::ReportCompletion(std::string _level, GameReport _gr)
 	good_points_ += _gr.GetAlignment().GetGoodScore();
 	evil_points_ += _gr.GetAlignment().GetEvilScore();
 }
+
+std::string Progression::GetCampaignIcon(std::string _campaign)
+{
+	std::string icon_filename = "CampaignError.png";
+	TiXmlDocument doc("Levels/" + _campaign + ".Campaign");
+	doc.LoadFile();
+	if(!doc.Error())
+	{
+		TiXmlElement* campaign_el = doc.FirstChildElement("Campaign");
+		if(campaign_el)
+		{
+			std::string attr;
+			if(campaign_el->QueryValueAttribute("icon", &attr) == TIXML_SUCCESS)
+			{
+				icon_filename = attr;
+			}
+		}
+
+	}
+	return icon_filename;
+}

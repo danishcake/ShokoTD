@@ -247,6 +247,10 @@
 				Name="Moding"
 				>
 				<File
+					RelativePath=".\ModeCampaignSelect.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\ModeDeckConf.cpp"
 					>
 				</File>
@@ -316,6 +320,10 @@
 			<Filter
 				Name="Moding"
 				>
+				<File
+					RelativePath=".\ModeCampaignSelect.h"
+					>
+				</File>
 				<File
 					RelativePath=".\ModeDeckConf.h"
 					>
@@ -1002,6 +1010,26 @@
 			<File
 				RelativePath=".\Campaigns\ToHellAndBack.Campaign"
 				>
+			</File>
+			<File
+				RelativePath=".\Campaigns\ToHellAndBack\ToHellAndBack.Icon"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Level copier"
+						LevelSet="ToHellAndBack"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="Level copier"
+						LevelSet="ToHellAndBack"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 	</Files>

@@ -1,4 +1,4 @@
-<Campaign name="Test Campaign 1">
+<Campaign name="Test Campaign 1" icon="ToHellAndBack/ToHellAndBack.icon">
   <StartingSkill name="Arrows" purchased="1"/>
   <Level name="Level 1" file="ToHellAndBack/Level 1.level" locked="0">
     <Unlockable>

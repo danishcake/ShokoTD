@@ -69,4 +69,6 @@ public:
 	bool GetError(){return state_ != ProgressionState::OK;}
 
 	static void SetCheatMode(){cheat_ = true;}
+
+	static std::string GetCampaignIcon(std::string _campaign);
 };

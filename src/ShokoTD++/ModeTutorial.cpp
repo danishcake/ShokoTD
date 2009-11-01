@@ -1,7 +1,6 @@
 #include "ModeTutorial.h"
 #include "RenderItem.h"
-//#include "ModeDeckConf.h"
-#include "ModeLevelSelect.h"
+#include "ModeCampaignSelect.h"
 #include <Widget.h>
 #include <Progression.h>
 
@@ -74,7 +73,8 @@ void ModeTutorial::NextClick(Widget* _widget)
 		break;
 	default:
 		if(pend_mode_ == NULL)
-			pend_mode_ = new ModeLevelSelect(new Progression("ToHellAndBack.Campaign", ""));
+			pend_mode_ = new ModeCampaignSelect();
+			//pend_mode_ = new ModeLevelSelect(new Progression("ToHellAndBack.Campaign", ""));
 		break;
 	}
 }
