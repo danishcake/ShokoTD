@@ -14,6 +14,7 @@ private:
 	void PlayCampaignClick(Widget* _widget);
 	void ItemRender(Widget* _widget, BlittableRect** _rect, std::string _text);
 	std::string selected_campaign_;
+	Widget* campaign_description_;
 
 public:
 	ModeCampaignSelect();
@@ -21,5 +22,5 @@ public:
 	virtual void Setup();
 	virtual ModeAction::Enum Tick(float _dt);
 	virtual ModeType::Enum GetType();
-	virtual std::vector<RenderItem> Draw();	
+	virtual std::vector<RenderItem> Draw();
 };

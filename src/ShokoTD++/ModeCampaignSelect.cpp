@@ -34,6 +34,9 @@ void ModeCampaignSelect::Setup()
 	go_back->SetText("Back", TextAlignment::Centre);
 	go_back->OnClick.connect(boost::bind(&ModeCampaignSelect::ReturnToMenuClick, this, _1));
 
+	campaign_description_ = new Widget("Blank600x200.png");
+	campaign_description_->SetPosition(Vector2i(20, 84));
+	campaign_description_->SetText("Select a campaign", TextAlignment::TopLeft);
 	std::vector<std::string> campaigns;
 	/* Load a list of campaigns */
 	boost::filesystem::directory_iterator end_itr;	
@@ -79,6 +82,8 @@ std::vector<RenderItem> ModeCampaignSelect::Draw()
 void ModeCampaignSelect::ItemClick(Widget* _widget, std::string _text)
 {
 	selected_campaign_ = _text;
+
+	campaign_description_->SetText("Campaign:" + _text, TextAlignment::TopLeft);
 }
 
 void ModeCampaignSelect::ReturnToMenuClick(Widget* _widget)

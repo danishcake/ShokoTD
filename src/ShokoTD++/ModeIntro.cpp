@@ -27,7 +27,8 @@ void ModeIntro::Setup()
 	logo2_position_ = Vector2f(-(logo2_->GetSize().x + 100), (480 - logo2_->GetSize().y ) / 2);
 	logo2_->SetRejectsFocus(true);
 	logo2_->SetPosition(logo2_position_);
-
+	
+	keypress_connection_ = Widget::OnGlobalKeyUp.connect(boost::bind(&ModeIntro::Keypress, this, _1, _2));
 }
 
 ModeType::Enum ModeIntro::GetType()
@@ -100,4 +101,13 @@ void ModeIntro::IntroClick(Widget* _widget)
 {
 	if(!pend_mode_)
 		pend_mode_ = new ModeMenu();
+}
+
+void ModeIntro::Keypress(Widget* _widget, KeyPressEventArgs _args)
+{
+	if(!pend_mode_ && (_args.key_code == SDLK_ESCAPE || _args.key_code == SDLK_RETURN ||
+		_args.key_code == SDLK_SPACE))
+	{
+		pend_mode_ = new ModeMenu();
+	}
 }
