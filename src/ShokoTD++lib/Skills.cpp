@@ -16,6 +16,7 @@ namespace Skills
 			if(EnumStr[i] == _skill)
 				return Enum(i);
 		}
+		return Skills::Arrows;
 	}
 
 	std::string ToString(Enum _skill)

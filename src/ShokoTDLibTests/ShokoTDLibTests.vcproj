@@ -58,6 +58,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-D_SCL_SECURE_NO_WARNINGS"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(SolutionDir)UnitTest++Redist\Include&quot;;&quot;$(SolutionDir)src/ShokoTD++lib\&quot;;&quot;$(PROGRAMFILES)\boost\boost_1_36_0&quot;;&quot;$(PROGRAMFILES)\tinyxml&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;TIXML_USE_STL"
@@ -67,6 +68,7 @@
 				UsePrecompiledHeader="2"
 				WarningLevel="3"
 				DebugInformationFormat="4"
+				DisableSpecificWarnings="4512"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -154,6 +156,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-D_SCL_SECURE_NO_WARNINGS"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="&quot;$(SolutionDir)UnitTest++Redist\Include&quot;;&quot;$(SolutionDir)src/ShokoTD++lib\&quot;;&quot;$(PROGRAMFILES)\boost\boost_1_36_0&quot;;&quot;$(PROGRAMFILES)\tinyxml&quot;"
@@ -163,6 +166,7 @@
 				UsePrecompiledHeader="2"
 				WarningLevel="3"
 				DebugInformationFormat="3"
+				DisableSpecificWarnings="4512"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

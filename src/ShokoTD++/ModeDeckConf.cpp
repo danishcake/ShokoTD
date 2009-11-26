@@ -103,7 +103,7 @@ ModeAction::Enum ModeDeckConfiguration::Tick(float _dt)
 	return result;
 }
 
-void ModeDeckConfiguration::ResetDeck(Widget* _widget)
+void ModeDeckConfiguration::ResetDeck(Widget* /*_widget*/)
 {
 	std::vector<std::string> skills;
 	skills.push_back("Arrows");
@@ -202,7 +202,7 @@ std::vector<RenderItem> ModeDeckConfiguration::Draw()
 	return std::vector<RenderItem>();
 }
 
-void ModeDeckConfiguration::BuySkillClick(Widget* _widget)
+void ModeDeckConfiguration::BuySkillClick(Widget* /*_widget*/)
 {
 	Skill* skill = progression_->GetSkillsManager().GetSkill(last_skill_selected_);
 	switch(skill->GetAlignment())
@@ -277,7 +277,7 @@ void ModeDeckConfiguration::UpgradeSkillClick(Widget* _widget)
 	}
 }
 
-void ModeDeckConfiguration::ItemRender(Widget* _widget, BlittableRect** _blittable, std::string _name)
+void ModeDeckConfiguration::ItemRender(Widget* /*_widget*/, BlittableRect** _blittable, std::string _name)
 {
 	*_blittable = new BlittableRect(_name + "_icon.png");
 
@@ -288,7 +288,7 @@ void ModeDeckConfiguration::ItemRender(Widget* _widget, BlittableRect** _blittab
 	}
 }
 
-void ModeDeckConfiguration::ItemDragLand(Widget* _widget, DragEventArgs* _drag_args)
+void ModeDeckConfiguration::ItemDragLand(Widget* /*_widget*/, DragEventArgs* _drag_args)
 {
 	std::string tag = ((Widget*)_drag_args->data)->GetTag();
 	Logger::DiagnosticOut() << "Drag land of type " << tag << "\n";
@@ -309,12 +309,12 @@ void ModeDeckConfiguration::ItemDragStart(Widget* _widget, DragEventArgs* _drag_
 	}
 }
 
-void ModeDeckConfiguration::ItemDragEnter(Widget* _widget, DragEventArgs* _drag_args)
+void ModeDeckConfiguration::ItemDragEnter(Widget* /*_widget*/, DragEventArgs* _drag_args)
 {
 	_drag_args->drag_accepted = _drag_args->drag_type == 1;
 }
 
-void ModeDeckConfiguration::Accept(Widget* _widget)
+void ModeDeckConfiguration::Accept(Widget* /*_widget*/)
 {
 	if(!pend_mode_ && selected_skills_->GetItems().size() > 0)
 	{
@@ -323,7 +323,7 @@ void ModeDeckConfiguration::Accept(Widget* _widget)
 	}
 }
 
-void ModeDeckConfiguration::GoBack(Widget* _widget)
+void ModeDeckConfiguration::GoBack(Widget* /*_widget*/)
 {
 	if(!pend_mode_)
 	{
@@ -331,7 +331,7 @@ void ModeDeckConfiguration::GoBack(Widget* _widget)
 	}
 }
 
-void ModeDeckConfiguration::ItemClick(Widget* _widget, std::string _item)
+void ModeDeckConfiguration::ItemClick(Widget* /*_widget*/, std::string _item)
 {
 	Skill* skill = progression_->GetSkillsManager().GetSkill(_item);
 	if(skill)

@@ -26,7 +26,7 @@ GameGridWidget::~GameGridWidget(void)
 {
 }
 
-void GameGridWidget::GridMouseClick(Widget* _widget, MouseEventArgs args)
+void GameGridWidget::GridMouseClick(Widget* /*_widget*/, MouseEventArgs args)
 {
 	MouseEventArgs e;
 	e.x = (args.x + offset_.x) / item_size_.x;
@@ -35,7 +35,7 @@ void GameGridWidget::GridMouseClick(Widget* _widget, MouseEventArgs args)
 	OnGridClick(this, e);
 }
 
-void GameGridWidget::GridKeyUp(Widget* _widget, KeyPressEventArgs args)
+void GameGridWidget::GridKeyUp(Widget* /*_widget*/, KeyPressEventArgs args)
 {
 	GridKeyPressEventArgs e;
 	e.x = (last_mouse_position_.x + offset_.x) / item_size_.x;
@@ -44,20 +44,20 @@ void GameGridWidget::GridKeyUp(Widget* _widget, KeyPressEventArgs args)
 	OnGridKeyUp(this, e);
 }
 
-void GameGridWidget::GridDragStart(Widget* _widget, DragEventArgs* _args)
+void GameGridWidget::GridDragStart(Widget* /*_widget*/, DragEventArgs* _args)
 {
 	_args->drag_type = 1;
 }
 
-void GameGridWidget::GridDragReset(Widget* _widget, DragEventArgs* _args)
+void GameGridWidget::GridDragReset(Widget* /*_widget*/, DragEventArgs* _args)
 {
 	GridGestureEventArgs e;
 	e.x = (_args->sx + offset_.x) / item_size_.x;
 	e.y = (_args->sy + offset_.y) / item_size_.y;
 	e.direction = GestureDirection::Center;
 
-	float angle = atan2f(_args->x, -_args->y);
-	float length = Vector2f(_args->x, -_args->y).length();
+	float angle = atan2f(static_cast<float>(_args->x), -static_cast<float>(_args->y));
+	float length = Vector2f(static_cast<float>(_args->x), -static_cast<float>(_args->y)).length();
 
 	if(length > 5)
 	{

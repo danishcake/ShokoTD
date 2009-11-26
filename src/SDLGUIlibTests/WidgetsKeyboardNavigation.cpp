@@ -5,13 +5,13 @@
 namespace
 {
 	int widgetevent_callback_count = 0;
-	void widgetevent_callback(Widget* _widget)
+	void widgetevent_callback(Widget* /*_widget*/)
 	{
 		widgetevent_callback_count++;
 	}
 
 	int global_key_callback_count = 0;
-	void global_keyevent_callback(Widget* _widget, KeyPressEventArgs _args)
+	void global_keyevent_callback(Widget* /*_widget*/, KeyPressEventArgs /*_args*/)
 	{
 		global_key_callback_count ++;
 	}

@@ -73,8 +73,8 @@ namespace
 		{
 			for(int x = 0; x < _dest->w; x++)
 			{
-				int sample_x = ((float)_src->w / (float)_dest->w) * x;
-				int sample_y = ((float)_src->h / (float)_dest->h) * y;
+				int sample_x = (int)(((float)_src->w / (float)_dest->w) * (float)x);
+				int sample_y = (int)(((float)_src->h / (float)_dest->h) * (float)y);
 				char* dest = (char*)_dest->pixels + (_dest->pitch * y) +
 													(bpp * x);		
 				char* src = (char*)_src->pixels + (_src->pitch * sample_y) +
@@ -205,20 +205,20 @@ BlittableRect::~BlittableRect(void)
 void BlittableRect::Blit(Vector2i _position, BlittableRect* _dest)
 {
 	SDL_Rect dst_rect;
-	dst_rect.x = _position.x;
-	dst_rect.y = _position.y;
-	dst_rect.w = size_.x;
-	dst_rect.h = size_.y;
+	dst_rect.x = static_cast<Sint16>(_position.x);
+	dst_rect.y = static_cast<Sint16>(_position.y);
+	dst_rect.w = static_cast<Sint16>(size_.x);
+	dst_rect.h = static_cast<Sint16>(size_.y);
 	SDL_BlitSurface(surface_, NULL, _dest->surface_, &dst_rect);
 }
 
 void BlittableRect::RawBlit(Vector2i _position, BlittableRect* _dest)
 {
 	SDL_Rect dst_rect;
-	dst_rect.x = _position.x;
-	dst_rect.y = _position.y;
-	dst_rect.w = size_.x;
-	dst_rect.h = size_.y;
+	dst_rect.x = static_cast<Sint16>(_position.x);
+	dst_rect.y = static_cast<Sint16>(_position.y);
+	dst_rect.w = static_cast<Sint16>(size_.x);
+	dst_rect.h = static_cast<Sint16>(size_.y);
 	BlindBlit(surface_, _dest->surface_, &dst_rect);	
 }
 
@@ -226,7 +226,7 @@ void BlittableRect::Fade(float _degree, unsigned char r, unsigned char g, unsign
 {
 	SDL_Surface* fade_surface = SDL_CreateRGBSurface(surface_flags_, size_.x, size_.y, 32, rmask, gmask, bmask, amask);
 	_degree = _degree < 0 ? 0 : (_degree > 1.0f ? 1.0f : _degree); //Limit to +-1.0f
-	unsigned char a = 255 * _degree;
+	unsigned char a = static_cast<unsigned char>(255 * _degree);
 	SDL_FillRect(fade_surface, NULL, SDL_MapRGBA(fade_surface->format, r, g, b, a));
 	
 	SDL_BlitSurface(fade_surface, NULL, surface_, NULL);
@@ -261,36 +261,36 @@ void BlittableRect::BlitText(std::string _text, TextAlignment::Enum _alignment)
 		out_y = 4;
 		break;
 	case TextAlignment::Top:
-		out_x = (size_.x/2) - _text.length() * (font_width / 2);
+		out_x = static_cast<int>((size_.x/2) - _text.length() * (font_width / 2));
 		out_y = 4;
 		break;
 	case TextAlignment::TopRight:
-		out_x = size_.x - _text.length() * font_width - 4;
+		out_x = static_cast<int>(size_.x - _text.length() * font_width - 4);
 		out_y = 4;
 		break;
 	case TextAlignment::Left:
 		out_x = 4;
-		out_y = (size_.y / 2) - (font_height / 2);
+		out_y = static_cast<int>((size_.y / 2) - (font_height / 2));
 		break;
 	case TextAlignment::Centre:
-		out_x = (size_.x/2) - _text.length() * (font_width / 2);
-		out_y = (size_.y / 2) - (font_height / 2);
+		out_x = static_cast<int>((size_.x/2) - _text.length() * (font_width / 2));
+		out_y = static_cast<int>((size_.y / 2) - (font_height / 2));
 		break;
 	case TextAlignment::Right:
-		out_x = size_.x - _text.length() * font_width - 4;
-		out_y = (size_.y / 2) - (font_height / 2);
+		out_x = static_cast<int>(size_.x - _text.length() * font_width - 4);
+		out_y = static_cast<int>((size_.y / 2) - (font_height / 2));
 		break;
 	case TextAlignment::BottomLeft:
 		out_x = 4;
-		out_y = size_.y - font_height - 4;
+		out_y = static_cast<int>(size_.y - font_height - 4);
 		break;
 	case TextAlignment::Bottom:
-		out_x = (size_.x/2) - _text.length() * (font_width / 2);
-		out_y = size_.y - font_height - 4;
+		out_x = static_cast<int>((size_.x/2) - _text.length() * (font_width / 2));
+		out_y = static_cast<int>(size_.y - font_height - 4);
 		break;
 	case TextAlignment::BottomRight:
-		out_x = size_.x - _text.length() * font_width - 4;
-		out_y = size_.y - font_height - 4;
+		out_x = static_cast<int>(size_.x - _text.length() * font_width - 4);
+		out_y = static_cast<int>(size_.y - font_height - 4);
 		break;
 	}
 	for(unsigned int i = 0; i < _text.length(); i++)
@@ -302,17 +302,17 @@ void BlittableRect::BlitText(std::string _text, TextAlignment::Enum _alignment)
 		int sample_x = (c % 16) * font_width;
 		int sample_y = (c / 16) * font_height;
 		SDL_Rect src_rect;
-		src_rect.x = sample_x;
-		src_rect.y = sample_y;
-		src_rect.w = font_width;
-		src_rect.h = font_height;
+		src_rect.x = static_cast<Sint16>(sample_x);
+		src_rect.y = static_cast<Sint16>(sample_y);
+		src_rect.w = static_cast<Uint16>(font_width);
+		src_rect.h = static_cast<Uint16>(font_height);
 
 
 		SDL_Rect dest_rect;
-		dest_rect.x = out_x;
-		dest_rect.y = out_y;
-		dest_rect.w = font_width;
-		dest_rect.h = font_height;
+		dest_rect.x = static_cast<Sint16>(out_x);
+		dest_rect.y = static_cast<Sint16>(out_y);
+		dest_rect.w = static_cast<Uint16>(font_width);
+		dest_rect.h = static_cast<Uint16>(font_height);
 		SDL_BlitSurface(font, &src_rect, surface_, &dest_rect);
 		out_x += 16;
 	}
@@ -336,8 +336,8 @@ void BlittableRect::BlitTextLines(std::vector<std::string> _text_lines, TextAlig
 	int longest_line = 0;
 	for(std::vector<std::string>::iterator it = _text_lines.begin(); it != _text_lines.end(); ++it)
 	{
-		if(it->length() > longest_line)
-			longest_line = it->length();
+		if((int)it->length() > longest_line)
+			longest_line = (int)it->length();
 	}
 
 	switch(_alignment)
@@ -347,36 +347,36 @@ void BlittableRect::BlitTextLines(std::vector<std::string> _text_lines, TextAlig
 		init_out_y = 4;
 		break;
 	case TextAlignment::Top:
-		init_out_x = (size_.x/2) - longest_line * (font_width / 2);
+		init_out_x = static_cast<int>((size_.x/2) - longest_line * (font_width / 2));
 		init_out_y = 4;
 		break;
 	case TextAlignment::TopRight:
-		init_out_x = size_.x - longest_line * font_width - 4;
+		init_out_x = static_cast<int>(size_.x - longest_line * font_width - 4);
 		init_out_y = 4;
 		break;
 	case TextAlignment::Left:
 		init_out_x = 4;
-		init_out_y = (size_.y / 2) - (_text_lines.size() * font_height / 2);
+		init_out_y = static_cast<int>((size_.y / 2) - (_text_lines.size() * font_height / 2));
 		break;
 	case TextAlignment::Centre:
-		init_out_x = (size_.x/2) - longest_line * (font_width / 2);
-		init_out_y = (size_.y / 2)  - (_text_lines.size() * font_height / 2);
+		init_out_x = static_cast<int>((size_.x/2) - longest_line * (font_width / 2));
+		init_out_y = static_cast<int>((size_.y / 2)  - (_text_lines.size() * font_height / 2));
 		break;
 	case TextAlignment::Right:
-		init_out_x = size_.x - longest_line * font_width - 4;
-		init_out_y = (size_.y / 2) - (_text_lines.size() * font_height / 2);
+		init_out_x = static_cast<int>(size_.x - longest_line * font_width - 4);
+		init_out_y = static_cast<int>((size_.y / 2) - (_text_lines.size() * font_height / 2));
 		break;
 	case TextAlignment::BottomLeft:
 		init_out_x = 4;
-		init_out_y = size_.y - 4 - _text_lines.size() * font_height;
+		init_out_y = static_cast<int>(size_.y - 4 - _text_lines.size() * font_height);
 		break;
 	case TextAlignment::Bottom:
-		init_out_x = (size_.x/2) - longest_line * (font_width / 2);
-		init_out_y = size_.y - 4 - _text_lines.size() * font_height;
+		init_out_x = static_cast<int>((size_.x/2) - longest_line * (font_width / 2));
+		init_out_y = static_cast<int>(size_.y - 4 - _text_lines.size() * font_height);
 		break;
 	case TextAlignment::BottomRight:
-		init_out_x = size_.x - longest_line * font_width - 4;
-		init_out_y = size_.y - 4 - _text_lines.size() * font_height;
+		init_out_x = static_cast<int>(size_.x - longest_line * font_width - 4);
+		init_out_y = static_cast<int>(size_.y - 4 - _text_lines.size() * font_height);
 		break;
 	}
 	int out_x = init_out_x;
@@ -388,13 +388,13 @@ void BlittableRect::BlitTextLines(std::vector<std::string> _text_lines, TextAlig
 		   _alignment == TextAlignment::Centre ||
 		   _alignment == TextAlignment::Bottom)
 		{
-			out_x = (size_.x / 2) - it->length() * (font_width / 2);
+			out_x = static_cast<int>((size_.x / 2) - it->length() * (font_width / 2));
 
 		} else if(_alignment == TextAlignment::TopRight ||
 				  _alignment == TextAlignment::Right ||
 				  _alignment == TextAlignment::BottomRight)
 		{
-			out_x = (size_.x / 2) - it->length() * font_width - 4;
+			out_x = static_cast<int>((size_.x / 2) - it->length() * font_width - 4);
 		} else
 			out_x = init_out_x;
 
@@ -407,17 +407,17 @@ void BlittableRect::BlitTextLines(std::vector<std::string> _text_lines, TextAlig
 			int sample_x = (c % 16) * font_width;
 			int sample_y = (c / 16) * font_height;
 			SDL_Rect src_rect;
-			src_rect.x = sample_x;
-			src_rect.y = sample_y;
-			src_rect.w = font_width;
-			src_rect.h = font_height;
+			src_rect.x = static_cast<Sint16>(sample_x);
+			src_rect.y = static_cast<Sint16>(sample_y);
+			src_rect.w = static_cast<Uint16>(font_width);
+			src_rect.h = static_cast<Uint16>(font_height);
 
 
 			SDL_Rect dest_rect;
-			dest_rect.x = out_x;
-			dest_rect.y = out_y;
-			dest_rect.w = font_width;
-			dest_rect.h = font_height;
+			dest_rect.x = static_cast<Sint16>(out_x);
+			dest_rect.y = static_cast<Sint16>(out_y);
+			dest_rect.w = static_cast<Uint16>(font_width);
+			dest_rect.h = static_cast<Uint16>(font_height);
 			SDL_BlitSurface(font, &src_rect, surface_, &dest_rect);
 			out_x += font_width;
 		}

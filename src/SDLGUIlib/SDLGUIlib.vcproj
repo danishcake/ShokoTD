@@ -29,19 +29,22 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="Level copier"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
 				Name="Animation xml copier"
 			/>
 			<Tool
 				Name="Animation png copier"
 			/>
 			<Tool
-				Name="VCCustomBuildTool"
+				Name="Generic XML copier"
 			/>
 			<Tool
 				Name="Campaign copier"
-			/>
-			<Tool
-				Name="Level copier"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -54,6 +57,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-D_SCL_SECURE_NO_WARNINGS"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(PROGRAMFILES)\boost\boost_1_36_0&quot;;&quot;$(PROGRAMFILES)\SDL-1.2.12\include&quot;;&quot;$(PROGRAMFILES)\SDL_image-1.2.6\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
@@ -64,6 +68,7 @@
 				WarningLevel="4"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
+				DisableSpecificWarnings="4512"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -107,19 +112,22 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="Level copier"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
 				Name="Animation xml copier"
 			/>
 			<Tool
 				Name="Animation png copier"
 			/>
 			<Tool
-				Name="VCCustomBuildTool"
+				Name="Generic XML copier"
 			/>
 			<Tool
 				Name="Campaign copier"
-			/>
-			<Tool
-				Name="Level copier"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -132,6 +140,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-D_SCL_SECURE_NO_WARNINGS"
 				AdditionalIncludeDirectories="&quot;$(PROGRAMFILES)\boost\boost_1_36_0&quot;;&quot;$(PROGRAMFILES)\SDL-1.2.12\include&quot;;&quot;$(PROGRAMFILES)\SDL_image-1.2.6\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
@@ -139,6 +148,7 @@
 				WarningLevel="4"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
+				DisableSpecificWarnings="4512"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

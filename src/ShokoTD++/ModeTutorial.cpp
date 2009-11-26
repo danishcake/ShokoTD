@@ -46,7 +46,7 @@ std::vector<RenderItem> ModeTutorial::Draw()
 }
 
 /* Event handlers */
-void ModeTutorial::NextClick(Widget* _widget)
+void ModeTutorial::NextClick(Widget* /*_widget*/)
 {
 	page_index_++;
 	switch(page_index_)

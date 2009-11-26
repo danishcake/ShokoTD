@@ -17,14 +17,14 @@ void ModeIntro::Setup()
 	splash->OnClick.connect(boost::bind(&ModeIntro::IntroClick, this, _1));
 
 	logo_ = new Widget("gamedevchallenge2.png");
-	logo_position_ = Vector2f(-(logo_->GetSize().x + 100), (480 - logo_->GetSize().y ) / 2);
+	logo_position_ = Vector2f(-(static_cast<float>(logo_->GetSize().x) + 100.0f), (480.0f - static_cast<float>(logo_->GetSize().y) ) / 2.0f);
 	logo_->SetRejectsFocus(true);
 	
 	logo_->SetPosition(logo_position_);
 
 
 	logo2_ = new Widget("logo.png");
-	logo2_position_ = Vector2f(-(logo2_->GetSize().x + 100), (480 - logo2_->GetSize().y ) / 2);
+	logo2_position_ = Vector2f(-(static_cast<float>(logo2_->GetSize().x) + 100.0f), (480.0f - static_cast<float>(logo2_->GetSize().y) ) / 2.0f);
 	logo2_->SetRejectsFocus(true);
 	logo2_->SetPosition(logo2_position_);
 
@@ -52,7 +52,7 @@ ModeAction::Enum ModeIntro::Tick(float _dt)
 		pos_frac = -1;
 	} else if(age_ < intro_time_1)
 	{
-		pos_frac = -1.0 + (age_ - intro_time_0) / (intro_time_1 - intro_time_0);
+		pos_frac = -1.0f + (age_ - intro_time_0) / (intro_time_1 - intro_time_0);
 	} else if(age_ < intro_time_2)
 	{
 		pos_frac = 0;
@@ -62,7 +62,7 @@ ModeAction::Enum ModeIntro::Tick(float _dt)
 	} else if(age_ < intro_time_4)
 	{
 		pos_frac = 1;
-		pos_frac2 = -1.0 + (age_ - intro_time_3) / (intro_time_4 - intro_time_3);
+		pos_frac2 = -1.0f + (age_ - intro_time_3) / (intro_time_4 - intro_time_3);
 	} else
 	{
 		pos_frac = 1;
@@ -72,12 +72,12 @@ ModeAction::Enum ModeIntro::Tick(float _dt)
 	pos_frac = pos_frac * fabs(pos_frac);
 	pos_frac2 = pos_frac2 * fabs(pos_frac2);
 
-	logo_position_ = Vector2f(320 - logo_->GetSize().x / 2, 240 - logo_->GetSize().y / 2);
-	logo_position_ += Vector2f(400 + logo_->GetSize().x, 0) * pos_frac;
+	logo_position_ = Vector2f(320.0f - static_cast<float>(logo_->GetSize().x) / 2.0f, 240.0f - static_cast<float>(logo_->GetSize().y) / 2.0f);
+	logo_position_ += Vector2f(400.0f + static_cast<float>(logo_->GetSize().x), 0) * pos_frac;
 	logo_->SetPosition(logo_position_);
 
-	logo2_position_ = Vector2f(320 - logo2_->GetSize().x / 2 , 240 - logo2_->GetSize().y / 2);
-	logo2_position_ += Vector2f(0, 250 + logo_->GetSize().y) * pos_frac2;
+	logo2_position_ = Vector2f(320.0f - static_cast<float>(logo2_->GetSize().x) / 2.0f , 240.0f - static_cast<float>(logo2_->GetSize().y) / 2.0f);
+	logo2_position_ += Vector2f(0, 250.0f + static_cast<float>(logo_->GetSize().y)) * pos_frac2;
 	logo2_->SetPosition(logo2_position_);
 
 	if(!pend_mode_ && age_ > intro_time_6)
@@ -96,7 +96,7 @@ std::vector<RenderItem> ModeIntro::Draw()
 }
 
 /* Event handlers */
-void ModeIntro::IntroClick(Widget* _widget)
+void ModeIntro::IntroClick(Widget* /*_widget*/)
 {
 	if(!pend_mode_)
 		pend_mode_ = new ModeMenu();

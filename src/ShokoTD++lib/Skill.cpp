@@ -21,5 +21,6 @@ SkillLevel* Skill::GetSkillLevel(std::string _name)
 			return &(*it);
 		}
 	}
+	return NULL;
 }
 

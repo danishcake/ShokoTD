@@ -38,6 +38,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-D_SCL_SECURE_NO_WARNINGS"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(PROGRAMFILES)\tinyxml&quot;;&quot;$(PROGRAMFILES)\boost\boost_1_36_0&quot;"
 				PreprocessorDefinitions="TIXML_USE_STL"
@@ -46,6 +47,7 @@
 				RuntimeLibrary="3"
 				WarningLevel="4"
 				DebugInformationFormat="4"
+				DisableSpecificWarnings="4512"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -101,6 +103,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-D_SCL_SECURE_NO_WARNINGS"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="&quot;$(PROGRAMFILES)\tinyxml&quot;;&quot;$(PROGRAMFILES)\boost\boost_1_36_0&quot;"
@@ -109,6 +112,7 @@
 				EnableFunctionLevelLinking="true"
 				WarningLevel="4"
 				DebugInformationFormat="3"
+				DisableSpecificWarnings="4512"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

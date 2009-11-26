@@ -71,7 +71,7 @@ void ModeGame::Setup()
 	{
 		Widget* skill = new Widget(*it + "_icon.png");
 		
-		if(skill_id != skills_.size())
+		if(skill_id != static_cast<int>(skills_.size()))
 			skill->GetBackRect()->BlitText(boost::lexical_cast<std::string, int>(skill_id), TextAlignment::BottomRight);
 		skill->SetPosition(skill_position);
 		skill_position.x += 66;
@@ -188,7 +188,7 @@ void ModeGame::SkillRedraw(Widget* _widget, BlittableRect* _blittable)
 		float cooldown = GetCooldown(_widget->GetTag());
 		float frac = 1.0f - (cooldowns_[_widget->GetTag()] / cooldown);
 		frac = frac < 0 ? frac = 0 : frac > 1.0f ? 1.0f : frac;
-		int index = frac * 10;
+		int index = static_cast<int>(frac * 10);
 		if(index < 10)
 			cooldown_overlays_[index]->Blit(Vector2i(0, 0), _blittable);
 	}
@@ -212,7 +212,7 @@ void ModeGame::SkillClick(Widget* _widget)
 
 }
 
-void ModeGame::Keypress(Widget* _widget, KeyPressEventArgs _args)
+void ModeGame::Keypress(Widget* /*_widget*/, KeyPressEventArgs _args)
 {
 	if((last_grid_position_.x < world_->GetSize().x) && (last_grid_position_.x >= 0) &&
 	   (last_grid_position_.y < world_->GetSize().y) && (last_grid_position_.y >= 0))
@@ -220,7 +220,7 @@ void ModeGame::Keypress(Widget* _widget, KeyPressEventArgs _args)
 		if(_args.key_code >= 49 && _args.key_code <= 59)
 		{
 			int skill_index = _args.key_code - 49;
-			if(skill_index < skills_.size())
+			if(skill_index < (int)skills_.size())
 			{
 				Skills::Enum skill = Skills::FromString(skills_[skill_index]);
 				switch(skill)
@@ -263,14 +263,14 @@ void ModeGame::Keypress(Widget* _widget, KeyPressEventArgs _args)
 	}
 }
 
-void ModeGame::GridMove(Widget* _widget, MouseEventArgs _args)
+void ModeGame::GridMove(Widget* /*_widget*/, MouseEventArgs _args)
 {
 	//Logger::DiagnosticOut() << "Mouse moved to " << _args.x << "," << _args.y << "\n";
 	last_grid_position_ = Vector2i(_args.x / 24, _args.y / 24);
 	//Logger::DiagnosticOut() << "Mouse moved to " << last_grid_position_ << "\n";
 }
 
-void ModeGame::GridClick(Widget* _widget, MouseEventArgs _args)
+void ModeGame::GridClick(Widget* /*_widget*/, MouseEventArgs _args)
 {
 	Logger::DiagnosticOut() << "Clicked grid item " << _args.x << "," << _args.y << "\n";
 	if((_args.x < world_->GetSize().x) && (_args.x >= 0) &&
@@ -283,7 +283,7 @@ void ModeGame::GridClick(Widget* _widget, MouseEventArgs _args)
 	}
 }
 
-void ModeGame::GridGesture(Widget* _widget, GridGestureEventArgs _args)
+void ModeGame::GridGesture(Widget* /*_widget*/, GridGestureEventArgs _args)
 {
 	Direction::Enum direction;
 	switch(_args.direction)
@@ -313,7 +313,7 @@ void ModeGame::GridGesture(Widget* _widget, GridGestureEventArgs _args)
 }
 
 
-void ModeGame::QuitClick(Widget* _widget)
+void ModeGame::QuitClick(Widget* /*_widget*/)
 {
 	if(!pend_mode_)
 	{
@@ -345,10 +345,10 @@ float ModeGame::GetCooldown(std::string _skill)
 			cooldown = 4.0f - cooldown_level * 0.6f;
 			break;
 		case Skills::PermaSlow:
-			cooldown = 16.5 - cooldown_level * 1.5f;
+			cooldown = 16.5f - cooldown_level * 1.5f;
 			break;
 		case Skills::SpawnPause:
-			cooldown = 16.5 - cooldown_level * 1.5f;
+			cooldown = 16.5f - cooldown_level * 1.5f;
 			break;
 		}
 	}
@@ -368,7 +368,7 @@ void ModeGame::DoArrows(Vector2i _position, Direction::Enum _direction)
 {
 	if(_direction != Direction::Stopped)
 	{
-		if(world_->GetArrowsInUse() < progression_->GetSkillsManager().GetSkill("Arrows")->GetSkillLevel("Maximum")->GetLevel() + 1)
+		if(world_->GetArrowsInUse() < (int)progression_->GetSkillsManager().GetSkill("Arrows")->GetSkillLevel("Maximum")->GetLevel() + 1)
 		{
 			world_->ToggleArrow(_position, _direction, progression_->GetSkillsManager().GetSkill("Arrows")->GetSkillLevel("Durability")->GetLevel() + 1);
 		} else
@@ -383,7 +383,7 @@ void ModeGame::DoBurn(Vector2i _position)
 	if(!CooldownOK("Burn"))
 		return;
 	
-	float damage = progression_->GetSkillsManager().GetSkill("Burn")->GetSkillLevel("Damage")->GetLevel() * 80;
+	float damage = static_cast<float>(progression_->GetSkillsManager().GetSkill("Burn")->GetSkillLevel("Damage")->GetLevel() * 80);
 	float cooldown = GetCooldown("Burn");
 
 	std::vector<Walker*> walkers = world_->GetEnemies();
@@ -520,7 +520,7 @@ std::vector<RenderItem> ModeGame::Draw()
 		{
 			RenderItem ri2;
 			ri2.position_ = p_walker->GetPosition() + Vector2f(0, 1.05f);
-			int frame = (1.0f - (p_walker->GetHealth() / p_walker->GetMaxHealth())) * 9;
+			int frame = static_cast<int>((1.0f - (p_walker->GetHealth() / p_walker->GetMaxHealth())) * 9);
 			ri2.frame_ = StandardTextures::healthbar_animation->GetFrameByIndex(frame);
 			ri2.depth = above * 2;
 			draw_list.push_back(ri2);

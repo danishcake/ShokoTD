@@ -308,17 +308,15 @@ void Widget::HandleEvent(Event _event)
 		}
 
 	}
-
 	/* Keyboard navigation */
-	Widget* parent_link = NULL;
 	if(_event.event_type == EventType::KeyLeft)
 	{
 		if(this->left_inner_link_)
 			left_inner_link_->SetFocus();
 		else if(left_link_)
 			left_link_->SetFocus();
-		else if(parent_link = GetLeftParentLink())
-			parent_link->SetFocus();
+		else if(GetLeftParentLink())
+			GetLeftParentLink()->SetFocus();
 		else if(parent_)
 			parent_->SetFocus();
 	}
@@ -328,8 +326,8 @@ void Widget::HandleEvent(Event _event)
 			right_inner_link_->SetFocus();
 		else if(right_link_)
 			right_link_->SetFocus();
-		else if(parent_link = GetRightParentLink())
-			parent_link->SetFocus();
+		else if(GetRightParentLink())
+			GetRightParentLink()->SetFocus();
 		else if(parent_)
 			parent_->SetFocus();
 	}
@@ -339,8 +337,8 @@ void Widget::HandleEvent(Event _event)
 			up_inner_link_->SetFocus();
 		else if(up_link_)
 			up_link_->SetFocus();
-		else if(parent_link = GetUpParentLink())
-			parent_link->SetFocus();
+		else if(GetUpParentLink())
+			GetUpParentLink()->SetFocus();
 		else if(parent_)
 			parent_->SetFocus();
 	}
@@ -350,8 +348,8 @@ void Widget::HandleEvent(Event _event)
 			down_inner_link_->SetFocus();
 		else if(down_link_)
 			down_link_->SetFocus();
-		else if(parent_link = GetDownParentLink())
-			parent_link->SetFocus();
+		else if(GetDownParentLink())
+			GetDownParentLink()->SetFocus();
 		else if(parent_)
 			parent_->SetFocus();
 	}
@@ -594,7 +592,7 @@ void Widget::RenderRoot(BlittableRect* _screen)
 	{
 		delete screen_fade_rect_;
 		screen_fade_rect_ = new BlittableRect(_screen->GetSize());
-		screen_fade_rect_->Fill(screen_fade_ * 255, 0, 0, 0);	
+		screen_fade_rect_->Fill(static_cast<unsigned char>(screen_fade_ * 255.0f), 0, 0, 0);	
 	}
 
 	if(screen_fade_ > 0)
@@ -759,5 +757,5 @@ void Widget::SetFade(float _fade_amount)
 	_fade_amount = _fade_amount < 0.0f ? 0.0f : _fade_amount > 1.0f ? 1.0f : _fade_amount;
 	screen_fade_ = _fade_amount;
 	if(screen_fade_rect_)
-		screen_fade_rect_->Fill(screen_fade_ * 255, 0, 0, 0);	
+		screen_fade_rect_->Fill(static_cast<unsigned char>(screen_fade_ * 255.0f), 0, 0, 0);	
 }

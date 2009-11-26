@@ -85,7 +85,7 @@ std::vector<RenderItem> ModeLevelSelect::Draw()
 
 /* Event handlers */
 
-void ModeLevelSelect::ItemClick(Widget* _widget, std::string _text)
+void ModeLevelSelect::ItemClick(Widget* /*_widget*/, std::string _text)
 {
 	last_selected_level_ = _text;
 	if(_text != "Locked")
@@ -141,13 +141,13 @@ void ModeLevelSelect::ItemClick(Widget* _widget, std::string _text)
 
 }
 
-void ModeLevelSelect::ReturnToMenuClick(Widget* _widget)
+void ModeLevelSelect::ReturnToMenuClick(Widget* /*_widget*/)
 {
 	if(!pend_mode_)
 		pend_mode_ = new ModeMenu();
 }
 
-void ModeLevelSelect::PlayLevelClick(Widget* _widget)
+void ModeLevelSelect::PlayLevelClick(Widget* /*_widget*/)
 {
 	if(last_selected_level_ != "" && last_selected_level_ != "Locked")
 	{
@@ -156,7 +156,7 @@ void ModeLevelSelect::PlayLevelClick(Widget* _widget)
 	}
 }
 
-void ModeLevelSelect::ItemRender(Widget* _widget, BlittableRect** _rect, std::string _text)
+void ModeLevelSelect::ItemRender(Widget* /*_widget*/, BlittableRect** _rect, std::string _text)
 {
 	if(_text == "Locked")
 		*_rect = new BlittableRect("Locked.png");

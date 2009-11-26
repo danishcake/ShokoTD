@@ -45,7 +45,6 @@ void ShokoTDGSM::Draw(SDL_Surface* _target)
 	//Sort front to back to prevent overlay issues
 	std::sort(drawlist.begin(), drawlist.end(), RenderItem::DepthSort<RenderItem>());
 	SDLAnimationFrame::screen_ = _target;
-	int frame = 0;
 	
 	BOOST_FOREACH(RenderItem& ri, drawlist)
 	{

@@ -626,7 +626,7 @@ void World::Reset()
 void World::WalkerReachNewSquare(Walker* _walker)
 {
 	//This method will be called multiple times, so it's important not to add an item to 'just_dead...' twice
-	Vector2i position_grid = Vector2i(floor(_walker->GetPosition().x + 0.5f), floor(_walker->GetPosition().y + 0.5f));
+	Vector2i position_grid = Vector2i(static_cast<int>(floor(_walker->GetPosition().x + 0.5f)), static_cast<int>(floor(_walker->GetPosition().y + 0.5f)));
 	SquareType::Enum square_type = special_squares_[position_grid.x][position_grid.y];
 	if(square_type == SquareType::Hole || square_type == SquareType::Cross)
 	{

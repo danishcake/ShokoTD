@@ -45,9 +45,9 @@ Animation* CreateGridTexture(World* _world, Vector2i _grid_size)
 		{
 			fill = !fill;
 			if(fill)
-				StandardTextures::tile_a_animation->GetCurrentFrame()->Draw(offset + Vector2f(x * _grid_size.x, y * _grid_size.y));
+				StandardTextures::tile_a_animation->GetCurrentFrame()->Draw(offset + Vector2f(static_cast<float>(x * _grid_size.x), static_cast<float>(y * _grid_size.y)));
 			else
-				StandardTextures::tile_b_animation->GetCurrentFrame()->Draw(offset + Vector2f(x * _grid_size.x, y * _grid_size.y));
+				StandardTextures::tile_b_animation->GetCurrentFrame()->Draw(offset + Vector2f(static_cast<float>(x * _grid_size.x), static_cast<float>(y * _grid_size.y)));
 		}
 	}
 	for(int y = 0; y < _world->GetSize().y; y++)
@@ -56,18 +56,18 @@ Animation* CreateGridTexture(World* _world, Vector2i _grid_size)
 		{
 			if(_world->GetGridSquare(Vector2i(x,y)).GetNorth())
 			{
-				StandardTextures::wall_horz_animation->GetCurrentFrame()->Draw(Vector2f(x * _grid_size.x, y * _grid_size.y));
+				StandardTextures::wall_horz_animation->GetCurrentFrame()->Draw(Vector2f(static_cast<float>(x * _grid_size.x), static_cast<float>(y * _grid_size.y)));
 				if(y == 0)
 				{
-					StandardTextures::wall_horz_animation->GetCurrentFrame()->Draw(Vector2f(x * _grid_size.x, _world->GetSize().y * _grid_size.y));
+					StandardTextures::wall_horz_animation->GetCurrentFrame()->Draw(Vector2f(static_cast<float>(x * _grid_size.x), static_cast<float>(_world->GetSize().y * _grid_size.y)));
 				}
 			}
 			if(_world->GetGridSquare(Vector2i(x,y)).GetWest())
 			{
-				StandardTextures::wall_vert_animation->GetCurrentFrame()->Draw(Vector2f(x * _grid_size.x, y * _grid_size.y));
+				StandardTextures::wall_vert_animation->GetCurrentFrame()->Draw(Vector2f(static_cast<float>(x * _grid_size.x), static_cast<float>(y * _grid_size.y)));
 				if(x == 0)
 				{
-					StandardTextures::wall_vert_animation->GetCurrentFrame()->Draw(Vector2f(_world->GetSize().x * _grid_size.x, y * _grid_size.y));
+					StandardTextures::wall_vert_animation->GetCurrentFrame()->Draw(Vector2f(static_cast<float>(_world->GetSize().x * _grid_size.x), static_cast<float>(y * _grid_size.y)));
 				}
 			}
 		}

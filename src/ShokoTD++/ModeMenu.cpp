@@ -81,28 +81,28 @@ return std::vector<RenderItem>();
 }
 
 /* Event handlers */
-void ModeMenu::NewGameClick(Widget* _widget)
+void ModeMenu::NewGameClick(Widget* /*_widget*/)
 {
 	if(!pend_mode_)
 	pend_mode_ = new ModeTutorial();
 }
 
-void ModeMenu::LoadClick(Widget* _widget)
+void ModeMenu::LoadClick(Widget* /*_widget*/)
 {
 	NotDoneYet();
 }
 
-void ModeMenu::OptionsClick(Widget* _widget)
+void ModeMenu::OptionsClick(Widget* /*_widget*/)
 {
 	NotDoneYet();
 }
 
-void ModeMenu::UnlocksClick(Widget* _widget)
+void ModeMenu::UnlocksClick(Widget* /*_widget*/)
 {
 	NotDoneYet();
 }
 
-void ModeMenu::ExitClick(Widget* _widget)
+void ModeMenu::ExitClick(Widget* /*_widget*/)
 {
 	if(!exitting_)
 	{
@@ -116,7 +116,8 @@ void ModeMenu::NotDoneYet()
 	not_done_yet_->SetPosition(Vector2i(320 - 300, 240 - 100));
 	not_done_yet_->SetModal(true);
 }
-void ModeMenu::DismissClick(Widget* _widget)
+
+void ModeMenu::DismissClick(Widget* /*_widget*/)
 {
 	not_done_yet_->SetPosition(Vector2i(-700, 0));
 	not_done_yet_->SetModal(false);

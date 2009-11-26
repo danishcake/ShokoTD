@@ -24,9 +24,9 @@ TEST(CheckWavesFinish)
 	CHECK_EQUAL(1, pworld->GetActiveWaves().size());
 
 	//First wave at 10s in, of 10 enemies at 0.2s each, so finish at 12s
-	for(float t = 0; t < 13; t+= 0.01666)
+	for(float t = 0; t < 13; t+= 0.01666f)
 	{
-		pworld->Tick(0.01666);
+		pworld->Tick(0.01666f);
 	}
 	CHECK_EQUAL(0, pworld->GetActiveWaves().size());
 	CHECK_EQUAL(1, pworld->GetFinishedWaves().size());
@@ -39,9 +39,9 @@ TEST(CheckWavesSpawn)
 
 	CHECK_EQUAL(WorldState::OK, pworld->Tick(0));
 	//First wave at 10s in, of 10 enemies at 0.2s each, so finish at 12s
-	for(float t = 0; t < 10.99; t+= 0.01)
+	for(float t = 0; t < 10.99f; t+= 0.01f)
 	{
-		pworld->Tick(0.01);
+		pworld->Tick(0.01f);
 	}
 	
 	// Two spawners at 5/s for 1s = 10
