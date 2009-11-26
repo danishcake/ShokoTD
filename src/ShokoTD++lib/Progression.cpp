@@ -11,12 +11,17 @@ bool Progression::cheat_ = false;
 Progression::Progression(std::string _campaign, std::string _savefile)
 {
 	state_ = ProgressionState::OK;
+	campaign_ = _campaign;
+	savefile_ = _savefile;
+	good_points_ = 10;
+	evil_points_ = 10;
+
 
 	TiXmlDocument doc("Levels/" + _campaign);
 	doc.LoadFile();
 	if(!doc.Error())
 	{
-		if(!LoadCampaign(&doc))
+		if(!LoadCampaign(&doc) || LoadSavefile())
 			state_ = ProgressionState::LoadError;
 	} else
 	{
@@ -24,13 +29,119 @@ Progression::Progression(std::string _campaign, std::string _savefile)
 		Logger::ErrorOut() << "Error: " << doc.ErrorDesc() << "\n";
 		state_ = ProgressionState::LoadError;
 	}
-	good_points_ = 10;
-	evil_points_ = 10;
+
 	if(cheat_)
 	{
 		good_points_ = 999;
 		evil_points_ = 999;
 	}
+	//TODO load progress
+}
+
+bool Progression::LoadSavefile()
+{
+	bool error = false;
+	TiXmlDocument doc(savefile_);
+	doc.LoadFile();
+	if(!doc.Error())
+	{
+		TiXmlElement* root = doc.FirstChildElement("Progress");
+		if(root)
+		{
+			TiXmlElement* points = root->FirstChildElement("Points");
+			if(points)
+			{
+				int good = 0;
+				int evil = 0;
+				if(points->QueryValueAttribute("Good", &good) == TIXML_SUCCESS &&
+				   points->QueryValueAttribute("Evil", &evil) == TIXML_SUCCESS)
+				{
+					good_points_ = good;
+					evil_points_ = evil;
+				} else error = true;
+			} else error = true;
+
+			TiXmlElement* levels = root->FirstChildElement("Levels");
+			if(levels)
+			{
+				TiXmlElement* level = levels->FirstChildElement("Level");
+				while(level)
+				{
+					std::string id;
+					int beaten = 0;
+					if(level->QueryValueAttribute("id", &id) == TIXML_SUCCESS &&
+					   level->QueryIntAttribute("Beaten", &beaten) == TIXML_SUCCESS)
+					{
+						for(std::vector<ProgressLevel*>::iterator it = levels_.begin(); it != levels_.end(); ++it)
+						{
+							if((*it)->GetFilename() == id)
+							{
+								(*it)->SetLocked(false);
+								(*it)->SetBeaten(beaten ? 1 : 0);
+							}
+						}
+					} else
+					{
+						error = true;
+						break;
+					}
+
+					level = level->NextSiblingElement("Level");
+				}
+			} else error = true;
+			
+			TiXmlElement* skills = root->FirstChildElement("Skills");
+			if(skills)
+			{
+				TiXmlElement* skill = skills->FirstChildElement("Skill");
+				while(skill)
+				{
+					std::string id;
+					int purchased = 0;
+					if(skill->QueryValueAttribute("id", &id) == TIXML_SUCCESS &&
+					   skill->QueryIntAttribute("Purchased", &purchased) == TIXML_SUCCESS)
+					{
+						std::vector<Skill*> sm_skills = skill_manager_.GetAllSkills();
+						for(std::vector<Skill*>::iterator it = sm_skills.begin(); it != sm_skills.end(); ++it)
+						{
+							if((*it)->GetName() == id)
+							{
+								(*it)->SetUnlocked(true);
+								(*it)->SetPurchased(purchased ? 1 : 0);
+								TiXmlElement* rank = skill->FirstChildElement("Rank");
+								while(rank)
+								{
+									std::string rid;
+									int level = 0;
+									if(rank->QueryValueAttribute("id", &rid) == TIXML_SUCCESS &&
+									   rank->QueryIntAttribute("Level", &level) == TIXML_SUCCESS)
+									{
+										SkillLevel* sl = (*it)->GetSkillLevel(rid);
+										if(sl)
+										{
+											sl->SetLevel(level);
+										} else
+											Logger::DiagnosticOut() << "Malformed skill in campaign savefile\n";
+									} else Logger::DiagnosticOut() << "Malformed skill in campaign savefile\n";
+									rank = rank->NextSiblingElement("Rank");
+								}
+
+							}
+						}
+					} else
+					{
+						error = true;
+						break;
+					}
+
+					skill = skill->NextSiblingElement("Skill");
+				}
+			} else error = true;
+		}
+	}
+	if(error)
+		Logger::ErrorOut() << "Malformed savefile\n";
+	return error;
 }
 
 bool Progression::LoadUnlockables(TiXmlElement* _first, ProgressLevel* _progress_level)
@@ -156,6 +267,73 @@ bool Progression::LoadCampaign(TiXmlDocument* _doc)
 
 Progression::~Progression()
 {
+	//TODO save progress
+	TiXmlDocument progress(savefile_);
+	TiXmlDeclaration* decl = new TiXmlDeclaration();
+	progress.LinkEndChild(decl);
+
+	TiXmlElement* pSaveEl = new TiXmlElement("Progress");
+	pSaveEl->SetAttribute("Campaign", campaign_);
+	
+	TiXmlElement* pPoints = new TiXmlElement("Points");
+	pPoints->SetAttribute("Good", good_points_);
+	pPoints->SetAttribute("Evil", evil_points_);
+	
+	TiXmlElement* pLevels = new TiXmlElement("Levels");
+	TiXmlElement* pSkills = new TiXmlElement("Skills");
+	
+	for(std::vector<ProgressLevel*>::iterator it = levels_.begin(); it != levels_.end(); ++it)
+	{
+		if((*it)->GetBeaten())
+		{
+			TiXmlElement* pBeaten = new TiXmlElement("Level");
+			pBeaten->SetAttribute("id", (*it)->GetFilename());
+			pBeaten->SetAttribute("Beaten", 1);
+			pLevels->LinkEndChild(pBeaten);
+		} else if(!(*it)->GetLocked())
+		{
+			TiXmlElement* pUnlocked = new TiXmlElement("Level");
+			pUnlocked->SetAttribute("id", (*it)->GetFilename());
+			pUnlocked->SetAttribute("Beaten", 0);
+			pLevels->LinkEndChild(pUnlocked);
+		}
+	}
+	std::vector<Skill*> skills = skill_manager_.GetAllSkills();
+	for(std::vector<Skill*>::iterator it = skills.begin(); it != skills.end(); ++it)
+	{
+		if((*it)->GetPurchased())
+		{
+			TiXmlElement* pPurchased = new TiXmlElement("Skill");
+			pPurchased->SetAttribute("id", (*it)->GetName());
+			pPurchased->SetAttribute("Purchased", 1);
+			std::vector<SkillLevel> skill_levels = (*it)->GetUpgrades();
+			for(std::vector<SkillLevel>::iterator it = skill_levels.begin(); it != skill_levels.end(); ++it)
+			{
+				TiXmlElement* pRank = new TiXmlElement("Rank");
+				pRank->SetAttribute("id", it->GetName());
+				pRank->SetAttribute("Level", it->GetLevel());
+				pPurchased->LinkEndChild(pRank);
+			}
+
+			pSkills->LinkEndChild(pPurchased);
+		} else if((*it)->GetUnlocked())
+		{
+			TiXmlElement* pUnlocked = new TiXmlElement("Skill");
+			pUnlocked->SetAttribute("id", (*it)->GetName());
+			pUnlocked->SetAttribute("Purchased", 0);
+			pSkills->LinkEndChild(pUnlocked);
+		}
+	}
+
+	progress.LinkEndChild(pSaveEl);
+	pSaveEl->LinkEndChild(pPoints);
+	pSaveEl->LinkEndChild(pLevels);
+	pSaveEl->LinkEndChild(pSkills);
+
+	if(!progress.SaveFile())
+	{
+		Logger::ErrorOut() << "Unable to save progress to " << savefile_ << " - perhaps write access was not granted?\n";
+	}
 	//TODO fix leak by deleting array contents
 }
 

@@ -144,7 +144,11 @@ void ModeLevelSelect::ItemClick(Widget* _widget, std::string _text)
 void ModeLevelSelect::ReturnToMenuClick(Widget* _widget)
 {
 	if(!pend_mode_)
+	{
 		pend_mode_ = new ModeMenu();
+		delete progression_;
+		progression_ = NULL;
+	}
 }
 
 void ModeLevelSelect::PlayLevelClick(Widget* _widget)
