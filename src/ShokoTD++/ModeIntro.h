@@ -5,7 +5,7 @@
 
 class Widget;
 class AnimationFrame;
-class KeyPressEventArgs;
+struct KeyPressEventArgs;
 
 class ModeIntro :
 	public IMode

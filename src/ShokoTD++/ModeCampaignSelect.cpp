@@ -79,26 +79,26 @@ std::vector<RenderItem> ModeCampaignSelect::Draw()
 }
 
 /* Event handlers */
-void ModeCampaignSelect::ItemClick(Widget* _widget, std::string _text)
+void ModeCampaignSelect::ItemClick(Widget* /*_widget*/, std::string _text)
 {
 	selected_campaign_ = _text;
 
 	campaign_description_->SetText("Campaign:" + _text, TextAlignment::TopLeft);
 }
 
-void ModeCampaignSelect::ReturnToMenuClick(Widget* _widget)
+void ModeCampaignSelect::ReturnToMenuClick(Widget* /*_widget*/)
 {
 	if(!pend_mode_)
 		pend_mode_ = new ModeMenu();
 }
 
-void ModeCampaignSelect::PlayCampaignClick(Widget* _widget)
+void ModeCampaignSelect::PlayCampaignClick(Widget* /*_widget*/)
 {
 	if(!pend_mode_ && selected_campaign_.length() > 0)
 		pend_mode_ = new ModeLevelSelect(new Progression(selected_campaign_ + ".Campaign", selected_campaign_ + ".save"));
 }
 
-void ModeCampaignSelect::ItemRender(Widget* _widget, BlittableRect** _rect, std::string _text)
+void ModeCampaignSelect::ItemRender(Widget* /*_widget*/, BlittableRect** _rect, std::string _text)
 {
 	std::string icon_filename = "Levels/" + Progression::GetCampaignIcon(_text);
 	*_rect = new BlittableRect(icon_filename, true);

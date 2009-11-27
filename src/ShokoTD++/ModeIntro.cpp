@@ -103,7 +103,7 @@ void ModeIntro::IntroClick(Widget* /*_widget*/)
 		pend_mode_ = new ModeMenu();
 }
 
-void ModeIntro::Keypress(Widget* _widget, KeyPressEventArgs _args)
+void ModeIntro::Keypress(Widget* /*_widget*/, KeyPressEventArgs _args)
 {
 	if(!pend_mode_ && (_args.key_code == SDLK_ESCAPE || _args.key_code == SDLK_RETURN ||
 		_args.key_code == SDLK_SPACE))
