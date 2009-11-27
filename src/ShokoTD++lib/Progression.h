@@ -22,6 +22,7 @@ class Progression
 {
 private:
 	std::string campaign_;
+	std::string savefile_;
 	
 	std::vector<ProgressLevel*> levels_; //Map might have made more sense
 	
@@ -31,7 +32,8 @@ private:
 	ProgressionState::Enum state_;
 
 	bool LoadCampaign(TiXmlDocument* _doc);
-	bool Progression::LoadUnlockables(TiXmlElement* _first, ProgressLevel* _progress_level);
+	bool LoadUnlockables(TiXmlElement* _first, ProgressLevel* _progress_level);
+	bool LoadSavefile();
 
 	unsigned int good_points_;
 	unsigned int evil_points_;
@@ -69,4 +71,6 @@ public:
 	bool GetError(){return state_ != ProgressionState::OK;}
 
 	static void SetCheatMode(){cheat_ = true;}
+
+	static std::string GetCampaignIcon(std::string _campaign);
 };

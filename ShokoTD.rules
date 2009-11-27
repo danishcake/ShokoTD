@@ -9,7 +9,7 @@
 			DisplayName="Level Deployer"
 			CommandLine="copy /Y &quot;$(InputPath)&quot; &quot;$(OutDir)\Levels\[LevelSet]\$(InputFileName)&quot;"
 			Outputs="$(OutDir)\Levels\[LevelSet]\$(InputFileName)"
-			FileExtensions="*.Level"
+			FileExtensions="*.Level;*. *.Icon"
 			ExecutionDescription="Copying level $(InputFileName) to [LevelSet]"
 			>
 			<Properties>
@@ -66,6 +66,5 @@
 			<Properties>
 			</Properties>
 		</CustomBuildRule>
-		
 	</Rules>
 </VisualStudioToolFile>
