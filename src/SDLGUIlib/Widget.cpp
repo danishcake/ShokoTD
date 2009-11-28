@@ -380,21 +380,33 @@ void Widget::SetText(std::string _text, TextAlignment::Enum _alignment)
 {
 	bool change = false;
 
-	change = widget_text_.GetText() != _text || widget_text_.alignment != _alignment;
+	change = widget_text_.GetText() != _text || widget_text_.GetAlignment() != _alignment;
 
-	widget_text_.alignment = _alignment;
+	widget_text_.SetAlignment(_alignment);
 	widget_text_.SetText(_text);
 
 	if(change)
 		Invalidate();
 }
+void Widget::SetTextWrap(bool _wrap)
+{
+	bool change = false;
+	change = widget_text_.GetAutowrap() != _wrap;
+
+	if(change)
+	{
+		widget_text_.SetAutowrap(_wrap, size_.x / 16);
+		Invalidate();
+	}
+}
+
 
 void Widget::Redraw()
 {
 	//Draw self - puts backbuffer onto front buffer. Use raw blit to copy alpha
 	back_rect_->RawBlit(Vector2i(0,0), blit_rect_);
 	//Superimpose text
-	blit_rect_->BlitTextLines(widget_text_.GetTextLines(), widget_text_.alignment);
+	blit_rect_->BlitTextLines(widget_text_.GetTextLines(), widget_text_.GetAlignment());
 	//Do any custom hooked drawing
 	OnDraw(this, blit_rect_);
 

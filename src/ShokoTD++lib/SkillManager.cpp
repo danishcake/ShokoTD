@@ -107,6 +107,10 @@ SkillManager::SkillManager(void)
 
 SkillManager::~SkillManager(void)
 {
+	for(std::vector<Skill*>::iterator it = skills_.begin(); it != skills_.end(); ++it)
+	{
+		delete *it;
+	}
 }
 
 void SkillManager::Unlock(std::string _skill)

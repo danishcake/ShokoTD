@@ -1,6 +1,6 @@
-<Campaign name="Test Campaign 1" icon="ToHellAndBack/ToHellAndBack.icon">
+<Campaign name="SomethingAwful Game Development Challenge 4" icon="SAGameDev/SAGameDev.icon" desc="The original campaign developed for the fourth Something Awful game development challenge">
   <StartingSkill name="Arrows" purchased="1"/>
-  <Level name="Level 1" file="ToHellAndBack/Level 1.level" locked="0">
+  <Level name="Level 1" file="SAGameDev/Level 1.level" locked="0">
     <Unlockable>
       <Condition alignment="Evil"/>
       <SkillUnlock name="Burn"/>
@@ -13,7 +13,7 @@
       <LevelUnlock name="Level 2"/>
     </Unlockable>
   </Level>
-  <Level name="Level 2" file="ToHellAndBack/Level 2.level" locked="1">
+  <Level name="Level 2" file="SAGameDev/Level 2.level" locked="1">
     <Unlockable>
       <LevelUnlock name="Level 3"/>
     </Unlockable>
@@ -22,7 +22,7 @@
       <SkillUnlock name="SpawnPause"/>
     </Unlockable>
   </Level>
-  <Level name="Level 3" file="ToHellAndBack/Level 3.level" locked="1">
+  <Level name="Level 3" file="SAGameDev/Level 3.level" locked="1">
     <Unlockable>
       <LevelUnlock name="Level 4"/>
     </Unlockable>
@@ -31,7 +31,7 @@
       <LevelUnlock name="Secret 1"/>
     </Unlockable>    
   </Level>
-  <Level name="Level 4" file="ToHellAndBack/Level 4.level" locked="1">
+  <Level name="Level 4" file="SAGameDev/Level 4.level" locked="1">
     <Unlockable>
       <LevelUnlock name="Level 5"/>
     </Unlockable>
@@ -44,19 +44,19 @@
       <SkillUnlock name="Craze"/>
     </Unlockable>
   </Level>
-  <Level name="Level 5" file="ToHellAndBack/Level 5.level" locked="1">
+  <Level name="Level 5" file="SAGameDev/Level 5.level" locked="1">
     <Unlockable>
       <SkillUnlock name="Level 6"/>
     </Unlockable>
   </Level>
-  <Level name="Level 6" file="ToHellAndBack/Level 6.level" locked="1">
+  <Level name="Level 6" file="SAGameDev/Level 6.level" locked="1">
   </Level>
-  <Level name="Secret 1" file="ToHellAndBack/Secret 1.level" locked="1">
+  <Level name="Secret 1" file="SAGameDev/Secret 1.level" locked="1">
     <Unlockable>
       <Condition alignment="Good"/>
       <SkillUnlock name="PermaSlow"/>
     </Unlockable>
   </Level>
-  <Level name="Secret 2" file="ToHellAndBack/Secret 2.level" locked="1">
+  <Level name="Secret 2" file="SAGameDev/Secret 2.level" locked="1">
   </Level>
 </Campaign>

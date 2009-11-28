@@ -45,6 +45,8 @@ void ModeCampaignSelect::Setup()
 	campaign_description_ = new Widget("Blank600x200.png");
 	campaign_description_->SetPosition(Vector2i(20, 84));
 	campaign_description_->SetText("Select a campaign", TextAlignment::TopLeft);
+	campaign_description_->SetRejectsFocus(true);
+	campaign_description_->SetTextWrap(true);
 	std::vector<std::string> campaigns;
 	/* Load a list of campaigns */
 	boost::filesystem::directory_iterator end_itr;	
@@ -97,8 +99,13 @@ void ModeCampaignSelect::ItemClick(Widget* /*_widget*/, std::string _text)
 	{
 		resume_campaign_->SetVisibility(false);
 	}
+	Progression* campaign_prog = new Progression(selected_campaign_ + ".Campaign", selected_campaign_ + ".Save", true);
+    CampaignDescription desc = campaign_prog->GetDescription();
 
-	campaign_description_->SetText("Campaign:" + _text, TextAlignment::TopLeft);
+		
+	campaign_prog->DisableSave();
+	delete campaign_prog;
+	campaign_description_->SetText(desc.name + "\n\n" +desc.description, TextAlignment::TopLeft);
 	
 }
 

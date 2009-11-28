@@ -850,14 +850,14 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Campaigns\ToHellAndBack\Level 1.Level"
+				RelativePath=".\Campaigns\SAGameDev\Level 1.Level"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -865,19 +865,19 @@
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Campaigns\ToHellAndBack\Level 2.Level"
+				RelativePath=".\Campaigns\SAGameDev\Level 2.Level"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -885,19 +885,19 @@
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Campaigns\ToHellAndBack\Level 3.Level"
+				RelativePath=".\Campaigns\SAGameDev\Level 3.Level"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -905,19 +905,19 @@
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Campaigns\ToHellAndBack\Level 4.Level"
+				RelativePath=".\Campaigns\SAGameDev\Level 4.Level"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -925,19 +925,19 @@
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Campaigns\ToHellAndBack\Level 5.Level"
+				RelativePath=".\Campaigns\SAGameDev\Level 5.Level"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -945,19 +945,19 @@
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Campaigns\ToHellAndBack\Level 6.Level"
+				RelativePath=".\Campaigns\SAGameDev\Level 6.Level"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -965,19 +965,19 @@
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Campaigns\ToHellAndBack\Secret 1.Level"
+				RelativePath=".\Campaigns\SAGameDev\Secret 1.Level"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -985,19 +985,19 @@
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Campaigns\ToHellAndBack\Secret 2.Level"
+				RelativePath=".\Campaigns\SAGameDev\Secret 2.Level"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1005,7 +1005,7 @@
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 			</File>
@@ -1014,18 +1014,18 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Campaigns\ToHellAndBack.Campaign"
+				RelativePath=".\Campaigns\SAGameDev.Campaign"
 				>
 			</File>
 			<File
-				RelativePath=".\Campaigns\ToHellAndBack\ToHellAndBack.Icon"
+				RelativePath=".\Campaigns\SAGameDev\SAGameDev.Icon"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1033,7 +1033,7 @@
 					>
 					<Tool
 						Name="Level copier"
-						LevelSet="ToHellAndBack"
+						LevelSet="SAGameDev"
 					/>
 				</FileConfiguration>
 			</File>

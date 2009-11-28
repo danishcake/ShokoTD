@@ -8,6 +8,7 @@ TEST_FIXTURE(SDL_fixture, TextPrinting)
 	{
 		Widget* p_widget = new Widget();
 		p_widget->SetText("Howdy", TextAlignment::TopLeft);
+		p_widget->SetTextWrap(true);
 	}
 }
 

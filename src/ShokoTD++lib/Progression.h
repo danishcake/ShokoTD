@@ -18,11 +18,23 @@ namespace ProgressionState
 	};
 }
 
+struct CampaignDescription
+{
+	std::string name;
+	std::string filename;
+	std::string description;
+	std::string icon_filename;
+	int unlockable_count;
+	bool save_exists;
+};
+
+
 class Progression
 {
 private:
 	std::string campaign_;
 	std::string savefile_;
+	CampaignDescription description_;
 	
 	std::vector<ProgressLevel*> levels_; //Map might have made more sense
 	
@@ -38,6 +50,7 @@ private:
 	unsigned int good_points_;
 	unsigned int evil_points_;
 	static bool cheat_;
+	bool disable_save_;
 
 public:
 	Progression(std::string _campaign, std::string _savefile, bool _resume);
@@ -69,6 +82,9 @@ public:
 
 	/* Other */
 	bool GetError(){return state_ != ProgressionState::OK;}
+
+	void DisableSave(){disable_save_ = true;}
+	CampaignDescription GetDescription(){return description_;}
 
 	static void SetCheatMode(){cheat_ = true;}
 

@@ -159,6 +159,7 @@ public:
 	void Redraw();
 	void Invalidate();
 	void SetText(std::string _text, TextAlignment::Enum _alignment);
+	void SetTextWrap(bool _wrap);
 	BlittableRect* GetBackRect(){return back_rect_;}
 
 
