@@ -11,10 +11,12 @@ class ModeCampaignSelect :
 private:
 	void ItemClick(Widget* _widget, std::string _text);
 	void ReturnToMenuClick(Widget* _widget);
-	void PlayCampaignClick(Widget* _widget);
+	void StartCampaignClick(Widget* _widget);
+	void ResumeCampaignClick(Widget* _widget);
 	void ItemRender(Widget* _widget, BlittableRect** _rect, std::string _text);
 	std::string selected_campaign_;
 	Widget* campaign_description_;
+	Widget* resume_campaign_;
 
 public:
 	ModeCampaignSelect();

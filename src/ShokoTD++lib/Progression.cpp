@@ -8,7 +8,7 @@
 
 bool Progression::cheat_ = false;
 
-Progression::Progression(std::string _campaign, std::string _savefile)
+Progression::Progression(std::string _campaign, std::string _savefile, bool _resume)
 {
 	state_ = ProgressionState::OK;
 	campaign_ = _campaign;
@@ -21,7 +21,7 @@ Progression::Progression(std::string _campaign, std::string _savefile)
 	doc.LoadFile();
 	if(!doc.Error())
 	{
-		if(!LoadCampaign(&doc) || LoadSavefile())
+		if(!LoadCampaign(&doc) || (_resume && LoadSavefile()))
 			state_ = ProgressionState::LoadError;
 	} else
 	{

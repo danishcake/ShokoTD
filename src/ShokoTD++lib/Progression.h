@@ -40,7 +40,7 @@ private:
 	static bool cheat_;
 
 public:
-	Progression(std::string _campaign, std::string _savefile);
+	Progression(std::string _campaign, std::string _savefile, bool _resume);
 	~Progression();
 
 	/* Levels */

@@ -24,10 +24,18 @@ IMode* ModeCampaignSelect::Teardown()
 
 void ModeCampaignSelect::Setup()
 {
+
 	Widget* start_campaign = new Widget("Blank96x32.png");
 	start_campaign->SetPosition(Vector2i(640 - 96 - 10, 480 - 32 - 10));
 	start_campaign->SetText("Start", TextAlignment::Centre);
-	start_campaign->OnClick.connect(boost::bind(&ModeCampaignSelect::PlayCampaignClick, this, _1));
+	start_campaign->OnClick.connect(boost::bind(&ModeCampaignSelect::StartCampaignClick, this, _1));
+
+	resume_campaign_ = new Widget("Blank96x32.png");
+	resume_campaign_->SetVisibility(false);
+	resume_campaign_->SetPosition(Vector2i(640 - 96*2 - 20, 480 - 32 - 10));
+	resume_campaign_->SetText("Resume", TextAlignment::Centre);
+	resume_campaign_->OnClick.connect(boost::bind(&ModeCampaignSelect::ResumeCampaignClick, this, _1));
+
 
 	Widget* go_back = new Widget("Blank96x32.png");
 	go_back->SetPosition(Vector2i(10, 480 - 32 - 10));
@@ -82,8 +90,16 @@ std::vector<RenderItem> ModeCampaignSelect::Draw()
 void ModeCampaignSelect::ItemClick(Widget* /*_widget*/, std::string _text)
 {
 	selected_campaign_ = _text;
+	if(boost::filesystem::exists(selected_campaign_ + ".save"))
+	{
+		resume_campaign_->SetVisibility(true);
+	} else
+	{
+		resume_campaign_->SetVisibility(false);
+	}
 
 	campaign_description_->SetText("Campaign:" + _text, TextAlignment::TopLeft);
+	
 }
 
 void ModeCampaignSelect::ReturnToMenuClick(Widget* /*_widget*/)
@@ -92,10 +108,16 @@ void ModeCampaignSelect::ReturnToMenuClick(Widget* /*_widget*/)
 		pend_mode_ = new ModeMenu();
 }
 
-void ModeCampaignSelect::PlayCampaignClick(Widget* /*_widget*/)
+void ModeCampaignSelect::StartCampaignClick(Widget* /*_widget*/)
 {
 	if(!pend_mode_ && selected_campaign_.length() > 0)
-		pend_mode_ = new ModeLevelSelect(new Progression(selected_campaign_ + ".Campaign", selected_campaign_ + ".save"));
+		pend_mode_ = new ModeLevelSelect(new Progression(selected_campaign_ + ".Campaign", selected_campaign_ + ".save", false));
+}
+
+void ModeCampaignSelect::ResumeCampaignClick(Widget* _widget)
+{
+	if(!pend_mode_ && selected_campaign_.length() > 0 && _widget->GetVisibility())
+		pend_mode_ = new ModeLevelSelect(new Progression(selected_campaign_ + ".Campaign", selected_campaign_ + ".save", true));
 }
 
 void ModeCampaignSelect::ItemRender(Widget* /*_widget*/, BlittableRect** _rect, std::string _text)
